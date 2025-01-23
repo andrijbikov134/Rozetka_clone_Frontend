@@ -1,0 +1,15 @@
+.header
+{
+  color: black;
+  font-weight: bold;
+}
+.container
+{
+  margin-inline: 2rem;
+}
+.container_products
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.625rem;
+}
