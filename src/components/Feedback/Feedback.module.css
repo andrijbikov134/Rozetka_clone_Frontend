@@ -9,7 +9,18 @@
   color: black;
   border: 0.0625rem solid gray;
   padding: 0.625rem;
+  margin-block: 1rem;
 }
+
+input[type="radio"] {
+  display: none;
+
+}
+/* .star {
+  cursor: pointer;
+  margin: 5px;
+} */
+
 
 .stars
 {
