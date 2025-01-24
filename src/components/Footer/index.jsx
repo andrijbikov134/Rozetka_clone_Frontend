@@ -52,20 +52,21 @@ const Footer = (props) => {
         <footer className={styles.footer}>
           <div className={styles.footer_container_flex}>
             <div className={styles.footer_container_column}>
-              <div><a href="">КОНТАКТИ</a> </div>
-              <div><a href="">Наші магазини</a> </div>
-              <div><a href="">+38-067-123-45-67</a> </div>
+              <div>КОНТАКТИ</div>
+              <div><Link to="/contacts">Про нас</Link> </div>
+              <div><Link to="/shops">Наші магазини</Link> </div>
+              <div>+38-067-123-45-67</div>
             </div>
 
             <div className={styles.footer_container_column}>
-              <div><a href="">КОМПАНІЯ</a> </div>
-              <div><a href="">Про нас</a> </div>
+              <div>ДОПОМОГА КЛІЄНТУ</div>
+              <div><Link to="/sizes">Таблиця розмірів</Link> </div>
+              <div><Link to="/questionsandanswers">Питання та відповіді</Link></div>
             </div>
             <div className={styles.footer_container_column}>
-              <div><a href="">СЕРВІСИ</a> </div>
-              <div><a href="">Оплата і доставка</a> </div>
-              <div><a href="">Подарункові сертифікати</a> </div>
-              <div><a href="">Таблиця розмірів</a> </div>
+              <div>СЕРВІСИ</div>
+              <div><Link to="/deliverypayment">Оплата і доставка</Link> </div>
+              <div><Link to="/giftcertificates">Подарункові сертифікати</Link> </div>
               <div><Link to="/feedback">Залишити відгук</Link> </div>
             </div>
           </div>
