@@ -3,13 +3,21 @@
   color: black;
   font-weight: bold;
 }
+.main_container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .container
 {
-  margin-inline: 2rem;
+  width: 60%;
 }
 .container_products
 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.625rem;
+  margin-top: 1rem;
 }
