@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./PopularProducts.module.css"
 import { EventsContext, SelectedDateContext } from '../../context';
 import Product from '../Product';
-import News from '../News';
 
 const PopularProducts = (props) => {
 
@@ -18,14 +17,11 @@ const PopularProducts = (props) => {
 
   return (
       <>
-      <div className={styles.main_container}>
-        <News/> 
         <div className={styles.container}>
           <div className={styles.header}>ПОПУЛЯРНІ ТОВАРИ</div>
           <div className={styles.container_products}>
             
             {props.products.map((product) => {
-                      
                       return (
                         <>
                         <Product img={product.pictures_path} title={product.title} price={product.price} key={product.id}/>
@@ -47,7 +43,6 @@ const PopularProducts = (props) => {
             
           </div>
         </div>
-      </div>
       </>  
   );
 }

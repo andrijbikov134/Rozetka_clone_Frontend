@@ -1,33 +1,19 @@
 
 import './App.css'
 
-// Бібліотека для компонентів
+// Бібліотека для календаря
 import { useContext, useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Feedback from './components/Feedback';
 import PopularProducts from './components/PopularProducts';
-import FemaleClothes from './components/CategoriesSubSub';
-import Shops from './components/Shops';
-import Contacts from './components/Contacts';
-import Sizes from './components/Sizes';
-import ScrollToTop from './components/ScrollToTop';
-import DeliveryPayment from './components/DeliveryPayment';
-import GiftCertificates from './components/GiftCertificates';
-import QuestionsAndAnswers from './components/QuestionsAndAnswers';
-import ListProducts from './components/ListProducts';
-import CategoriesSubSub from './components/CategoriesSubSub';
-
 
 function App()
 {
-  const navigate = useNavigate();
   // Властивість, яка зберігає список товарів, отримуємо список товарів з контексту
   const [allProducts, setAllProducts] = useState([]);
-
-  const [findedProducts, setFindedProducts] = useState([]);
 
   // Функція для разового створення JSON-файла
   const saveFile = () =>
@@ -47,13 +33,13 @@ function App()
     let json = JSON.stringify(arr);
     localStorage.setItem("phrases",json);
   }
-  // /index.php?name=asdasd&email=asd8&status=active&type=publisher&ssn=2342&action=create
+
   const loadAllProducts = () =>
   {
-    fetch("http://localhost:8888/index.php?action=getAllproducts", {
+    fetch("http://192.168.0.113:8080/api/", {
       method: 'POST',
       header: {
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json', //application/x-form-urlencoded
       },
       body: JSON.stringify({action: 1})
     })
@@ -66,64 +52,21 @@ function App()
     
   }
 
-  const handlerSearchProducts = (input_title) =>
-  {
-    console.log("!!!!!!!!!!!!");
-    let url = `http://localhost:8888/index.php?action=getProductsFilteredByTitles&input_title=${input_title}`;
-    fetch(url, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json', 
-      },
-      body: JSON.stringify({action: 1})
-    })
-    .then(response =>
-      response.json()
-      )
-    .then(response => {
-      setFindedProducts(response);
-    })
-    navigate('/search_result');
-  }
-
   /////////////////////////////////////////////////////////////////
   // Хук, який спрацьовує на зміну events або selectedDate, та виконує функції оновлення та зберігання подій
   useEffect(() =>
   {
     loadAllProducts();  
   },
-  [findedProducts])
+  [])
 
   
   return (
     <>
-      <Header handlerSearchProducts={handlerSearchProducts}/>
+      <Header/>
       <div className="main_block">
-        <ScrollToTop/>
         <Routes>
           <Route path='/' element={<PopularProducts products={allProducts}/>}/>
-          <Route path='/women/clothes' element={<CategoriesSubSub category='women' category_sub='clothes'/>} />
-          <Route path='/women/shoes' element={<CategoriesSubSub category='women' category_sub='shoes'/>} />
-          <Route path='/women/accessories' element={<CategoriesSubSub category='women' category_sub='accessories'/>} />
-          <Route path='/women/clothes/down_jackets' element={<ListProducts products_title='Пуховики жіночі' category_id='Women' category_sub_id='Clothes' category_sub_sub_id='Down jackets'/>}/>
-
-          <Route path='/men/clothes' element={<CategoriesSubSub category='men' category_sub='clothes'/>} />
-          <Route path='/men/shoes' element={<CategoriesSubSub category='men' category_sub='shoes'/>} />
-          <Route path='/men/accessories' element={<CategoriesSubSub category='men' category_sub='accessories'/>} />
-
-          <Route path='/children/clothes' element={<CategoriesSubSub category='children' category_sub='clothes'/>} />
-          <Route path='/children/shoes' element={<CategoriesSubSub category='children' category_sub='shoes'/>} />
-          <Route path='/children/accessories' element={<CategoriesSubSub category='children' category_sub='accessories'/>} />
-
-          <Route path='/search_result' element={<PopularProducts products={findedProducts}/>}/>
-          <Route path='/profile'    />
-          <Route path='/cart'      />
-          <Route path='/shops' element={<Shops/>}/>
-          <Route path='/contacts' element={<Contacts/>}/>
-          <Route path='/sizes' element={<Sizes/>}/>
-          <Route path='/deliverypayment' element={<DeliveryPayment/>}/>
-          <Route path='questionsandanswers' element={<QuestionsAndAnswers/>}/>
-          <Route path='/giftcertificates' element={<GiftCertificates/>}/>
           <Route path="/feedback" element={<Feedback/>}/>
         </Routes>
 

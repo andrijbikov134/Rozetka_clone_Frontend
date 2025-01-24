@@ -2,8 +2,7 @@
 {
   display: flex;
   justify-content: space-evenly;
-  padding-top: 1rem;
-  margin-top: 1rem;
+  padding-block: 2rem;
   color: black;
 }
 
@@ -20,7 +19,7 @@ a:link:active, a:visited:active
 
 .footer
 {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(53,255,173,1) 0%, rgba(12,222,236,1) 100%, rgba(0,212,255,1) 100%);
+  background-color: white;
   width: 100%;
 }
 

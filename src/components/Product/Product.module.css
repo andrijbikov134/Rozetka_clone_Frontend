@@ -5,7 +5,7 @@
   width: 12.5rem;
   height: 21.875rem;
   color: black;
-  border: 0.0625rem dotted gray;
+  border: 0.0625rem solid gray;
   cursor: pointer;
 }
 
