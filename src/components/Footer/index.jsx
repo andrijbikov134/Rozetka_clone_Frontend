@@ -53,6 +53,7 @@ const Footer = (props) => {
           <div className={styles.footer_container_flex}>
             <div className={styles.footer_container_column}>
               <div>КОНТАКТИ</div>
+              {/* <div><Link to="/contacts" className={styles.about_us}>Про нас</Link> </div> */}
               <div><Link to="/contacts">Про нас</Link> </div>
               <div><Link to="/shops">Наші магазини</Link> </div>
               <div>+38-067-123-45-67</div>
@@ -60,14 +61,14 @@ const Footer = (props) => {
 
             <div className={styles.footer_container_column}>
               <div>ДОПОМОГА КЛІЄНТУ</div>
-              <div><Link to="/sizes">Таблиця розмірів</Link> </div>
+              <div><Link className={styles.link} to="/sizes">Таблиця розмірів</Link> </div>
               <div><Link to="/questionsandanswers">Питання та відповіді</Link></div>
+              <div><Link to="/delivery">Доставка</Link> </div>
             </div>
             <div className={styles.footer_container_column}>
               <div>СЕРВІСИ</div>
-              <div><Link to="/deliverypayment">Оплата і доставка</Link> </div>
+              <div><Link to="/paymentmethods">Способи оплати</Link> </div>
               <div><Link to="/giftcertificates">Подарункові сертифікати</Link> </div>
-              <div><Link to="/feedback">Залишити відгук</Link> </div>
             </div>
           </div>
           <hr />

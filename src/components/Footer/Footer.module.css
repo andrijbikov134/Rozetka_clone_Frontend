@@ -7,7 +7,7 @@
   color: black;
 }
 
-a:link, a:visited
+.link a:link, a:visited
 {
   color: black;
   cursor: pointer;
@@ -20,7 +20,7 @@ a:link:active, a:visited:active
 
 .footer
 {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(53,255,173,1) 0%, rgba(12,222,236,1) 100%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,248,53,1) 0%, rgba(12,222,236,1) 100%, rgba(0,212,255,1) 100%);
   width: 100%;
 }
 
@@ -33,4 +33,12 @@ a:link:active, a:visited:active
 .footer_year
 {
   color: rgb(172, 167, 167);
+}
+
+.about_us
+{
+  font-family: "Great Vibes", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
 }

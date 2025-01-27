@@ -3,11 +3,13 @@
   margin: 0 ;
   text-align: center;
   min-width: 33.75rem;
+  /* background-color: #fffbcc; */
 }
 .main_block
 {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .logo

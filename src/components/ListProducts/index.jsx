@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useId, useState } from 'react';
+
 import styles from "./ListProducts.module.css"
 import Product from '../Product';
+import News from '../News';
 
 
 const ListProducts = (props) => {
@@ -14,7 +16,17 @@ const ListProducts = (props) => {
 
   const loadProductsFromDB = () =>
   {
-    let url = `http://localhost:8888/index.php?action=getProducts&categoryid=${props.category_id}&categorysubid=${props.category_sub_id}&categorysubsubid=${props.category_sub_sub_id}`
+    
+    let url
+    if(props.action == 'getPopularProducts')
+    {
+      url = `http://localhost:8888/index.php?action=getPopularProducts`;
+      props.handlerSearchTitleClean(); 
+    }
+    else
+    {
+      url = `http://localhost:8888/index.php?action=getProducts&categoryid=${props.category_id}&categorysubid=${props.category_sub_id}&categorysubsubid=${props.category_sub_sub_id}`;
+    }
     fetch(url, {
       method: 'POST',
       header: {
@@ -39,31 +51,19 @@ const ListProducts = (props) => {
   return (
       <>
       <div className={styles.main_container}>
+        {props.action == 'getPopularProducts' ? <News/> : <></>}
         <div className={styles.container}>
-          <div className={styles.header}>{props.products_title}</div>
-          <div className={styles.container_products}>
-            
-            {props.products.map((product) => {
+          <div className={styles.header}>{props.title}</div>
+          <div className={styles.container_products}>            
+            {products.map((product) => 
+              {
                       
-                      return (
-                        <>
-                        <Product img={product.pictures_path} title={product.title} price={product.price} key={product.id}/>
-                        {/* <div className={styles.event__container} key={event.id}>
-                          <div className={styles.event__container_flex}>
-                            <img className={styles.img} src="./img/Task.png" alt="" />
-                            <input id={event.id} type="text" defaultValue={event.body} readOnly={true} className={styles.input_readonly} onKeyDown={handleEditEventEnter} data-id={event.id}/>
-                          </div>
-                          
-                          <div className={styles.event__container_flex +" " + styles.gap}>
-                            <img className={styles.event__button_edit} src="./img/Edit.png" alt="" onClick={handleEditEventClick} data-id={event.id}/>
-                            <img className={styles.event__button} src="./img/Delete.png" alt="" onClick={props.handleDeleteEventClick} data-id={event.id}/>
-                          </div>
-                        </div>  */}
-                        </>
-                        )
-                      })}
-            {/* img="asdasd" title={products[0].title}  price={products[0].price} */}
-            
+                return (
+                  <>
+                    <Product id={product.id} img={product.pictures_path} title={product.title} price={product.price} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart}/>
+                  </>
+                  )
+              })}            
           </div>
         </div>
       </div>

@@ -42,16 +42,19 @@ const Product = (props) => {
       props.editEvent(target);
     }
   }
-  
-  // Хук - згенерувати Id для кожної події
-  const inputEventTextId = useId();
 
+  const handlerOnClickProduct = (event) =>
+  {
+    props.handlerOnClickProduct(props.id);
+  }
+  
   return (
       <>
-        <div className={styles.container_column}>
+        <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
           <img className={styles.img} src={props.img} alt="" />
-          <div >{[props.title]}</div>
-          <div className={styles.container_products}>{props.price} грн.</div>
+          <div className={styles.title}>{[props.title]}</div>
+          <div className={styles.delivery_text}>Готовий до відправлення <img className={styles.img_delivery} src="./img/delivery_product.png" /> </div>
+          <div className={styles.price}>{props.price} грн.</div>
         </div>
       </>
   );

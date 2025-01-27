@@ -26,7 +26,7 @@ const CategoriesSubSub = (props) =>
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, [props]);
 
   return (
     <>
