@@ -1,9 +1,30 @@
+.footer_container_register
+{
+  color: black;
+  background-color: rgb(232, 232, 232);
+  height: 200px;
+  margin-top: 4rem;
+}
+
+.footer_register_title
+{
+  font-weight: bold;
+}
+
+.buton_register
+{
+  background-color: rgb(247, 156, 255);
+  color: black;
+  padding-block: 0.5rem;
+  padding-inline: 3rem;
+  border-radius: 10px;
+}
+
 .footer_container_flex
 {
   display: flex;
   justify-content: space-evenly;
   padding-top: 1rem;
-  margin-top: 1rem;
   color: black;
 }
 
@@ -20,8 +41,8 @@ a:link:active, a:visited:active
 
 .footer
 {
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,248,53,1) 0%, rgba(12,222,236,1) 100%, rgba(0,212,255,1) 100%);
   width: 100%;
+  background-color: white;
 }
 
 .footer_container_column
@@ -30,15 +51,36 @@ a:link:active, a:visited:active
   flex-direction: column;
 }
 
-.footer_year
-{
-  color: rgb(172, 167, 167);
-}
-
 .about_us
 {
   font-family: "Great Vibes", serif;
   font-weight: 400;
   font-style: normal;
   font-size: 20px;
+}
+
+.logo img
+{
+  width: 3.125rem;
+  height: 3.125rem;
+  margin-top: 1rem;
+}
+
+.footer_year
+{
+  color: black;
+}
+
+.footer_container_register
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+  padding-block: 5rem;
+}
+
+.footer_container_register:nth-child(n)
+{
+  height: auto;
 }

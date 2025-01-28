@@ -6,8 +6,9 @@ const CategoryItem = (props) =>
   const navigate = useNavigate();
   const handlerOnClick = (event) =>
   {
-    let categorysubsub = props.item.title.split("_")[0];
-    let route = `/${props.category}/${props.category_sub}/${categorysubsub}`;
+    let splitedTitles = props.item.title.split("_");
+    let categorySubSub = splitedTitles[0];
+    let route = `/${props.category}/${props.category_sub}/${categorySubSub}`;
     navigate(route);
   }
 

@@ -24,7 +24,7 @@ const ListProductsSearchResult = (props) => {
                 props.products.map((product) => 
                   {  
                     return (
-                        <Product img={product.pictures_path} title={product.title} price={product.price} key={product.id}/>
+                        <Product img={product.pictures_path} title={product.title} price={product.price} key={product.id} localhostFrontend={props.localhostFrontend}/>
                       );
                   }) : <></>  
               }

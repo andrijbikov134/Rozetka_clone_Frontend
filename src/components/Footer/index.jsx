@@ -50,10 +50,14 @@ const Footer = (props) => {
   return (
       <>
         <footer className={styles.footer}>
+          <div className={styles.footer_container_register}>
+            <div><span className={styles.footer_register_title}>Зареєструйтеся,</span> щоб накопичувати<br/> замовлення та отримувати знижку</div>
+            <button className={styles.buton_register}>ЗАРЕЄСТРУВАТИСЯ</button>
+          </div>
+
           <div className={styles.footer_container_flex}>
             <div className={styles.footer_container_column}>
               <div>КОНТАКТИ</div>
-              {/* <div><Link to="/contacts" className={styles.about_us}>Про нас</Link> </div> */}
               <div><Link to="/contacts">Про нас</Link> </div>
               <div><Link to="/shops">Наші магазини</Link> </div>
               <div>+38-067-123-45-67</div>
@@ -65,14 +69,15 @@ const Footer = (props) => {
               <div><Link to="/questionsandanswers">Питання та відповіді</Link></div>
               <div><Link to="/delivery">Доставка</Link> </div>
             </div>
+
             <div className={styles.footer_container_column}>
               <div>СЕРВІСИ</div>
               <div><Link to="/paymentmethods">Способи оплати</Link> </div>
               <div><Link to="/giftcertificates">Подарункові сертифікати</Link> </div>
             </div>
           </div>
-          <hr />
-          <div className={styles.footer_year}>2025 Інтернет-магазин "Petrushka-style"</div>
+          <div><Link className={styles.logo} to="/"><img src="./img/logo_footer.png"/></Link> </div>
+          <div className={styles.footer_year}>Copyright © 2022-2025</div>
         </footer>
       </>  
   );

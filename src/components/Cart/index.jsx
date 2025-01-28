@@ -10,7 +10,7 @@ const Cart = (props) => {
   const getProductFromDB = (id) =>
   {
     let product;
-    let url = `http://localhost:8888/index.php?action=getProductById&id=${id}`;
+    let url = `${props.localhost}/index.php?action=getProductById&id=${id}`;
     fetch(url, {
       method: 'POST',
       header: {

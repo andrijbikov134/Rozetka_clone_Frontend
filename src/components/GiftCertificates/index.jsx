@@ -5,7 +5,8 @@ const GiftCertificates = () =>
   return(
     <>
       <div className={styles.main_container}>
-        <h2>Для подарунка обирайте найкраще - подарунковий сертифікат Petrushka Style!</h2>
+        <h2>ПОДАРУНКОВІ СЕРТИФІКАТИ</h2>
+        <div>Для подарунка обирайте найкраще!</div>
         <h3>Обирайте номінал картки:</h3>
         <div className={styles.buttons_container}>
           <button>500 грн.</button>

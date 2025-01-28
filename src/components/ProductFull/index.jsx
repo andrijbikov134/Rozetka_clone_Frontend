@@ -4,17 +4,48 @@ import { Link } from 'react-router-dom';
 
 const ProductFull = (props) => {
 
+  const [characteristics, setCharacteristics] = useState();
+
   const handlerOnClickAddToCart = () =>
   {
     props.handlerOnClickAddToCart(props.product.id);
   }
+
+  const fetchRequest = (url) =>
+  {
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify({action: 1})
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setCharacteristics(response);
+    })
+  }
+
+  const loadCharacteristics = () =>
+  {
+    let url;
+    let action = 'getProductCharacteristics';
+    url = `${props.localhost}/index.php?action=${action}&id=${props.product.brand_id}`;
+    fetchRequest(url);
+  }
+
+  useEffect(() => {
+    loadCharacteristics();
+  }, []);
 
   return (
       <>
         <div className={styles.main_container}>
           <div className={styles.product_container}>
 
-            <img className={styles.img} src={'.' + props.product.pictures_path} alt="" />
+            <img className={styles.img} src={props.localhostFrontend + "/" + props.product.pictures_path} alt="" />
             <div className={styles.container_column}>
               <div className={styles.title}>{[props.product.title]}</div>
               <div>
@@ -40,16 +71,14 @@ const ProductFull = (props) => {
               <hr />
             </div>
             <div className={styles.characteristics_grid}>
-              <div>Стать:</div>
-              <div></div>
-              <div>Бренд:</div>
-              <div></div>
+              {/* <div>Бренд:</div>
+              <div>{characteristics.brand}</div>
               <div>Тип:</div>
-              <div></div>
+              <div>{characteristics.type}</div>
               <div>Колір:</div>
-              <div></div>
+              <div>{characteristics.color}</div>
               <div>Матеріал:</div>
-              <div></div>
+              <div>{characteristics.material}</div> */}
             </div>
           </div>
 

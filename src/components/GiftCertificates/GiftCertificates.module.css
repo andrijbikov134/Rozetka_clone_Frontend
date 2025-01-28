@@ -4,11 +4,6 @@
   color: black;
 }
 
-h2
-{
-  color: blue;
-}
-
 .buttons_container
 {
   display: flex;
@@ -24,7 +19,7 @@ h2
 .button_buy
 {
   margin-top: 5rem;
-  background-color: blue;
+  background-color: rgb(247, 156, 255);
   width: 10rem;
   height: 3rem;
 }

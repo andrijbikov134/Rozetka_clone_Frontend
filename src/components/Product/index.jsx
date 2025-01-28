@@ -53,8 +53,8 @@ const Product = (props) => {
         <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
           <img className={styles.img} src={props.img} alt="" />
           <div className={styles.title}>{[props.title]}</div>
-          <div className={styles.delivery_text}>Готовий до відправлення <img className={styles.img_delivery} src="./img/delivery_product.png" /> </div>
-          <div className={styles.price}>{props.price} грн.</div>
+          <div className={styles.delivery_text}>Готовий до відправлення <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'} /> </div>
+          <div className={styles.price}>{props.price.toLocaleString('ru-RU')} грн.</div>
         </div>
       </>
   );

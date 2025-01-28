@@ -32,7 +32,7 @@ const Feedback = (props) => {
   const handlerSubmit = (event) =>
   {
     event.preventDefault();
-    let url = `http://localhost:8888/index.php?action=createcomment&productid=${product_id}&comment=${comment}&advantages=${advantages}&disadvantages=${disadvantages}&starquantity=${star_quantity}&userid=${user_id}`;
+    let url = `${props.localhost}/index.php?action=createcomment&productid=${product_id}&comment=${comment}&advantages=${advantages}&disadvantages=${disadvantages}&starquantity=${star_quantity}&userid=${user_id}`;
         fetch(url, {
         method: 'POST',
         header: {

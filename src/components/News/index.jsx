@@ -8,12 +8,10 @@ const News = (props) =>
   return(
     <>
       <div className={styles.main_container}>
-        <img src="./img/Sale50winter.png" alt="" />
+        <img src="./img/picture_main_page_news.png" alt="" />
       </div>
     </>
   );
-
-
 }
 
 export default News;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './DropdownMenu.module.css';
 
 
@@ -30,22 +30,23 @@ const DropMenu = (props) =>
   }
 
   return (
-    <div className={styles.dropdown}>
-    <button onClick={handleOpen} className={styles.button_title}>{props.category_title} ▼</button>
-    {open ? (
-      <ul className={styles.menu}>
-        {props.categories.map((category) =>
-        {
-          let url = "/" + props.type + "/" + category.type;
-          return(
-            <li className={styles.menu_item}>
-              <button onClick={handleOnClick} data-url={url}>{category.title}</button>
-            </li>
-          )
-        })}
-      </ul>
-    ) : null}
-  </div>
+    <>
+      <div class={styles.dropdown}>
+        <button class={styles.dropbtn}>{props.category_title}</button>
+
+        <div class={styles.dropdown_content}>
+          {
+            props.categories.map((category) =>
+              {
+                let url = "/" + props.type + "/" + category.type;
+                return (
+                  <Link to={url}>{category.title}</Link>
+                )  
+              })  
+          }
+        </div>
+      </div>
+    </>
   );
 
 }
