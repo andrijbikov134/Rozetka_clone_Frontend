@@ -20,12 +20,12 @@ const ListProducts = (props) => {
     let url
     if(props.action == 'getPopularProducts')
     {
-      url = `http://localhost:8888/index.php?action=getPopularProducts`;
+      url = `https://192.168.0.113:8080/api/index.php?action=getPopularProducts`;
       props.handlerSearchTitleClean(); 
     }
     else
     {
-      url = `http://localhost:8888/index.php?action=getProducts&categoryid=${props.category_id}&categorysubid=${props.category_sub_id}&categorysubsubid=${props.category_sub_sub_id}`;
+      url = `https://192.168.0.113:8080/api/index.php?action=getProducts&categoryid=${props.category_id}&categorysubid=${props.category_sub_id}&categorysubsubid=${props.category_sub_sub_id}`;
     }
     fetch(url, {
       method: 'POST',

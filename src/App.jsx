@@ -62,7 +62,7 @@ function App()
   // /index.php?name=asdasd&email=asd8&status=active&type=publisher&ssn=2342&action=create
   const loadPopularProducts = () =>
   {
-    fetch("http://localhost:8888/index.php?action=getPopularProducts", {
+    fetch("https://192.168.0.113:8080/api/index.php?action=getPopularProducts", {
       method: 'POST',
       header: {
         'Content-Type': 'application/json', 
@@ -83,7 +83,7 @@ function App()
     if(input_title != '')
     {
 
-      let url = `http://localhost:8888/index.php?action=getProductsFilteredByTitle&input_title=${input_title}`;
+      let url = `https://192.168.0.113:8080/api/index.php?action=getProductsFilteredByTitle&input_title=${input_title}`;
       fetch(url, {
         method: 'POST',
         header: {
@@ -104,7 +104,7 @@ function App()
 
   const findProductById = (product_id) =>
   {
-    let url = `http://localhost:8888/index.php?action=getProductById&id=${product_id}`;
+    let url = `https://192.168.0.113:8080/api/index.php?action=getProductById&id=${product_id}`;
     fetch(url, {
       method: 'POST',
       header: {
