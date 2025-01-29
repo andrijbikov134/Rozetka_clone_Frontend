@@ -44,10 +44,11 @@ function App()
 
   const [cartCount, setCartCount] = useState(0);
 
-  const localhostFrontend = 'http://localhost:5173';
+  //const localhostFrontend = 'http://localhost:5173';
+  const localhostFrontend = 'https://192.168.0.113:8080';
 
-  const localhost = 'http://localhost:8888';
-  //const localhost = 'https://192.168.0.113:8080/api';
+  //const localhost = 'http://localhost:8888';
+  const localhost = 'https://192.168.0.113:8080/api';
 
   // Функція для разового створення JSON-файла
   const saveToLocalStorage = (key, array) =>
@@ -68,7 +69,7 @@ function App()
   // /index.php?name=asdasd&email=asd8&status=active&type=publisher&ssn=2342&action=create
   const loadPopularProducts = () =>
   {
-    fetch("http://localhost:8888/index.php?action=getPopularProducts", {
+    fetch(`${localhost}/index.php?action=getPopularProducts`, {
       method: 'POST',
       header: {
         'Content-Type': 'application/json', 
@@ -89,7 +90,7 @@ function App()
     if(input_title != '')
     {
 
-      let url = `http://localhost:8888/index.php?action=getProductsFilteredByTitle&input_title=${input_title}`;
+      let url = `${localhost}/index.php?action=getProductsFilteredByTitle&input_title=${input_title}`;
       fetch(url, {
         method: 'POST',
         header: {
@@ -110,7 +111,7 @@ function App()
 
   const findProductById = (product_id) =>
   {
-    let url = `http://localhost:8888/index.php?action=getProductById&id=${product_id}`;
+    let url = `${localhost}/index.php?action=getProductById&id=${product_id}`;
     fetch(url, {
       method: 'POST',
       header: {
