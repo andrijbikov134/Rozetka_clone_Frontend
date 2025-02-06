@@ -1,19 +1,22 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Feedback.module.css'; 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Feedback = (props) => {
   const navigate = useNavigate();
 
+  let location = useLocation();
+
+  const [product, setProduct] = useState([]);
 
   const [hover, setHover] = useState(null);
   const [totalStars, setTotalStars] = useState(5);
 
-  const [product_id, setProductId] = useState(1);
+  const [product_id, setProductId] = useState(location.pathname.split('/').pop()); 
   const [comment, setComment] = useState(1);
   const [advantages, setAdvantages] = useState(1);
   const [disadvantages, setDisadvantages] = useState(1);
-  const [star_quantity, setStarQuantity] = useState(null);
+  const [grade, setGrade] = useState(null);
   const [user_id, setUserId] = useState(1);
 
   const handlerCommentChanged = (event) =>
@@ -29,10 +32,12 @@ const Feedback = (props) => {
     setDisadvantages(event.target.value);
   }
 
-  const handlerSubmit = (event) =>
+  const handlerSubmitReview = (event) =>
   {
     event.preventDefault();
-    let url = `${props.localhost}/index.php?action=createcomment&productid=${product_id}&comment=${comment}&advantages=${advantages}&disadvantages=${disadvantages}&starquantity=${star_quantity}&userid=${user_id}`;
+    let currentDate = new Date();
+    let date = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
+    let url = `${props.localhost}/index.php?action=createreview&productid=${product_id}&comment=${comment}&advantages=${advantages}&disadvantages=${disadvantages}&grade=${grade}&datereview=${date}&userid=${user_id}`;
         fetch(url, {
         method: 'POST',
         header: {
@@ -41,15 +46,38 @@ const Feedback = (props) => {
         
     })
     .then(response => response);
-    navigate('/')
+    navigate(-1);
 
   }
+  const loadProductTitle = () =>
+  {
+    let url = `${props.localhost}/index.php?action=getProductById&id=${product_id}`;
+        fetch(url, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        }, 
+    })
+    .then(response => response.json())
+    .then(response =>
+      setProduct(response[0])
+    );
+  }
+
+
+  useEffect(() => {
+    loadProductTitle();
+  }, []);
+
+  useEffect(() => {
+
+  }, [product_id]);
 
   return (
     <>
 
-        <form onSubmit={handlerSubmit} className={styles.main_container} action="">
-          <div>Товар 1</div>
+        <form onSubmit={handlerSubmitReview} className={styles.main_container} action="">
+          <div>{product.title}</div>
           <input type="hidden" name='productid' value='1' />
           <div className={styles.bold}>Оцінка товару</div>
           <div>
@@ -60,16 +88,17 @@ const Feedback = (props) => {
               <label key={index}>
                 <input
                   key={star}
+                  className={styles.input_radio}
                   type="radio"
                   name="rating"
                   value={currentRating}
-                  onChange={() => setStarQuantity(currentRating)}
+                  onChange={() => setGrade(currentRating)}
                 />
                 <span
                   className="star"
                   style={{
                     color:
-                      currentRating <= (hover || star_quantity) ? "#ffc107" : "#e4e5e9",
+                      currentRating <= (hover || grade) ? "#ffc107" : "#e4e5e9",
                     fontSize: "5rem",
                     cursor: "pointer"
   
@@ -90,7 +119,6 @@ const Feedback = (props) => {
             <img className={styles.img_star} src="./img/star_empty.png" alt="" />
             <img className={styles.img_star} src="./img/star_empty.png" alt="" />
           </div> */}
-          <input type="hidden" name='starquantity' value='1' />
           <input type="hidden" name='userid' value='1' />
           <textarea className={styles.comment} placeholder='Коментар' name='comment' onChange={handlerCommentChanged}></textarea>
           <textarea placeholder='Переваги' name='advantages' onChange={handlerAdvantagesChanged}></textarea>

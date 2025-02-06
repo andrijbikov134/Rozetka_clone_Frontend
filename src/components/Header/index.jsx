@@ -1,10 +1,12 @@
 import React, { useContext, useId} from 'react';
 import styles from "./Header.module.css"
-import { Link } from 'react-router-dom';
-import DropMenu from '../DropdownMenu';
+import { Link, useNavigate } from 'react-router-dom';
+import DropdownMenu from '../DropdownMenu';
+import DropdownMenuLogin from '../DropdownMenuLogin';
 
 const Header = (props) =>
 {
+  const navigate = useNavigate();
   const handlerEnterKeyUpSearch = (event) =>
   {
     if(event.key == "Enter")
@@ -18,6 +20,19 @@ const Header = (props) =>
   {
     let input = document.getElementById(props.input_search_id);
     props.handlerSearchProducts(input.value);
+  }
+
+  const handlerOnClickProfile = () =>
+  {
+    if(props.user == 0)
+    {
+      navigate('/login');
+    }
+  }
+
+  const handlerOnClikCart = () =>
+  {
+    navigate('/cart');
   }
 
   let cart_classes;
@@ -36,6 +51,22 @@ const Header = (props) =>
     {
       type: "accessories",
       title: 'Аксесуари'
+    }
+  ];
+
+  let categoriesProfile = [
+    {
+      type: "profile",
+      title: 'Персональні дані'
+    },
+    {
+      type: "orders",
+      title: 'Мої замовлення'
+    }
+    ,
+    {
+      type: "logout",
+      title: 'Вийти'
     }
   ];
 
@@ -59,16 +90,18 @@ const Header = (props) =>
 
             <div className={styles.cart_profile_container}>
               {/* Вхід до кабінету */}
-              <div>
-                <Link> <img className={styles.img_profile} src={profile_src} alt="" />
-                </Link>
+              <div className={styles.profile}>
+                <div>
+                  {props.user.first_name}
+                </div>
+                 <DropdownMenuLogin src={profile_src} categories={categoriesProfile} user={props.user} handlerOnClickProfile={handlerOnClickProfile}/>
               </div>
                 
               {/* Кошик */}
               <div className={styles.cart}>
                 <Link to='/cart'> <img className={styles.img_cart} src={cart_src} alt="" />
                 </Link>
-                <div className={cart_classes}>
+                <div className={styles.count_cart} onClick={handlerOnClikCart}>
                   {props.cart_count}
                 </div>
               </div>
@@ -77,13 +110,13 @@ const Header = (props) =>
 
           <div className={styles.header_container_flex}>
             <div>
-              <DropMenu category_title="Для жінок" type="women" categories={categories} />
+              <DropdownMenu category_title="Для жінок" type="women" categories={categories} />
             </div>
             <div>
-              <DropMenu category_title="Для чоловіків" type="men" categories={categories} />
+              <DropdownMenu category_title="Для чоловіків" type="men" categories={categories} />
             </div>
             <div>
-              <DropMenu category_title="Для дітей" type="children" categories={categories} />
+              <DropdownMenu category_title="Для дітей" type="children" categories={categories} />
             </div>
           </div>
 

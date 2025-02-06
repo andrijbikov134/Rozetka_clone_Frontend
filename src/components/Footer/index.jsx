@@ -1,14 +1,11 @@
 import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./Footer.module.css"
 import { EventsContext, SelectedDateContext } from '../../context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = (props) => {
 
-  // Властивість, яка зберігає список подій / Зчитати список подій з глобальної властивості
-  const events = useContext(EventsContext);
-  // Властивість, яка зберігає поточну обрану дату
-  const selectedDate = useContext(SelectedDateContext);
+  const navigate = useNavigate();
 
   // Функція, яка спрацьовує під час натискання кнопки "Add"
   const handleAddEventClick = () => 
@@ -44,6 +41,11 @@ const Footer = (props) => {
     }
   }
   
+  const handlerOnClickRegister = () =>
+  {
+    navigate('/register');
+  }
+
   // Хук - згенерувати Id для кожної події
   const inputEventTextId = useId();
 
@@ -52,7 +54,7 @@ const Footer = (props) => {
         <footer className={styles.footer}>
           <div className={styles.footer_container_register}>
             <div><span className={styles.footer_register_title}>Зареєструйтеся,</span> щоб накопичувати<br/> замовлення та отримувати знижку</div>
-            <button className={styles.buton_register}>ЗАРЕЄСТРУВАТИСЯ</button>
+            <button className={styles.buton_register} onClick={handlerOnClickRegister}>ЗАРЕЄСТРУВАТИСЯ</button>
           </div>
 
           <div className={styles.footer_container_flex}>
@@ -76,7 +78,7 @@ const Footer = (props) => {
               <div><Link to="/giftcertificates">Подарункові сертифікати</Link> </div>
             </div>
           </div>
-          <div><Link className={styles.logo} to="/"><img src="./img/logo_footer.png"/></Link> </div>
+          <div><Link className={styles.logo} to="/"><img src= {props.localhostFrontend + "/img/logo_footer.png"}/></Link> </div>
           <div className={styles.footer_year}>Copyright © 2022-2025</div>
         </footer>
       </>  

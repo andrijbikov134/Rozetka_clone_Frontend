@@ -115,6 +115,7 @@ a:link:active, a:visited:active
 {
   width: 1.5rem;
   height: 1.5rem;
+  cursor: pointer;
 }
 
 .img_cart
@@ -136,6 +137,7 @@ a:link:active, a:visited:active
   padding: 0.25rem;
   position: relative;
   top: -12px; left: -1rem;
+  cursor: pointer;
 }
 
 .hidden
@@ -147,4 +149,11 @@ a:link:active, a:visited:active
 {
   display: flex;
   gap: 0.5rem;
+}
+
+.profile{
+  display: flex;
+  color: white !important;
+  align-items: center;
+  gap: 1rem;
 }

@@ -1,0 +1,72 @@
+.main_container
+{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.main_container input
+{
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.card_container
+{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  color: black;
+  align-items: start;
+  gap: 1rem;
+  background-color: rgb(232, 232, 232);
+  border-radius: 0.5rem;
+}
+
+::placeholder {
+  text-align: center; 
+}
+
+.card_number
+{
+  width: 100%;
+}
+
+.titles_container
+{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.date_cvv_container
+{
+  display: flex;
+  gap: 10rem;
+}
+
+.date_container
+{
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card_month, .card_year
+{
+  width: 2rem;
+}
+
+.card_cvv
+{
+  width: 3rem;
+}
+
+.btn_submit
+{
+  background-color: rgb(247, 156, 255);
+  color: black;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}

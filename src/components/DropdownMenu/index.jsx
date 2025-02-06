@@ -3,24 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './DropdownMenu.module.css';
 
 
-const DropMenu = (props) =>
+const DropdownMenu = (props) =>
 {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
-  const handleMenuOne = () => {
-    // do something
-    setOpen(false);
-  };
-
-  const handleMenuTwo = () => {
-    // do something
-    setOpen(false);
-  };
 
   const handleOnClick = (event) =>
   {
@@ -34,7 +20,7 @@ const DropMenu = (props) =>
       <div class={styles.dropdown}>
         <button class={styles.dropbtn}>{props.category_title}</button>
 
-        <div class={styles.dropdown_content}>
+        <div class={styles.dropdown_content }>
           {
             props.categories.map((category) =>
               {
@@ -51,4 +37,4 @@ const DropMenu = (props) =>
 
 }
 
-export default DropMenu;
+export default DropdownMenu;

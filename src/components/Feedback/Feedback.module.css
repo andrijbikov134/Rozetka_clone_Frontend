@@ -12,14 +12,10 @@
   margin-block: 1rem;
 }
 
-input[type="radio"] {
-  display: none;
+.input_radio {
+  display: none !important;
 
 }
-/* .star {
-  cursor: pointer;
-  margin: 5px;
-} */
 
 
 .stars

@@ -43,7 +43,7 @@ const Product = (props) => {
     }
   }
 
-  const handlerOnClickProduct = (event) =>
+  const handlerOnClickProduct = () =>
   {
     props.handlerOnClickProduct(props.id);
   }

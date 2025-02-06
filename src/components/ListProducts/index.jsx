@@ -3,11 +3,9 @@ import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./ListProducts.module.css"
 import Product from '../Product';
 import News from '../News';
-import { useLocation } from 'react-router-dom';
 
 const ListProducts = (props) => {
 
-  let location = useLocation();
   // Властивість, яка зберігає список подій / Зчитати список подій з глобальної властивості
   const [products, setProducts] = useState([]);
 

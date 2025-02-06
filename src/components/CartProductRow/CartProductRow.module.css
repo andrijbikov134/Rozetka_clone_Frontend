@@ -4,4 +4,40 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
+  color: black;
+}
+
+.img_product
+{
+  height: 5rem;
+  width: 5rem;
+}
+
+.title
+{
+  font-weight: bold;
+}
+
+.container_flex_characteristics
+{
+  display: flex;
+  gap: 1rem;
+}
+
+.price
+{
+  font-weight: 600;
+}
+
+.total_sum
+{
+  font-weight: bold;
+}
+
+
+.img_delete
+{
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
 }

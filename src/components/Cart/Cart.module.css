@@ -2,10 +2,174 @@
 {
   display: flex;
   flex-direction: column;
+  align-items: start;
+  color: black;
 }
 
 .grid_container
 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
+  color: black;
+  margin-top: 2rem;
+  row-gap: 1rem;
+  
 }
+
+.grid_header
+{
+  margin-bottom: 1rem;
+}
+
+.grid_border_solid
+{
+  border-bottom: 0.0625rem solid black;
+  grid-column: 1 / 6;
+}
+
+.grid_border_row
+{
+  border-bottom: 0.0625rem dotted black;
+  grid-column: 1 / 6;
+}
+
+
+.h2
+{
+  color: black;
+}
+
+.table_header
+{
+  display: flex;
+  color: black;
+}
+
+
+.delivety_order
+{
+  font-weight: bold;
+}
+
+.pay_order
+{
+  font-weight: bold;
+}
+
+.recipient_order
+{
+  font-weight: bold;
+}
+
+hr
+{
+  border: none;
+  border-top: 1px dotted black;
+}
+
+.radio
+{
+  color: black;
+}
+
+select, input{
+  background-color: white;
+  color: black;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  
+}
+
+::placeholder
+{
+  text-align: start !important;
+}
+
+.description_order_container
+{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.delivery_container
+{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.delivery_method_container
+{
+  display: flex;
+  flex-direction: column; 
+}
+
+.delivery_method_header
+{
+  display: flex;
+  align-items: center;
+}
+
+.delivery_method_select
+{
+  margin-top: 0.5rem;
+  margin-left: 1.3rem;
+}
+
+.delivery_method_address_container
+{
+  display: flex;
+  gap: 1rem;
+  margin-left: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+.delivery_method_address_index
+{
+  width: 7rem;
+}
+
+.delivery_method_address
+{
+  width: 17rem;
+}
+
+.recipient_container
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.recipient_ceil{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.recipient_ceil input{
+  width: 12.7rem;
+}
+
+.sum_submit
+{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-self: flex-end;
+  font-weight: bold;
+  font-size: large;
+}
+
+.btn_confirm_order
+{
+  background-color: rgb(247, 156, 255);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
