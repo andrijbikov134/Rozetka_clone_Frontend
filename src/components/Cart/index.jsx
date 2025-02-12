@@ -12,11 +12,11 @@ const Cart = (props) => {
   
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
 
-  const [phoneNumber, setPhoneNumber] = useState(currentUser == 0 ? '+38' : currentUser.phone);
+  const [phoneNumber, setPhoneNumber] = useState(currentUser == null ? '+38' : currentUser.phone);
 
-  const [firstName, setFirstName] = useState(currentUser == 0 ? '' : currentUser.first_name);
+  const [firstName, setFirstName] = useState(currentUser == null ? '' : currentUser.first_name);
 
-  const [lastName, setLastName] = useState(currentUser == 0 ? '' : currentUser.last_name);
+  const [lastName, setLastName] = useState(currentUser == null ? '' : currentUser.last_name);
 
   const [patronymic, setPatronymic] = useState('');
   
@@ -127,7 +127,7 @@ const Cart = (props) => {
 
   const validateFirstName = () =>
   {
-    if(firstName == "")
+    if(firstName == "" || firstName == undefined)
     {
       setIsFirstNameValid(false);
       return false;
@@ -161,7 +161,7 @@ const Cart = (props) => {
 
   const loadAddressOnLoadPage = () =>
   {
-    let optionValue = document.querySelector(`select[name="delivery"] option:checked`).value;
+    let optionValue = document.querySelector(`select[name="delivery"] option:checked`) == undefined ? "" : document.querySelector(`select[name="delivery"] option:checked`).value;
     setDeliveryType('self_pickup');
     setAddress(optionValue);
   }
@@ -178,12 +178,12 @@ const Cart = (props) => {
     {
       if(paymentMethod == 'online')
       {
-        navigate('/paymentcard', {state:{user: currentUser, paymentMethod: paymentMethod, delivery_type: deliveryType, recipient: {}, delivery:{index: index, address: address} }});
+        navigate('/paymentcard', {state:{user: currentUser, paymentMethod: paymentMethod, delivery_type: deliveryType, recipient: {phoneNumber: phoneNumber, firstName: firstName, lastName: lastName, patronymic: patronymic}, delivery:{index: index, address: address} }});
       }
       else
       {
         //createOrder();
-        navigate('/orderaccepted', {state:{user: currentUser, paymentMethod: paymentMethod, delivery_type: deliveryType, recipient: {}, delivery:{index: index, address: address} }});
+        navigate('/orderaccepted', {state:{user: currentUser, paymentMethod: paymentMethod, delivery_type: deliveryType, recipient: {phoneNumber: phoneNumber, firstName: firstName, lastName: lastName, patronymic: patronymic}, delivery:{index: index, address: address} }});
       }
     }
   }
@@ -418,7 +418,7 @@ const Cart = (props) => {
                   <label for="" onClick={handlerOnClickLabelPayment}>Оплатити карткою</label>
                 </div>
               </div>
-              <div className={styles.delivery_method_container + " " + (currentUser == 0 ? styles.hidden : '')}>
+              <div className={styles.delivery_method_container + " " + (currentUser == null ? styles.hidden : '')}>
                 <div className={styles.delivery_method_header}>
                   <input type="radio" name="payment" id=""  value="cash" />
                   <label for="" onClick={handlerOnClickLabelPayment}>Оплата під час отримання товару</label>
