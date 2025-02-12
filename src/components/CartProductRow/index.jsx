@@ -1,14 +1,72 @@
-import React, { useContext, useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import styles from "./CartProductRow.module.css"
 
 
 const CartProductRow = (props) => {
+  
+  const [quantity, setQuantity] = useState(props.quantity);
+
+  const inputQuantityId = useId();
   
   const handlerOnClickDelete = () =>
   {
     props.handlerOnClickDelete(props.product.id, props.size.id);
   }
 
+  const handlerOnChangeQuantity = (e) =>
+  {
+    let newQuantity = Number(e.target.value);
+    if(newQuantity >= 1)
+    {
+      setQuantity(newQuantity);
+    }
+    else if(e.target.value == '')
+    {
+      setQuantity("");
+    }
+  }
+
+  const hanlderFocusLeave = (e) =>
+  {
+    if(e.target.id != inputQuantityId && document.getElementById(inputQuantityId).value == "")
+    {
+      setQuantity(1);
+    }
+  }
+
+  const handlerOnKeyUp = (e) =>
+  {
+    if(e.code == 'Enter' && e.target.value == "")
+    {
+      setQuantity(1);
+    }
+  }
+
+  const handlerOnClickQuantityPlus = () =>
+  {
+    setQuantity(quantity + 1);
+  }
+
+  const handlerOnClickQuantityMinus = () =>
+  {
+    if(quantity > 1)
+    {
+      setQuantity(quantity - 1);
+    }
+  }
+
+  const updateQuantityInCart = () =>
+  {
+    props.updateQuantityInCart(props.product, props.size, quantity);
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', hanlderFocusLeave);
+  }, []);
+
+  useEffect(() => {
+    updateQuantityInCart();
+  }, [quantity]);
 
   return (
       <>
@@ -36,7 +94,10 @@ const CartProductRow = (props) => {
           <div className={styles.price}>{props.product.price.toLocaleString()} грн.</div>
         </div>
         <div className={styles.ceil_container}>
-          <div className={styles.quantity}>{props.quantity}</div>
+          <div className={styles.btn_quantity} onClick={handlerOnClickQuantityMinus}>-</div>
+          <input id={inputQuantityId} className={styles.quantity} value={quantity}
+          onChange={handlerOnChangeQuantity} onKeyUp={handlerOnKeyUp}/>
+          <div className={styles.btn_quantity} onClick={handlerOnClickQuantityPlus}>+</div>
         </div>
         <div className={styles.ceil_container}>
           <div className={styles.total_sum}>{(props.quantity * props.product.price).toLocaleString()} грн.</div>

@@ -43,28 +43,23 @@ function App()
 
   const [searchTitle, setSearchTitle] = useState('');
 
-
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('order_petrushka_style')) || []);
 
   const [cartCount, setCartCount] = useState(0);
 
   const [currentUser, setCurrentUser] = useState(0);
 
-  //const localhostFrontend = 'http://localhost:5173';
-  const localhostFrontend = 'https://192.168.0.113:8080';
+  const localhostFrontend = 'http://localhost:5173';
+  //const localhost = 'https://192.168.0.113:8080';
 
-  //const localhost = 'http://localhost:8888';
-  const localhost = 'https://192.168.0.113:8080/api';
+  const localhost = 'http://localhost:8888';
+  //const localhost = 'https://192.168.0.113:8080/api';
 
   // Функція для разового створення JSON-файла
   const saveToLocalStorage = (key, array) =>
   {
     let json = JSON.stringify(array);
       localStorage.setItem(key,json);
-    if(array.length > 0)
-    {
-      
-    }
   }
 
   const loadFromLocalStorage = (key, method) =>
@@ -221,7 +216,7 @@ function App()
   
   return (
     <>
-      <Header handlerSearchProducts={handlerSearchProducts} search_title={searchTitle} input_search_id={input_search_id} cart_count={cartCount} localhostFrontend={localhostFrontend} user={currentUser}/>
+      <Header handlerSearchProducts={handlerSearchProducts} search_title={searchTitle} input_search_id={input_search_id} cart_count={cartCount} localhost={localhost} localhostFrontend={localhostFrontend} user={currentUser}/>
       <div className="main_block">
         <ScrollToTop/>
         <Routes>
@@ -258,12 +253,12 @@ function App()
 
           <Route path='/search_result' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}/>
           <Route path='/profile'    />
-          <Route path='/cart' element={<Cart handlerOnClickDelete={handlerOnClickDelete} localhost={localhost} localhostFrontend={localhostFrontend}/>}     />
+          <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend}/>}     />
           <Route path='/shops' element={<Shops/>}/>
           <Route path='/contacts' element={<Contacts/>}/>
           <Route path='/sizes' element={<Sizes/>}/>
           <Route path='/paymentcard' element={<PaymentCard/>} />
-          <Route path='/orderaccepted' element={<OrderAccepted localhostFrontend={localhostFrontend} updateCart={updateCart}/>} />
+          <Route path='/orderaccepted' element={<OrderAccepted localhost={localhost} localhostFrontend={localhostFrontend} updateCart={updateCart}/>} />
           <Route path='/delivery' element={<Delivery/>}/>
           <Route path='/paymentmethods' element={<PaymentMethods/>}/>
           <Route path='questionsandanswers' element={<QuestionsAndAnswers/>}/>

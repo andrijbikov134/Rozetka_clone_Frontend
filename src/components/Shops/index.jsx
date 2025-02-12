@@ -12,7 +12,7 @@ const Shops = () =>
         <div>Pentrushka Style</div>
         <div>З 10:00 до 22:00</div>
 
-        <h3>м. Львів, Проспект Свободи, 300, ТРЦ "Ocean"</h3>
+        <h3>м. Львів, проспект Свободи, 300, ТРЦ "Ocean"</h3>
         <div>Pentrushka Style</div>
         <div>З 10:00 до 22:00</div>
 

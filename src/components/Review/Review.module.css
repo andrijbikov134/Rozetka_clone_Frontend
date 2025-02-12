@@ -17,7 +17,9 @@
 
 .grade_container
 {
+  display: flex;
   align-self: start;
+  gap: 0.25rem;
 }
 
 .advantages_container, .disadvantages_container, .comment_container
@@ -33,4 +35,10 @@
 .underline
 {
   text-decoration: underline;
+}
+
+.img_star
+{
+  width: 1.5rem;
+  height: 1.5rem;
 }

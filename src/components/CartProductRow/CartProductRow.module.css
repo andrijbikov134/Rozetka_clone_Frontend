@@ -24,6 +24,27 @@
   gap: 1rem;
 }
 
+.btn_quantity
+{
+  cursor: pointer;
+  font-size: large;
+  width: 2rem;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+.btn_quantity:hover
+{
+  background-color: rgb(247, 156, 255);
+  
+}
+
+.quantity
+{
+  width: 2rem;
+  text-align: center;
+}
+
 .price
 {
   font-weight: 600;

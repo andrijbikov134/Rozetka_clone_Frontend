@@ -1,4 +1,4 @@
-import React, { useContext, useId} from 'react';
+import { useState, useEffect} from 'react';
 import styles from "./Header.module.css"
 import { Link, useNavigate } from 'react-router-dom';
 import DropdownMenu from '../DropdownMenu';
@@ -7,6 +7,7 @@ import DropdownMenuLogin from '../DropdownMenuLogin';
 const Header = (props) =>
 {
   const navigate = useNavigate();
+  const [categoriesSub, setCategoriesSub] = useState([]);
   const handlerEnterKeyUpSearch = (event) =>
   {
     if(event.key == "Enter")
@@ -22,6 +23,24 @@ const Header = (props) =>
     props.handlerSearchProducts(input.value);
   }
 
+  const loadCategoriesSub = () =>
+  {
+    let url = `${props.localhost}/index.php?action=getCategoriesSub`;
+      fetch(url, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({action: 1})
+      })
+      .then(response =>
+        response.json()
+        )
+      .then(response => {
+        setCategoriesSub(response);
+      })
+  }
+
   const handlerOnClickProfile = () =>
   {
     if(props.user == 0)
@@ -35,25 +54,13 @@ const Header = (props) =>
     navigate('/cart');
   }
 
+  useEffect(() => {
+    loadCategoriesSub();
+  }, []);
+
   let cart_classes;
   cart_classes = props.cart_count > 0 ? `${styles.count_cart}` : `${styles.count_cart} ${styles.hidden}`;
   
-  let categories = [
-    {
-      type: "clothes",
-      title: 'Одяг'
-    },
-    {
-      type: "shoes",
-      title: 'Взуття'
-    }
-    ,
-    {
-      type: "accessories",
-      title: 'Аксесуари'
-    }
-  ];
-
   let categoriesProfile = [
     {
       type: "profile",
@@ -110,13 +117,13 @@ const Header = (props) =>
 
           <div className={styles.header_container_flex}>
             <div>
-              <DropdownMenu category_title="Для жінок" type="women" categories={categories} />
+              <DropdownMenu category_title="Для жінок" type="women" categories={categoriesSub} />
             </div>
             <div>
-              <DropdownMenu category_title="Для чоловіків" type="men" categories={categories} />
+              <DropdownMenu category_title="Для чоловіків" type="men" categories={categoriesSub} />
             </div>
             <div>
-              <DropdownMenu category_title="Для дітей" type="children" categories={categories} />
+              <DropdownMenu category_title="Для дітей" type="children" categories={categoriesSub} />
             </div>
           </div>
 

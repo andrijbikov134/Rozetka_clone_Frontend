@@ -1,3 +1,11 @@
+.header
+{
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,248,53,1) 0%, rgba(12,222,236,1) 100%, rgba(0,212,255,1) 100%);
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
 .header_container_flex_search
 {
   background-color: black;
@@ -31,11 +39,6 @@ a:link:active, a:visited:active
   color: black;
 }
 
-.header
-{
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,248,53,1) 0%, rgba(12,222,236,1) 100%, rgba(0,212,255,1) 100%);
-  width: 100%;
-}
 
 .header_form_search
 {

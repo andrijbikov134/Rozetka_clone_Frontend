@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './PaymentCard.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const PaymentCard = () => {
   
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handlerOnClickPay = () =>
   {
-    navigate('/orderaccepted');
+    navigate('/orderaccepted', {state:{user: location.state.user, paymentMethod: location.state.paymentMethod, delivery_type: location.state.delivery_type, recipient: location.state.recipient, delivery: location.state.delivery}});
   }
   
   return (

@@ -24,9 +24,9 @@ const DropdownMenu = (props) =>
           {
             props.categories.map((category) =>
               {
-                let url = "/" + props.type + "/" + category.type;
+                let url = "/" + props.type + "/" + category.title;
                 return (
-                  <Link to={url}>{category.title}</Link>
+                  <Link to={url}>{category.title_ua}</Link>
                 )  
               })  
           }

@@ -205,7 +205,7 @@ const ProductFull = (props) => {
             {reviews.map((review) => 
             {
               return(
-                <Review review={review}/>
+                <Review review={review} localhostFrontend={props.localhostFrontend}/>
               )
             })}
           </div>

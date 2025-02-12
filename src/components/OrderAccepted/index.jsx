@@ -1,17 +1,37 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './OrderAccepted.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const OrderAccepted = (props) => {
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [data, setData] = useState({
+    products: JSON.parse(localStorage.getItem('order_petrushka_style')),
+    user: location.state.user,
+    payment_method: location.state.paymentMethod, 
+    delivery_type: location.state.delivery_type, 
+    recipient: location.state.recipient, 
+    delivery: location.state.delivery
+  });
 
   const handlerOnClickGoHomePage = () =>
   {
     navigate('/');
   }
 
+  const saveOrderToDB = () =>
+  {
+    fetch(`${props.localhost}/index.php?action=createOrder`, {
+      method: 'POST',
+      header: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then(response => response);
+  }
+
   useEffect(() => {
+    saveOrderToDB();
     localStorage.setItem('order_petrushka_style', JSON.stringify([]));
     props.updateCart();
     return () => {

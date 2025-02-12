@@ -9,33 +9,47 @@ const Cart = (props) => {
   const navigate = useNavigate();
 
   const [totalSum, setTotalSum] = useState(0);
+  
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
 
-  const [cartProducts, setCartProducts] = useState([]);
+  const [phoneNumber, setPhoneNumber] = useState(currentUser == 0 ? '+38' : currentUser.phone);
 
-  const [foundProduct, setFoundProduct] = useState([]);
+  const [firstName, setFirstName] = useState(currentUser == 0 ? '' : currentUser.first_name);
+
+  const [lastName, setLastName] = useState(currentUser == 0 ? '' : currentUser.last_name);
+
+  const [patronymic, setPatronymic] = useState('');
+  
+  const [isFirstNameValid, setIsFirstNameValid] = useState(true);
+
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
+
+  const [index, setIndex] = useState('');
+
+  const [address, setAddress] = useState('');
+
+  const [indexUkr, setIndexUkr] = useState('');
+
+  const [addressUkr, setAddressUkr] = useState('');
+
+  const [isIndexUkrValid, setIsIndexUkrValid] = useState(true);
+
+  const [isAddressUkrValid, setIsAddressUkrValid] = useState(true);
+
+  const [indexNova, setIndexNova] = useState('');
+
+  const [addressNova, setAddressNova] = useState('');
+
+  const [isIndexNovaValid, setIsIndexNovaValid] = useState(true);
+
+  const [isAddressNovaValid, setIsAddressNovaValid] = useState(true);
+
+  const [deliveryType, setDeliveryType] = useState('');
+
+
+  const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('order_petrushka_style')) || []);
 
   const [foundColor, setFoundColor] = useState([]);
-
-  function getProductFromDB(id)
-  {
-
-    let url = `${props.localhost}/index.php?action=getProductById&id=${id}`;
-    fetch(url, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json', 
-      },
-      body: JSON.stringify({action: 1})
-    })
-    .then(response =>
-      response.json()
-      )
-    .then(response => {
-      let newArr = foundProduct.map((product) => product);
-      newArr.push(response[0]);
-      setFoundProduct(newArr);
-    })
-  }
 
   function getColorFromDB(id)
     {
@@ -96,32 +110,81 @@ const Cart = (props) => {
     })
   }
 
-  const createOrder = () =>
+  // const createOrder = () =>
+  // {
+  //   let url = `${props.localhost}/index.php?action=createOrder`;
+  //     fetch(url, {
+  //       method: 'POST',
+  //       header: {
+  //         'Content-Type': 'application/json', 
+  //       },
+  //       body: JSON.stringify(cartProducts), 
+  //     })
+  //     .then(response =>
+  //       response
+  //       );
+  // }
+
+  const validateFirstName = () =>
   {
-    let url = `${props.localhost}/index.php?action=createOrder`;
-      fetch(url, {
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json', 
-        },
-        body: JSON.stringify(cartProducts), 
-      })
-      .then(response =>
-        response
-        );
+    if(firstName == "")
+    {
+      setIsFirstNameValid(false);
+      return false;
+    }
+    return true;
+  }
+
+  const validatePhoneNumber = () =>
+  {
+    let pattern = new RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$');
+    if(!pattern.test(phoneNumber))
+    {
+      setIsPhoneNumberValid(false);
+      return false;
+    }
+    return true;
+  }
+
+  const validateDelivery = () =>
+  {
+    if(deliveryType != '' && address != '')
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+    
+  }
+
+  const loadAddressOnLoadPage = () =>
+  {
+    let optionValue = document.querySelector(`select[name="delivery"] option:checked`).value;
+    setDeliveryType('self_pickup');
+    setAddress(optionValue);
   }
 
   const handlerOnClickGoToPayment = () =>
   {
     let paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-    if(paymentMethod == 'online')
+
+    let firstNameValid = validateFirstName();
+    let phoneNumberValid = validatePhoneNumber();
+    let deliveryValid = validateDelivery();
+
+    if(phoneNumberValid && firstNameValid && deliveryValid)
     {
-      navigate('/paymentcard');
-    }
-    else
-    {
-      createOrder();
-      navigate('/orderaccepted');
+      if(paymentMethod == 'online')
+      {
+        navigate('/paymentcard', {state:{user: currentUser, paymentMethod: paymentMethod, delivery_type: deliveryType, recipient: {}, delivery:{index: index, address: address} }});
+      }
+      else
+      {
+        //createOrder();
+        navigate('/orderaccepted', {state:{user: currentUser, paymentMethod: paymentMethod, delivery_type: deliveryType, recipient: {}, delivery:{index: index, address: address} }});
+      }
     }
   }
 
@@ -130,13 +193,146 @@ const Cart = (props) => {
     event.target.closest('div').querySelector('input').checked = true;
   }
 
+  const handlerOnChangeIndexUkr = (event) =>
+  {
+    setIsIndexUkrValid(true);
+    setIndex(event.target.value);
+    setIndexUkr(event.target.value);
+  }
+
+  const handlerOnChangeAddressUkr = (event) =>
+  {
+    setIsAddressUkrValid(true);
+    setAddress(event.target.value);
+    setAddressUkr(event.target.value);
+  }
+
+  const handlerOnChangeIndexNova = (event) =>
+  {
+    setIsIndexNovaValid(true);
+    setIndex(event.target.value);
+    setIndexNova(event.target.value);
+  }
+
+  const handlerOnChangeAddressNova = (event) =>
+  {
+    setIsAddressNovaValid(true);
+    setAddress(event.target.value);
+    setAddressNova(event.target.value);
+  }
+
+  const handlerOnChangePhoneNumber = (event) =>
+  {
+    setIsPhoneNumberValid(true);
+    setPhoneNumber(event.target.value);
+  }
+
+  const handlerOnChangeFirstName = (event) =>
+  {
+    setIsFirstNameValid(true);
+    setFirstName(event.target.value);
+  }
+
+  const handlerOnChangeSelect = (e) =>
+  {
+    setAddress(e.target.selectedOptions[0].value);
+  }
+
+  const handlerOnChangeDeliveryRadio = (e) =>
+  {
+    setIsAddressNovaValid(true);
+    setIsAddressUkrValid(true);
+    setIsIndexNovaValid(true);
+    setIsIndexUkrValid(true);
+
+    setAddressNova('');
+    setIndexNova('');
+    setAddressUkr('');
+    setIndexUkr('');
+
+    if(e.target.value == 'self_pickup')
+    {
+      setDeliveryType('self_pickup');
+      let optionValue = document.querySelector(`select[name="delivery"] option:checked`).value;
+      setIndex("");
+      setAddress(optionValue);
+    }
+    else if(e.target.value == 'ukr_poshta')
+    {
+      setDeliveryType('ukr_poshta');
+      if(indexUkr == "" && addressUkr == "")
+        {
+          setIsIndexUkrValid(false);
+          setIsAddressUkrValid(false);
+        }
+        else if(indexUkr == "" && addressUkr != "")
+        {
+          setIsIndexUkrValid(false);
+        }
+        else if(indexUkr != "" && addressUkr == "")
+        {
+          setIsAddressUkrValid(false);
+        }
+        setIndex(indexUkr);
+        setAddress(addressUkr);
+    }
+    else
+    {
+      setDeliveryType('nova_poshta');
+      if(indexNova == "" && addressNova == "")
+      {
+        setIsIndexNovaValid(false);
+        setIsAddressNovaValid(false);
+      }
+      else if(indexNova == "" && addressNova != "")
+      {
+        setIsIndexNovaValid(false);
+      }
+      else if(indexNova != "" && addressNova == "")
+      {
+        setIsAddressNovaValid(false);
+      }
+      setIndex(indexNova);
+      setAddress(addressNova);
+    }
+  }
+
+  const handlerOnChangeLastName = (event) =>
+  {
+    setLastName(event.target.value);
+  }
+
+  const handlerOnChangePatronymic = (event) =>
+  {
+    setPatronymic(event.target.value);
+  }
+
+  const updateQuantityInCart = (product, size, newQuantity) =>
+  {
+    let newCart = cartProducts.map((item) =>
+    {
+      if(item.product.id == product.id && item.size.id == size.id)
+      {
+        let newItem = {...item};
+        newItem.quantity = newQuantity;
+        return newItem;
+      }
+      else{
+        return item;
+      }
+    });
+    setCartProducts(newCart);
+  }
+
   useEffect(() => {
     loadProductsFromLocalStorage();
+    loadAddressOnLoadPage();
   }, []);
   
   useEffect(() => {
     saveToLocalStorage();
     updateTotalSum();
+    props.updateCart();
     loadColor();
   }, [cartProducts]);
 
@@ -164,7 +360,7 @@ const Cart = (props) => {
               {
                 return(
                   <>
-                    <CartProductRow product={item.product} size={item.size} quantity={item.quantity} color={item.color} handlerOnClickDelete={handlerOnClickDelete} localhostFrontend={props.localhostFrontend} />
+                    <CartProductRow product={item.product} size={item.size} quantity={item.quantity} color={item.color} handlerOnClickDelete={handlerOnClickDelete} updateQuantityInCart={updateQuantityInCart} localhostFrontend={props.localhostFrontend} />
                     <div className={styles.grid_border_row}></div>
                   </>
               )}
@@ -178,35 +374,37 @@ const Cart = (props) => {
             <div className={styles.delivery_container}>
               <div className={styles.delivery_method_container}>
                 <div className={styles.delivery_method_header}>
-                  <input type="radio" name="delivery" id="" defaultChecked='true'/>
+                  <input type="radio" name="delivery" id="self_pickup" value='self_pickup' onChange={handlerOnChangeDeliveryRadio} defaultChecked='true'/>
                   <label for="">Самовивіз з наших магазинів</label>
                 </div>
                 <div className={styles.delivery_method_select}>
-                  <select name="" id="">
-                    <option value="">м. Київ, вул. Хрещатик, 300, ТРЦ "Ocean" з 10:00 до 22:00</option>
-                    <option value=""> м. Львів, Проспект Свободи, 300, ТРЦ "Ocean" з 10:00 до 22:00</option>
-                    <option value="">м. Харків, вул. Сумська, 300, ТРЦ "Ocean" з 10:00 до 22:00</option>
+                  <select name="delivery" id="" onChange={handlerOnChangeSelect}>
+                    <option value="м. Київ, вул. Хрещатик, 300, ТРЦ 'Ocean'">м. Київ, вул. Хрещатик, 300, ТРЦ "Ocean" з 10:00 до 22:00</option>
+                    <option value="м. Львів, проспект Свободи, 300, ТРЦ 'Ocean'"> м. Львів, проспект Свободи, 300, ТРЦ "Ocean" з 10:00 до 22:00</option>
+                    <option value="м. Харків, вул. Сумська, 300, ТРЦ 'Ocean'">м. Харків, вул. Сумська, 300, ТРЦ "Ocean" з 10:00 до 22:00</option>
                   </select>
                 </div>
               </div>
               <div className={styles.delivery_method_container}>
                 <div className={styles.delivery_method_header}>
-                  <input type="radio" name="delivery" id=""/>
-                  <label for="">Самовивіз з УКРПОШТИ</label>
+                  <input type="radio" name="delivery" id="" value='ukr_poshta' onChange={handlerOnChangeDeliveryRadio} />
+                  <label for="" >Самовивіз з УКРПОШТИ</label>
                 </div>
                 <div className={styles.delivery_method_address_container}>
-                  <input className={styles.delivery_method_address_index} type="text" placeholder='Індекс відділення'/>
-                  <input className={styles.delivery_method_address} type="text" placeholder='Повна адреса відділення'/>
+                  <input className={styles.delivery_method_address_index  + " " + (isIndexUkrValid ? "" : styles.error_border)} value={indexUkr} onChange={handlerOnChangeIndexUkr} type="text" placeholder='Індекс відділення'/>
+                  <input className={styles.delivery_method_address  + " " + (isAddressUkrValid ? "" : styles.error_border)} value={addressUkr} onChange={handlerOnChangeAddressUkr} type="text" placeholder='Повна адреса відділення'/>
+                  <div className={styles.error_message + " " + (isIndexUkrValid && isAddressUkrValid ? styles.hidden :"" )} name="error_message" >Заповніть поле!</div>
                 </div>
               </div>
               <div className={styles.delivery_method_container}>
                 <div className={styles.delivery_method_header}>
-                  <input type="radio" name="delivery" id=""/>
-                  <label for="">Самовивіз з НОВОЇ ПОШТИ</label>
+                  <input type="radio" name="delivery" id="nova_poshta" value='nova_poshta' onChange={handlerOnChangeDeliveryRadio}/>
+                  <label for="" >Самовивіз з НОВОЇ ПОШТИ</label>
                 </div>
                 <div className={styles.delivery_method_address_container}>
-                  <input className={styles.delivery_method_address_index} type="text" placeholder='Номер відділення'/>
-                  <input className={styles.delivery_method_address} type="text" placeholder='Назва міста або селища'/>
+                  <input className={styles.delivery_method_address_index + " " + (isIndexNovaValid ? "" : styles.error_border)}  value={indexNova} onChange={handlerOnChangeIndexNova} type="text" placeholder='Номер відділення'/>
+                  <input className={styles.delivery_method_address  + " " + (isAddressNovaValid ? "" : styles.error_border)} type="text"  value={addressNova} onChange={handlerOnChangeAddressNova} placeholder='Назва міста або селища'/>
+                  <div className={styles.error_message + " " + (isIndexNovaValid && isAddressNovaValid ? styles.hidden :"" )} name="error_message">Заповніть поле!</div>
                 </div>
               </div> 
             </div>
@@ -216,14 +414,14 @@ const Cart = (props) => {
             <div className={styles.payment_container}>
               <div className={styles.delivery_method_container}>
                 <div className={styles.delivery_method_header}>
-                  <input type="radio" name="payment" id="" defaultChecked='true' value="cash"/>
-                  <label for="" onClick={handlerOnClickLabelPayment}>Оплата під час отримання товару</label>
+                  <input type="radio" name="payment" id="" value="online" defaultChecked='true'/>
+                  <label for="" onClick={handlerOnClickLabelPayment}>Оплатити карткою</label>
                 </div>
               </div>
-              <div className={styles.delivery_method_container}>
+              <div className={styles.delivery_method_container + " " + (currentUser == 0 ? styles.hidden : '')}>
                 <div className={styles.delivery_method_header}>
-                  <input type="radio" name="payment" id="" value="online"/>
-                  <label for="" onClick={handlerOnClickLabelPayment}>Оплатити карткою</label>
+                  <input type="radio" name="payment" id=""  value="cash" />
+                  <label for="" onClick={handlerOnClickLabelPayment}>Оплата під час отримання товару</label>
                 </div>
               </div>
             </div>
@@ -233,19 +431,23 @@ const Cart = (props) => {
             <div className={styles.recipient_container}>
               <div className={styles.recipient_ceil}>
                 <div>Ім'я</div>
-                <input type="text"/>
+                <input type="text" value={firstName} onChange={handlerOnChangeFirstName} 
+                className={isFirstNameValid ? "" : styles.error_border}/>
+                <div className={styles.error_message + " " + (isFirstNameValid ? styles.hidden : "")}>Заповніть поле!</div>
               </div>
               <div className={styles.recipient_ceil}>
                 <div>Мобільний телефон</div>
-                <input type="text" placeholder='+38'/>
+                <input type="phone" placeholder='+38' value={phoneNumber} onChange={handlerOnChangePhoneNumber}
+                className={isPhoneNumberValid ? "" : styles.error_border}/>
+                <div className={styles.error_message + " " + (isPhoneNumberValid ? styles.hidden : "")}>Некоректний номер!</div>
               </div>
               <div className={styles.recipient_ceil}>
                 <div htmlFor="">Прізвище</div>
-                <input type="text"/>
+                <input type="text" value={lastName} onChange={handlerOnChangeLastName}/>
               </div>
               <div className={styles.recipient_ceil}>
                 <div>По-батькові</div>
-                <input type="text"/>  
+                <input type="text" value={patronymic} onChange={handlerOnChangePatronymic}/>  
               </div>
             </div>
           </div>
