@@ -61,7 +61,7 @@ const Header = (props) =>
   let cart_classes;
   cart_classes = props.cart_count > 0 ? `${styles.count_cart}` : `${styles.count_cart} ${styles.hidden}`;
   
-  let categoriesProfile = [
+  let categoriesProfileClient = [
     {
       type: "profile",
       title: 'Персональні дані'
@@ -69,8 +69,26 @@ const Header = (props) =>
     {
       type: "orders",
       title: 'Мої замовлення'
+    },
+    {
+      type: "logout",
+      title: 'Вийти'
     }
-    ,
+  ];
+
+  let categoriesProfileAdmin = [
+    {
+      type: "allorders",
+      title: 'Усі замовлення'
+    },
+    {
+      type: "statisticssale",
+      title: 'Статистика продажів'
+    },
+    {
+      type: "addadmin",
+      title: 'Додати адміністратора'
+    },
     {
       type: "logout",
       title: 'Вийти'
@@ -99,9 +117,14 @@ const Header = (props) =>
               {/* Вхід до кабінету */}
               <div className={styles.profile}>
                 <div>
-                  {props.user.first_name}
+                  {props.user == 0 ? "" : props.user.first_name}
                 </div>
-                 <DropdownMenuLogin src={profile_src} categories={categoriesProfile} user={props.user} handlerOnClickProfile={handlerOnClickProfile}/>
+                {
+                (props.user.role == "Administrator" ? 
+                <DropdownMenuLogin src={profile_src} categories={categoriesProfileAdmin} user={props.user} handlerOnClickProfile={handlerOnClickProfile}/>
+                : 
+                <DropdownMenuLogin src={profile_src} categories={categoriesProfileClient} user={props.user} handlerOnClickProfile={handlerOnClickProfile}/>)
+                }
               </div>
                 
               {/* Кошик */}

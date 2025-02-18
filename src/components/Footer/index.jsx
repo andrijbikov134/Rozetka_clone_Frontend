@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./Footer.module.css"
-import { EventsContext, SelectedDateContext } from '../../context';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = (props) => {
@@ -75,7 +74,7 @@ const Footer = (props) => {
             <div className={styles.footer_container_column}>
               <div>СЕРВІСИ</div>
               <div><Link to="/paymentmethods">Способи оплати</Link> </div>
-              <div><Link to="/giftcertificates">Подарункові сертифікати</Link> </div>
+              {/* <div><Link to="/giftcertificates">Подарункові сертифікати</Link> </div> */}
             </div>
           </div>
           <div><Link className={styles.logo} to="/"><img src= {props.localhostFrontend + "/img/logo_footer.png"}/></Link> </div>

@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./ListProductsSearchResult.module.css"
-import { EventsContext, SelectedDateContext } from '../../context';
 import Product from '../Product';
-import News from '../News';
 
 const ListProductsSearchResult = (props) => {
 

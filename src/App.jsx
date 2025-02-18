@@ -2,7 +2,7 @@
 import './App.css'
 
 // Бібліотека для компонентів
-import { useId, useEffect, useState } from 'react';
+import { useId, useEffect, useState, useContext } from 'react';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -27,6 +27,7 @@ import OrderAccepted from './components/OrderAccepted';
 import Login from './components/LogInRegister/Login';
 import Register from './components/LogInRegister/Register';
 import Logout from './components/Logout';
+import { CurrentUserContext } from './context';
 
 
 function App()
@@ -183,7 +184,16 @@ function App()
 
   const loadCurrentUser = () =>
   {
-    loadFromLocalStorage('user_petrushka_style', setCurrentUser);
+    //loadFromLocalStorage('user_petrushka_style', setCurrentUser);
+    let user = JSON.parse(localStorage.getItem('user_petrushka_style')) || [];
+    if(user.length == 0)
+    {
+      setCurrentUser(JSON.parse(sessionStorage.getItem('user_petrushka_style')) || 0);
+    }
+    else
+    {
+      setCurrentUser(user);
+    }
   }
 
   /////////////////////////////////////////////////////////////////
@@ -216,61 +226,61 @@ function App()
   
   return (
     <>
-      <Header handlerSearchProducts={handlerSearchProducts} search_title={searchTitle} input_search_id={input_search_id} cart_count={cartCount} localhost={localhost} localhostFrontend={localhostFrontend} user={currentUser}/>
-      <div className="main_block">
-        <ScrollToTop/>
-        <Routes>
-          <Route path='/' element={<ListProducts action='getPopularProducts' title='ПОПУЛЯРНІ ТОВАРИ' handlerSearchTitleClean={handlerSearchTitleClean} handlerOnClickProduct={handlerOnClickProduct} localhost={localhost} localhostFrontend={localhostFrontend}/>}/>
-          <Route path='/women/clothes' element={<CategoriesSubSub category='women' category_sub='clothes' localhost={localhost} />} />
-          <Route path='/women/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+        <Header handlerSearchProducts={handlerSearchProducts} search_title={searchTitle} input_search_id={input_search_id} cart_count={cartCount} localhost={localhost} localhostFrontend={localhostFrontend} user={currentUser}/>
+        <div className="main_block">
+          <ScrollToTop/>
+          <Routes>
+            <Route path='/' element={<ListProducts action='getPopularProducts' title='ПОПУЛЯРНІ ТОВАРИ' handlerSearchTitleClean={handlerSearchTitleClean} handlerOnClickProduct={handlerOnClickProduct} localhost={localhost} localhostFrontend={localhostFrontend}/>}/>
+            <Route path='/women/clothes' element={<CategoriesSubSub category='women' category_sub='clothes' localhost={localhost} />} />
+            <Route path='/women/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/women/shoes' element={<CategoriesSubSub category='women' category_sub='shoes' localhost={localhost}/>} />
-          <Route path='/women/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/women/shoes' element={<CategoriesSubSub category='women' category_sub='shoes' localhost={localhost}/>} />
+            <Route path='/women/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/women/accessories' element={<CategoriesSubSub category='women' category_sub='accessories' localhost={localhost}/>} />
-          <Route path='/women/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/women/accessories' element={<CategoriesSubSub category='women' category_sub='accessories' localhost={localhost}/>} />
+            <Route path='/women/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/men/clothes' element={<CategoriesSubSub category='men' category_sub='clothes' localhost={localhost}/>} />
-          <Route path='/men/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
-          
-          <Route path='/men/shoes' element={<CategoriesSubSub category='men' category_sub='shoes' localhost={localhost}/>} />
-          <Route path='/men/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}  />
+            <Route path='/men/clothes' element={<CategoriesSubSub category='men' category_sub='clothes' localhost={localhost}/>} />
+            <Route path='/men/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            
+            <Route path='/men/shoes' element={<CategoriesSubSub category='men' category_sub='shoes' localhost={localhost}/>} />
+            <Route path='/men/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}  />
 
-          <Route path='/men/accessories' element={<CategoriesSubSub category='men' category_sub='accessories' localhost={localhost}/>} />
-          <Route path='/men/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/men/accessories' element={<CategoriesSubSub category='men' category_sub='accessories' localhost={localhost}/>} />
+            <Route path='/men/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/children/clothes' element={<CategoriesSubSub category='children' category_sub='clothes' localhost={localhost}/>} />
-          <Route path='/children/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/children/clothes' element={<CategoriesSubSub category='children' category_sub='clothes' localhost={localhost}/>} />
+            <Route path='/children/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/children/shoes' element={<CategoriesSubSub category='children' category_sub='shoes' localhost={localhost}/>} />
-          <Route path='/children/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/children/shoes' element={<CategoriesSubSub category='children' category_sub='shoes' localhost={localhost}/>} />
+            <Route path='/children/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/children/accessories' element={<CategoriesSubSub category='children' category_sub='accessories' localhost={localhost}/>}  />
-          <Route path='/children/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/children/accessories' element={<CategoriesSubSub category='children' category_sub='accessories' localhost={localhost}/>}  />
+            <Route path='/children/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
 
-          <Route path='/product/*' element={<ProductFull handlerOnClickAddToCart={handlerOnClickAddToCart} localhost={localhost} localhostFrontend={localhostFrontend} loadFromLocalStorage={loadFromLocalStorage}/>}  />
+            <Route path='/product/*' element={<ProductFull handlerOnClickAddToCart={handlerOnClickAddToCart} localhost={localhost} localhostFrontend={localhostFrontend} loadFromLocalStorage={loadFromLocalStorage}/>}  />
 
 
-          <Route path='/search_result' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}/>
-          <Route path='/profile'    />
-          <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend}/>}     />
-          <Route path='/shops' element={<Shops/>}/>
-          <Route path='/contacts' element={<Contacts/>}/>
-          <Route path='/sizes' element={<Sizes/>}/>
-          <Route path='/paymentcard' element={<PaymentCard/>} />
-          <Route path='/orderaccepted' element={<OrderAccepted localhost={localhost} localhostFrontend={localhostFrontend} updateCart={updateCart}/>} />
-          <Route path='/delivery' element={<Delivery/>}/>
-          <Route path='/paymentmethods' element={<PaymentMethods/>}/>
-          <Route path='questionsandanswers' element={<QuestionsAndAnswers/>}/>
-          <Route path='/giftcertificates' element={<GiftCertificates/>}/>
-          <Route path="/feedback/*" element={<Feedback localhost={localhost}/>}/>
+            <Route path='/search_result' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}/>
+            <Route path='/profile'    />
+            <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend}/>}     />
+            <Route path='/shops' element={<Shops/>}/>
+            <Route path='/contacts' element={<Contacts/>}/>
+            <Route path='/sizes' element={<Sizes/>}/>
+            <Route path='/paymentcard' element={<PaymentCard/>} />
+            <Route path='/orderaccepted' element={<OrderAccepted localhost={localhost} localhostFrontend={localhostFrontend} updateCart={updateCart}/>} />
+            <Route path='/delivery' element={<Delivery/>}/>
+            <Route path='/paymentmethods' element={<PaymentMethods/>}/>
+            <Route path='questionsandanswers' element={<QuestionsAndAnswers/>}/>
+            <Route path='/giftcertificates' element={<GiftCertificates/>}/>
+            <Route path="/feedback/*" element={<Feedback localhost={localhost}/>}/>
 
-          <Route path='/login' element={<Login localhost={localhost} loadCurrentUser={loadCurrentUser}/>}/>
-          <Route path='/register' element={<Register localhost={localhost}/>}/>
-          <Route path='/logout' element={<Logout loadCurrentUser={loadCurrentUser}/>}/>
-        </Routes>
-      </div>
-      <Footer localhostFrontend={localhostFrontend}/>
+            <Route path='/login' element={<Login localhost={localhost} loadCurrentUser={loadCurrentUser}/>}/>
+            <Route path='/register' element={<Register localhost={localhost}/>}/>
+            <Route path='/logout' element={<Logout loadCurrentUser={loadCurrentUser}/>}/>
+          </Routes>
+        </div>
+        <Footer localhostFrontend={localhostFrontend}/>
     </>
   )
 }

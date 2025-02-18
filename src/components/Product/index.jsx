@@ -1,14 +1,22 @@
 import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./Product.module.css"
-import { EventsContext, SelectedDateContext } from '../../context';
 
 const Product = (props) => {
 
-  // Властивість, яка зберігає список подій / Зчитати список подій з глобальної властивості
-  const events = useContext(EventsContext);
-  // Властивість, яка зберігає поточну обрану дату
-  const selectedDate = useContext(SelectedDateContext);
+  const [currentUser, setCurrentUser] = useState(0)
 
+  const loadCurrentUser = () =>
+  {
+    let user = JSON.parse(localStorage.getItem('user_petrushka_style')) || [];
+    if(user.length == 0)
+    {
+      setCurrentUser(JSON.parse(sessionStorage.getItem('user_petrushka_style')) || 0);
+    }
+    else
+    {
+      setCurrentUser(user);
+    }
+  }
   // Функція, яка спрацьовує під час натискання кнопки "Add"
   const handleAddEventClick = () => 
   {
@@ -47,15 +55,29 @@ const Product = (props) => {
   {
     props.handlerOnClickProduct(props.id);
   }
+
+  useEffect(() => {
+    loadCurrentUser();
+  }, []);
   
   return (
       <>
+      <div>
         <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
           <img className={styles.img} src={props.img} alt="" />
           <div className={styles.title}>{[props.title]}</div>
           <div className={styles.delivery_text}>Готовий до відправлення <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'} /> </div>
-          <div className={styles.price}>{props.price.toLocaleString('ru-RU')} грн.</div>
+          <div className={styles.price}>{props.price.toLocaleString('ua-UA')} грн.</div>
+          
         </div>
+        {
+          currentUser != 0 ? (currentUser.role != 'Administrator' ? "" :
+          <div className={styles.buttons_container}>
+              <div className={styles.button}>Edit</div>
+              <div className={styles.button}>Delete</div>
+          </div>) : ''
+        }
+      </div>
       </>
   );
 }

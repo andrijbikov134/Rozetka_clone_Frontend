@@ -1,15 +1,38 @@
-import React, {  useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import styles from "./Review.module.css"
 
 const Review = (props) => {
 
   let date = new Date(props.review.datereview);
 
+  const [user, setUser] = useState(null);
+
+  const loadUser = () =>
+  {
+    fetch(`${props.localhost}/index.php?action=getUserById&id=${props.review.user_id}`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setUser(response);
+    })
+  }
+
+  useEffect(() => {
+    loadUser();
+
+  }, []);
+
   return (
     <>
       <div className={styles.main_container}>
         <div className={styles.user_date_container}>
-          <div className={styles.bold}>Ірина Іванова</div>
+          <div className={styles.bold}>{user == null ? "  " : (user.first_name + " " + user.last_name)}</div>
           <div>{date.toLocaleDateString()}</div>
         </div>
         <div className={styles.grade_container}>

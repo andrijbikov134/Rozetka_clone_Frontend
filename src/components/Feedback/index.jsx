@@ -17,7 +17,7 @@ const Feedback = (props) => {
   const [advantages, setAdvantages] = useState(1);
   const [disadvantages, setDisadvantages] = useState(1);
   const [grade, setGrade] = useState(null);
-  const [user_id, setUserId] = useState(1);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
 
   const handlerCommentChanged = (event) =>
   {
@@ -37,7 +37,7 @@ const Feedback = (props) => {
     event.preventDefault();
     let currentDate = new Date();
     let date = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
-    let url = `${props.localhost}/index.php?action=createreview&productid=${product_id}&comment=${comment}&advantages=${advantages}&disadvantages=${disadvantages}&grade=${grade}&datereview=${date}&userid=${user_id}`;
+    let url = `${props.localhost}/index.php?action=createreview&productid=${product_id}&comment=${comment}&advantages=${advantages}&disadvantages=${disadvantages}&grade=${grade}&datereview=${date}&userid=${user.id}`;
         fetch(url, {
         method: 'POST',
         header: {
@@ -112,14 +112,7 @@ const Feedback = (props) => {
             );
           })}
           </div>
-          {/* <div className={styles.stars}>
-            <img className={styles.img_star} src="./img/star_empty.png" alt="" />
-            <img className={styles.img_star} src="./img/star_empty.png" alt="" />
-            <img className={styles.img_star} src="./img/star_empty.png" alt="" />
-            <img className={styles.img_star} src="./img/star_empty.png" alt="" />
-            <img className={styles.img_star} src="./img/star_empty.png" alt="" />
-          </div> */}
-          <input type="hidden" name='userid' value='1' />
+          {/* <input type="hidden" name='userid' value='' /> */}
           <textarea className={styles.comment} placeholder='Коментар' name='comment' onChange={handlerCommentChanged}></textarea>
           <textarea placeholder='Переваги' name='advantages' onChange={handlerAdvantagesChanged}></textarea>
           <textarea placeholder='Недоліки' name='disadvantages' onChange={handlerDisadvantagesChanged}></textarea>

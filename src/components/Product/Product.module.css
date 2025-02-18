@@ -2,7 +2,6 @@
 {
   display: flex;
   flex-direction: column;
-  width: 12.5rem;
   color: black;
   border: 0.0625rem solid rgb(255, 255, 255);
   cursor: pointer;
@@ -11,8 +10,11 @@
 
 .img
 {
-  height: 15.625rem;
+  width: 16.5rem; 
+  height: 20.625rem;
+  border-radius: 1rem;
 }
+
 .price
 {
   font-size: large;
@@ -37,4 +39,18 @@
 .title
 {
   font-weight: bold;
+}
+
+.buttons_container
+{
+  display: flex;
+  justify-content: space-around;
+}
+
+.button
+{
+  width: 5rem;
+  border: 3px solid red;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }

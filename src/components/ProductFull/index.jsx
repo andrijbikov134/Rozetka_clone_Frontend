@@ -7,6 +7,10 @@ const ProductFull = (props) => {
   let location = useLocation();
   let navigate = useNavigate();
 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
+  
+  const [isFeedbackErrorVisible, setIsFeedbackErrorVisible] = useState(false);
+
   const [sizeErrorActive, setSizeErrorActive] = useState(false);
 
   const [productId, setProductId] = useState(location.pathname.split('/').pop());
@@ -35,7 +39,25 @@ const ProductFull = (props) => {
 
   const handlerOnClickFeedback = () =>
   {
-    navigate('/feedback/' + productId);
+    let url = `${props.localhost}/index.php?action=getissaleproductsbyuser&product_id=${productId}&user_id=${user.id}`;
+    
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+        setIsFeedbackErrorVisible(response === 'true' ? false : true);
+        if(response == 'true')
+        {
+          navigate('/feedback/' + productId);
+        }
+    })
+
   }
 
   const handlerOnClickSize = (event) =>
@@ -128,6 +150,11 @@ const ProductFull = (props) => {
     })
   }
 
+  const handlerOnClickSizeChart = () =>
+  {
+    navigate('/sizes');
+  }
+
   useEffect(() => {
     loadProductFromDB();
     loadCharacteristics();
@@ -156,7 +183,7 @@ const ProductFull = (props) => {
 
             <div className={styles.size_container}>
               <div>Розмір</div>
-              <div className={styles.container_flex}>
+              <div className={styles.container_flex + " " + styles.pointer} onClick={handlerOnClickSizeChart}>
                 <img className={styles.img_size} src={props.localhostFrontend + "/img/size.png"} alt="" />
                 <div className={styles.select_size}>Вибрати розмір</div>
               </div>
@@ -198,14 +225,18 @@ const ProductFull = (props) => {
         <div className={styles.feedbacks_container}>
           <div className={styles.feedbacks}>
             <div>Відгуки</div>
-            <div className={styles.feedback} onClick={handlerOnClickFeedback}>Написати відгук</div>
+            <div className={styles.feedback_btn_container + " " + (user == null ? styles.hidden_none : "")}>
+              <div className={styles.feedback_button + " " + (user == null ? styles.hidden_none : "") } onClick={handlerOnClickFeedback}>Написати відгук</div>
+              <div className={styles.feedback_warning + " " + (isFeedbackErrorVisible ? "" : styles.hidden)}>Для того, щоб опублікувати відгук необхідно придбати товар</div>
+            </div>
+            <div className={styles.feedback_warning + " " + (user != null ? styles.hidden_none : "")}>Для того, щоб опублікувати відгук необхідно увійти в особистий кабінет та придбати товар</div>
           </div>
           <hr />
           <div className={styles.reviews_container}>
             {reviews.map((review) => 
             {
               return(
-                <Review review={review} localhostFrontend={props.localhostFrontend}/>
+                <Review review={review} localhost={props.localhost} localhostFrontend={props.localhostFrontend}/>
               )
             })}
           </div>

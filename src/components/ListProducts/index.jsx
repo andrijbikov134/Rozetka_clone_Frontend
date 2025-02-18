@@ -46,8 +46,8 @@ const ListProducts = (props) => {
   return (
       <>
       <div className={styles.main_container}>
-        {props.action == 'getPopularProducts' ? <News/> : <></>}
-        <div className={styles.container}>
+        <News/> 
+        <div className={styles.popular_products_container}>
           <div className={styles.header}>{props.title}</div>
           <div className={styles.container_products}>            
             {products.map((product) => 

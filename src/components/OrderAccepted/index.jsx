@@ -33,8 +33,8 @@ const OrderAccepted = (props) => {
         header: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
-      .then(response => response.text())
-      .then(response => console.log(response)
+      .then(response => response.json())
+      .then(response => setOrderId(response)
       );
     }
     

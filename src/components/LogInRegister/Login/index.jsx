@@ -45,7 +45,14 @@ const Login = (props) => {
       if (data.error) {
         setError(data.error);
       } else {
-        localStorage.setItem('user_petrushka_style', JSON.stringify(data.user)); // Зберігаємо користувача
+        if(formData.rememberMe)
+        {
+          localStorage.setItem('user_petrushka_style', JSON.stringify(data.user)); // Зберігаємо користувача
+        }
+        else
+        {
+          sessionStorage.setItem('user_petrushka_style', JSON.stringify(data.user));
+        }
         props.loadCurrentUser();
         navigate('/'); // Перенаправлення на сторінку після входу
       }
@@ -63,7 +70,7 @@ const Login = (props) => {
 
         {error && <Typography className={styles.error_message}>{error}</Typography>} {/* Відображення помилки */}
 
-        <form onSubmit={handleSubmit} className={styles.login_form}>
+        <form onSubmit={handleSubmit} noValidate className={styles.login_form}>
           <TextField
             label="Пошта"
             name="email"

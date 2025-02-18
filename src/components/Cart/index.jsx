@@ -223,14 +223,22 @@ const Cart = (props) => {
 
   const handlerOnChangePhoneNumber = (event) =>
   {
-    setIsPhoneNumberValid(true);
-    setPhoneNumber(event.target.value);
+    let pattern = new RegExp('^[+]*[0-9]*$');
+    if(pattern.test(event.target.value))
+    {
+      setIsPhoneNumberValid(true);
+      setPhoneNumber(event.target.value);
+    }
   }
 
   const handlerOnChangeFirstName = (event) =>
   {
-    setIsFirstNameValid(true);
-    setFirstName(event.target.value);
+    let pattern = new RegExp('^[a-zA-Z]*$');
+    if(pattern.test(event.target.value))
+    {
+      setIsFirstNameValid(true);
+      setFirstName(event.target.value);
+    }
   }
 
   const handlerOnChangeSelect = (e) =>
@@ -299,12 +307,20 @@ const Cart = (props) => {
 
   const handlerOnChangeLastName = (event) =>
   {
-    setLastName(event.target.value);
+    let pattern = new RegExp('^[a-zA-z]*$');
+    if(pattern.test(event.target.value))
+    {
+      setLastName(event.target.value);
+    }
   }
 
   const handlerOnChangePatronymic = (event) =>
   {
-    setPatronymic(event.target.value);
+    let pattern = new RegExp('^[a-zA-z]*$');
+    if(pattern.test(event.target.value))
+    {
+      setPatronymic(event.target.value);
+    }
   }
 
   const updateQuantityInCart = (product, size, newQuantity) =>

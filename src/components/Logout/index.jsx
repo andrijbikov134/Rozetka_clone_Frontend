@@ -6,6 +6,7 @@ const Logout = (props) => {
 
   useEffect(() => {
     localStorage.setItem('user_petrushka_style', null);
+    sessionStorage.setItem('user_petrushka_style', null);
     props.loadCurrentUser();
     navigate('/');
   }, []);

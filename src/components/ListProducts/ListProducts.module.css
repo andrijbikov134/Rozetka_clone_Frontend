@@ -10,14 +10,14 @@
   justify-content: center;
   align-items: center;
 }
-.container
+.popular_products_container
 {
-  width: 60%;
+  width: 100%;
 }
 .container_products
 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 0.625rem;
+  gap: 2.5rem;
   margin-top: 1rem;
 }

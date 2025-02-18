@@ -17,14 +17,14 @@ const QuestionsAndAnswers = () =>
         </div>
         <br />
 
-        <h3>
+        {/* <h3>
           <img className={styles.img_mark} src="./img/circle.png" alt=""/> 
           Як отримати подарунковий сертифікат та яким чином їм скористатися?
         </h3>
         <div>
           Подарунковий сертифікат можна отримати <Link to='/giftcertificates'><span className={styles.link_gift_certificate}>тут</span></Link> 
         </div>
-        <br />
+        <br /> */}
 
         <h3>
           <img className={styles.img_mark} src="./img/circle.png" alt=""/> 
@@ -33,7 +33,7 @@ const QuestionsAndAnswers = () =>
         <div>Доставка безкоштовна в межах України за умови, якщо сума замовлення - понад 2 999 грн.</div>
         <br />
 
-        <h3>
+        {/* <h3>
           <img className={styles.img_mark} src="./img/circle.png" alt=""/> 
           Чи діє накопичувальна програма?
         </h3>
@@ -44,7 +44,7 @@ const QuestionsAndAnswers = () =>
         - при накопиченні суми замовлень від 15 000 грн. - знижка 7% <br />
         - при накопиченні суми замовлень від 20 000 грн. - знижка 10% <br />
         </div>
-        <br />
+        <br /> */}
       </div>
     </>
   );
