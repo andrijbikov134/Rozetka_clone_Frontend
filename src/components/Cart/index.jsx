@@ -10,7 +10,7 @@ const Cart = (props) => {
 
   const [totalSum, setTotalSum] = useState(0);
   
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style')));
 
   const [phoneNumber, setPhoneNumber] = useState(currentUser == null ? '+38' : currentUser.phone);
 

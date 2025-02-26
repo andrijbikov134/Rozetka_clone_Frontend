@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react';
 import styles from "./ProductsListWithFilters.module.css"
 import Product from '../Product';
 import Filters from '../Filters';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ProductsListWithFilters = (props) => {
-
+  
+  const navigate = useNavigate();
   let location = useLocation();
+
   // Властивість, яка зберігає список подій / Зчитати список подій з глобальної властивості
   const [products, setProducts] = useState([]);
 
@@ -60,7 +62,7 @@ const ProductsListWithFilters = (props) => {
       )
     .then(response =>
     {
-      setProducts(response);  
+      setProducts(response);
     })
   }
 
@@ -97,50 +99,6 @@ const ProductsListWithFilters = (props) => {
     }
   }
 
-  useEffect(() => {
-    loadCurrentUser();
-    loadProductsFromDB();
-  }, []);
-
-  useEffect(() => {
-    //loadPriceRange();
-  }, [products]);
-
-  useEffect(() => {
-    loadFilteredProducts();
-  }, [filters]);
-
-
-  const loadProductsFromDB = () =>
-  {
-    let newCategorySubSub = location.pathname.split('/').pop();
-    setCategorySubSub(newCategorySubSub);
-    let url;
-    if(props.action == 'getProductsWithoutFilters')
-    {
-      url = `${props.localhost}/index.php?action=getProductsWithoutFilters&category=${props.category}&categorysub=${props.category_sub}&categorysubsub=${newCategorySubSub}`;
-    }
-    else
-    {
-      url = `${props.localhost}/index.php?action=getProducts&categoryid=${props.category_id}&categorysubid=${props.category_sub_id}&categorysubsubid=${props.category_sub_sub_id}`;
-    }
-    fetch(url, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json', 
-      },
-      body: JSON.stringify({action: 1})
-    })
-    .then(response =>
-      response.json()
-      )
-    .then(response => {
-      setProducts(response);
-      loadCategoryTitle();
-    })
-
-  }
-
   const loadCategoryTitle = () => 
   {
     let category = categorySubSub + "_" + props.category;
@@ -156,7 +114,27 @@ const ProductsListWithFilters = (props) => {
       response.json()
       )
     .then(response => {
-      setCategoryTitle(response[0][0]);
+      setCategoryTitle(response[0]['title_ua']);
+    })
+  }
+
+  const loadProductSizes = (id) => 
+  {
+    let url;
+    let action = 'getProductSizes';
+    url = `${props.localhost}/index.php?action=${action}&productId=${id}`;
+    
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+        setSizes(response);
     })
   }
 
@@ -166,6 +144,73 @@ const ProductsListWithFilters = (props) => {
     setSortOrder(sort);
     setFilters({ ...filters, sort: sort });
   };
+
+  const handlerOnClickAddNewProduct = () => 
+  {
+    navigate('/addnewproduct', {state:{product: null, category: props.category, categorySub: props.category_sub, categorySubSub: categorySubSub, categorySubSubUa: categoryTitle} });
+  }
+
+  const handlerOnClickEditProduct = (id) => 
+  {
+    let foundProduct = products.filter((product) => product.id == id);
+    let action = 'getProductSizes';
+    let url = `${props.localhost}/index.php?action=${action}&productId=${id}`;
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+        navigate('/addnewproduct', {state:{product: foundProduct[0], sizes: response, category: props.category, categorySub: props.category_sub, categorySubSub: categorySubSub, categorySubSubUa: categoryTitle} });
+    })
+  }
+
+  const handlerOnClickDeleteProduct = (id) =>
+  {
+    let url;
+    let action = 'deleteProductFromDB';
+    url = `${props.localhost}/index.php?action=${action}`;
+    
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+      body : JSON.stringify({id: id}),
+    })
+    .then(response =>
+        response.json()
+      ).then((response) =>
+      {
+        if(response.error != "OK")
+        {
+          alert(response.error);
+        }
+        else
+        {
+
+          loadFilteredProducts();
+        }
+      }
+      )
+  }
+
+  useEffect(() => {
+    loadCurrentUser();
+    //loadProductsFromDB();
+  }, []);
+
+  useEffect(() => {
+    loadCategoryTitle();
+  }, [products]);
+
+  useEffect(() => {
+    loadFilteredProducts();
+  }, [filters]);
 
 
   return (
@@ -178,14 +223,14 @@ const ProductsListWithFilters = (props) => {
           <h2>{categoryTitle}</h2>
           <div className={styles.header}>
             {
-              currentUser != 0 ? (currentUser.role != 'Administrator' ? "" :
-              <div className={styles.button_add_new_product}>
-                Add new product
+              currentUser != 0 ? (currentUser.role != 'Administrator' ? <div></div> :
+              <div className={styles.button_add_new_product} onClick={handlerOnClickAddNewProduct}>
+                Додати новий товар
               </div>) : <div></div>
             }
             <div className={styles.sort_price}>
               <select value={sortOrder} onChange={handleSortChange}>
-                <option value="rating">За рейтингом</option>
+                <option value="rating">За популярністю</option>
                 <option value="asc">Від дешевих до дорогих</option>
                 <option value="desc">Від дорогих до дешевих</option>
               </select>
@@ -200,7 +245,7 @@ const ProductsListWithFilters = (props) => {
                 {     
                   return (
                     <>
-                      <Product id={product.id} img={props.localhostFrontend + product.pictures_path} title={product.title} price={product.price} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} localhostFrontend={props.localhostFrontend}/>
+                      <Product id={product.id} img={props.localhostFrontend + product.pictures_path} title={product.title} price={product.price} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} localhostFrontend={props.localhostFrontend}/>
                     </>
                     )
                 })}

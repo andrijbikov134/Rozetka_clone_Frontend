@@ -17,7 +17,7 @@ const Feedback = (props) => {
   const [advantages, setAdvantages] = useState(1);
   const [disadvantages, setDisadvantages] = useState(1);
   const [grade, setGrade] = useState(null);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style')));
 
   const handlerCommentChanged = (event) =>
   {

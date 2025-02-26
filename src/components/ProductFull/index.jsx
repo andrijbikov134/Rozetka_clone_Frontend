@@ -7,7 +7,7 @@ const ProductFull = (props) => {
   let location = useLocation();
   let navigate = useNavigate();
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style')));
   
   const [isFeedbackErrorVisible, setIsFeedbackErrorVisible] = useState(false);
 
@@ -219,6 +219,8 @@ const ProductFull = (props) => {
             <div>{characteristics.color}</div>
             <div>Матеріал:</div>
             <div>{characteristics.material}</div>
+            <div>Країна-виробник:</div>
+            <div>{characteristics.country}</div>
           </div>
         </div>
 

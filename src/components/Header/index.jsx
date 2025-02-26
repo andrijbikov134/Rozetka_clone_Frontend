@@ -63,35 +63,35 @@ const Header = (props) =>
   
   let categoriesProfileClient = [
     {
-      type: "profile",
+      type: "profile/edit",
       title: 'Персональні дані'
     },
     {
-      type: "orders",
+      type: "profile/orders",
       title: 'Мої замовлення'
     },
     {
       type: "logout",
-      title: 'Вийти'
+      title: 'Вийти з кабінету'
     }
   ];
 
   let categoriesProfileAdmin = [
     {
-      type: "allorders",
+      type: "profile/allorders",
       title: 'Усі замовлення'
     },
     {
-      type: "statisticssale",
+      type: "profile/statisticssale",
       title: 'Статистика продажів'
     },
     {
-      type: "addadmin",
+      type: "profile/addadmin",
       title: 'Додати адміністратора'
     },
     {
       type: "logout",
-      title: 'Вийти'
+      title: 'Вийти з кабінету'
     }
   ];
 

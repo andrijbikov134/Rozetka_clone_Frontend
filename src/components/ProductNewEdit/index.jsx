@@ -1,0 +1,383 @@
+import React, { useContext, useEffect, useId, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styles from "./ProductNewEdit.module.css"
+
+const ProductNewEdit = ({localhost}) => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [product, setProduct] = useState(location.state.product);
+  const [newProduct, setNewProduct] = useState({id: null});
+  const [brands, setBrands] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [materials, setMaterials] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [category, setCategory] = useState(location.state.category);
+  const [categorySub, setCategorySub] = useState(location.state.categorySub);
+  const [categorySubSub, setCategorySubSub] = useState(location.state.categorySubSub);
+
+  const [title, setTitle] = useState(location.state.product != null ? location.state.product.title : '');
+  const [partnumber, setPartnumber] = useState(location.state.product != null ? location.state.product.part_number : '');
+  const [price, setPrice] = useState(location.state.product != null ? location.state.product.price : '');
+  const [selectedSizes, setSelectedSizes] = useState(location.state.product != null ? location.state.sizes : []);
+  const [selectedColor, setSelectedColor] = useState({id: location.state.product != null ? location.state.product.color_id : 0});
+  const [selectedBrand, setSelectedBrand] = useState({id: location.state.product != null ? location.state.product.brand_id : 0});
+  const [selectedMaterial, setSelectedMaterial] = useState({id: location.state.product != null ? location.state.product.material_id : 0});
+  const [selectedCountry, setSelectedCountry] = useState({id: location.state.product != null ? location.state.product.country_product_id : 0});
+  const [imgPath, setImgPath] = useState('');
+  const [imgArray, setImgArray] = useState([]);
+
+  const [isValidPrice, setIsValidPrice] = useState(true);
+  const [isValidTitle, setIsValidTitle] = useState(true);
+  const [isValidPartnumber, setIsValidPartnumber] = useState(true);
+  const [isValidSize, setIsValidSize] = useState(true);
+
+
+  const loadBrands = () =>
+  {
+    fetch(`${localhost}/index.php?action=getAllBrands`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setBrands(response);
+      if(product == null)
+      {
+        setSelectedBrand(response[0]);
+      }
+    })
+  }
+  
+  const loadSizes = () =>
+  {
+    fetch(`${localhost}/index.php?action=getAllSizes`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setSizes(response);
+    })
+  }
+
+  const loadMaterials = () =>
+  {
+    fetch(`${localhost}/index.php?action=getAllMaterials`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setMaterials(response);
+      if(product == null)
+      {
+        setSelectedMaterial(response[0]);
+      }
+    })
+  }
+
+  const loadColors = () =>
+  {
+    fetch(`${localhost}/index.php?action=getAllColors`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setColors(response);
+      if(product == null)
+      {
+
+        setSelectedColor(response[0]);
+      }
+    })
+  }
+
+  const loadCountries = () =>
+    {
+      fetch(`${localhost}/index.php?action=getAllCountries`, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+      })
+      .then(response =>
+        response.json()
+        )
+      .then(response => {
+        setCountries(response);
+        if(product == null)
+        {
+          setSelectedCountry(response[0]);
+        }
+      })
+    }
+  const handlerOnChangeBrand = (event) =>
+  {
+    const brandId = event.target.selectedOptions[0].value;
+    const brandTitle = event.target.selectedOptions[0].dataset.title;
+    setSelectedBrand({id: brandId, title: brandTitle});
+  }
+
+  const handlerOnChangeColor = (event) =>
+  {
+    const colorId = event.target.selectedOptions[0].value;
+    const colorTitle = event.target.selectedOptions[0].dataset.title;
+    setSelectedColor({id: colorId, title: colorTitle});
+  }
+
+  const handlerOnChangeMaterial = (event) =>
+  {
+    const materialId = event.target.selectedOptions[0].value;
+    const materialTitle = event.target.selectedOptions[0].dataset.title;
+    setSelectedMaterial({id: materialId, title: materialTitle});
+  }
+
+  const handlerOnChangeCountry = (event) =>
+  {
+    const countryId = event.target.selectedOptions[0].value;
+    const countryTitle = event.target.selectedOptions[0].dataset.title;
+    setSelectedCountry({id: countryId, title: countryTitle});
+  }
+
+  const handlerOnChangeTitle = (event) => 
+  {
+    let title = event.target.value;
+    setTitle(title);
+    title.length == 0 ? setIsValidTitle(false) : setIsValidTitle(true);
+  }
+
+  const handlerOnChangePartnumber = (event) => 
+  {
+    let partnumber = event.target.value;
+    setPartnumber(partnumber);
+    partnumber.length == 0 ? setIsValidPartnumber(false) : setIsValidPartnumber(true);
+  }
+
+  const handlerOnChangePrice = (event) => 
+  {
+    let price = event.target.value;
+    let pattern = new RegExp('^[1-9]*[0-9.]*$');
+    if(pattern.test(price))
+    {
+      setPrice(price);
+      setIsValidPrice(true);   
+    }
+    if(price.length == 0)
+    {
+      setIsValidPrice(false);
+    }
+  }
+
+  const handlerSizeChange = (event) => {
+    const sizeId = event.target.value;
+    const sizeTitle = event.target.dataset.title;
+    let updatedSizes = [...selectedSizes];
+
+    if (event.target.checked)
+    {
+      updatedSizes.push({id: sizeId, title: sizeTitle});
+    } 
+    else
+    {
+      updatedSizes = updatedSizes.filter((s) => s.id != sizeId);
+    }
+    updatedSizes.length == 0 ? setIsValidSize(false) : setIsValidSize(true);      
+
+    setSelectedSizes(updatedSizes);
+  };
+
+  const handlerColorChange = (event) =>
+  {
+    const colorId = event.target.value;
+    const colorTitle = event.target.dataset.title;
+    let updatedColors = [...selectedColor];
+
+    if (event.target.checked)
+    {
+      updatedColors.push({id: colorId, title: colorTitle});
+    } 
+    else
+    {
+      updatedColors = updatedColors.filter((c) => c.id != colorId);
+    }      
+
+    setSelectedColor(updatedColors);
+  
+  }
+
+
+  const handlerOnChangeImg = (event) =>
+  {
+    setImgPath(event.target.files[0].name);
+    let reader = new FileReader();
+    let imgArr = reader.readAsArrayBuffer(event.target.files[0]);
+    setImgArray(imgArr);
+  }
+
+  const validation = () =>
+  {
+    let result = true;
+    if(title.length == 0)
+    {
+      setIsValidTitle(false);
+      result = false;
+    }
+    if(price.length == 0)
+    {
+      setIsValidPrice(false);
+      result = false;
+    }
+    if(partnumber.length == 0)
+    {
+      setIsValidPartnumber(false);
+      result = false;
+    }
+    if(selectedSizes.length == 0)
+    {
+      setIsValidSize(false);
+      result = false;
+    }
+    return result;
+  }
+
+  const addOrUpdateProductInDB = () =>
+  {
+    if(validation())
+    {
+      let newProduct = {id: product == null ? null : product.id, title: title, color_id: selectedColor.id, brand_id: selectedBrand.id, price: price, material_id: selectedMaterial.id, country_product_id: selectedCountry.id,part_number: partnumber, category: category, categorySub: categorySub, categorySubSub: categorySubSub, img: imgArray, sizes: selectedSizes}
+      fetch(`${localhost}/index.php?action=addOrUpdateProductInDB`, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(newProduct)
+      })
+      .then(response =>
+          navigate(-1)
+        )
+    }
+  }
+
+  const handlerOnClickSave = () =>
+  {
+    addOrUpdateProductInDB();
+  }
+
+  const handlerOnClickCancel = () =>
+  {
+    navigate(-1);
+  }
+
+  useEffect(() => {
+    loadBrands();
+    loadSizes();
+    loadMaterials();
+    loadColors();
+    loadCountries();
+  }, []);
+  
+  return (
+      <>
+      <div className={styles.main_container}>
+        <div></div>
+        <h3>{product == null ? 'Додавання нового' : 'Редагування'} товару</h3>
+        <div className={styles.title}>Назва товару:</div>
+        <input className={styles.title_input + " " + (isValidTitle ? '' : styles.error)} type="text" value={title} onChange={handlerOnChangeTitle}/>
+        <div className={styles.title}>Артикул:</div>
+        <div className={styles.partnumber_type_container}>
+          <input className={styles.partnumber_input + " " + (isValidPartnumber ? '' : styles.error)} type="text" value={partnumber} onChange={handlerOnChangePartnumber}/>
+          <div className={styles.title}>Тип:</div>
+          <div className={styles.title_categorySubSub} >{location.state.categorySubSubUa}</div>  
+        </div>
+        <div className={styles.title}>Ціна, грн.:</div>
+        <input className={styles.price_input + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
+        <div className={styles.title}>Розмір:</div>
+        <div className={styles.sizes_container  + " " + (isValidSize ? '' : styles.error)}>
+          {
+            sizes.map((size) => {
+              let foundSize = selectedSizes.filter((s) => s.id == size.id);
+              return (
+                <div className={styles.size_container}>
+                  <input className={styles.input} type="checkbox" onChange={handlerSizeChange} checked={foundSize.length != 0} value={size.id} data-title={size.title}/>
+                  <div>{size.title}</div>
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className={styles.title}>Бренд:</div>
+        <select className={styles.brands_select} name="brand" id="" onChange={handlerOnChangeBrand}>
+          {
+            brands.map((brand) => {
+              return <option value={brand.id} data-title={brand.title} selected={brand.id == selectedBrand.id}>{brand.title}</option>
+            })
+          }
+        </select>
+           
+        <div className={styles.title}>Колір:</div>
+        <select className={styles.colors_container} onChange={handlerOnChangeColor}>
+          {
+            colors.map((color) => {
+              return <option value={color.id} data-title={color.title} selected={color.id == selectedColor.id}>{color.title}</option>
+            })
+            // colors.map((color) => {
+            //   return (
+            //     <div className={styles.color_container}>
+            //       <input className={styles.input} type="checkbox" onChange={handlerColorChange} value={color.id} data-title={color.title}/>
+            //       <div>{color.title}</div>
+            //     </div>
+            //   )
+            // })
+          }
+        </select>
+        <div className={styles.title}>Матеріал:</div>
+        <select className={styles.materials_select} name="material" id="" onChange={handlerOnChangeMaterial}>
+        {
+            materials.map((material) => {
+              return <option value={material.id} data-title={material.title} selected={material.id == selectedMaterial.id}>{material.title}</option>
+            })
+        }
+        </select>
+        <div className={styles.title}>Країна-виробник:</div>
+        <select className={styles.countries_container} onChange={handlerOnChangeCountry}>
+          {
+            countries.map((country) => {
+              return <option value={country.id} data-title={country.title} selected={country.id == selectedCountry.id}>{country.title}</option>
+            })
+          }
+        </select>
+        <div className={styles.title}>Картинка:</div>
+        <div className={styles.choose_img_container}>
+          <label for="img_path" className={styles.img_input}>Обрати файл</label>
+          <input id="img_path" className={styles.display_none} onChange={handlerOnChangeImg} type="file"/>
+          <div>{imgPath}</div>
+        </div>
+        
+        <div className={styles.button_cancel} onClick={handlerOnClickCancel}>Скасувати</div>
+        <div className={styles.button_save} onClick={handlerOnClickSave}>Зберегти</div>
+      </div>
+      </>
+  );
+}
+
+export default ProductNewEdit;

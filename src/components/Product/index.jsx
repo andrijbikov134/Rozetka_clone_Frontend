@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useId, useState } from 'react';
 import styles from "./Product.module.css"
+import { useNavigate } from 'react-router-dom';
 
 const Product = (props) => {
 
-  const [currentUser, setCurrentUser] = useState(0)
+  const [currentUser, setCurrentUser] = useState(0);
+  const navigate = useNavigate();
 
   const loadCurrentUser = () =>
   {
@@ -56,6 +58,18 @@ const Product = (props) => {
     props.handlerOnClickProduct(props.id);
   }
 
+  const handlerOnClickEditProduct = () =>
+  {
+    props.handlerOnClickEditProduct(props.id);
+  }
+
+  const handlerOnClickDeleteProduct = () => 
+  {
+    props.handlerOnClickDeleteProduct(props.id);
+  }
+
+ 
+
   useEffect(() => {
     loadCurrentUser();
   }, []);
@@ -72,10 +86,14 @@ const Product = (props) => {
         </div>
         {
           currentUser != 0 ? (currentUser.role != 'Administrator' ? "" :
-          <div className={styles.buttons_container}>
-              <div className={styles.button}>Edit</div>
-              <div className={styles.button}>Delete</div>
-          </div>) : ''
+          <>
+            <div className={styles.buttons_container}>
+                <div className={styles.button} onClick={handlerOnClickEditProduct}>Редагувати</div>
+                <div className={styles.button}>Приховати</div>
+            </div>
+            <div className={styles.button_delete} onClick={handlerOnClickDeleteProduct}>Видалити</div>
+          </>
+          ) : ''
         }
       </div>
       </>

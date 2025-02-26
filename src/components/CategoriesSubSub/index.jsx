@@ -1,10 +1,13 @@
 import styles from "./CategoriesSubSub.module.css";
 import CategoryItem from '../CategoryItem';
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CategoriesSubSub = (props) =>
 {
   const [categories, setCategories] = useState([]);
+
+  const navigate = useNavigate();
   
   const loadCategories = () =>
   {
@@ -24,6 +27,14 @@ const CategoriesSubSub = (props) =>
     })
   }
 
+  const handlerOnClick = (event) =>
+  {
+    let splitedTitles = event.target.dataset.categorysubsub.split("_");
+    let categorySubSub =splitedTitles[0];
+    let route = `/${props.category}/${props.category_sub}/${categorySubSub}`;
+    navigate(route);
+  }
+
   useEffect(() => {
     loadCategories();
   }, [props]);
@@ -31,6 +42,17 @@ const CategoriesSubSub = (props) =>
   return (
     <>
     <div className={styles.main_container} >
+      <div className={styles.categories_container}>
+        {categories.map((category) => 
+        {
+          return(
+            <div className={styles.category} onClick={handlerOnClick} data-categorysubsub={category.title}>
+                  {category.title_ua}
+                  <hr className={styles.hr} />
+            </div>
+          )
+        })}
+      </div>
       <div className={styles.grid_container}>
         {categories.map((item) =>
         {

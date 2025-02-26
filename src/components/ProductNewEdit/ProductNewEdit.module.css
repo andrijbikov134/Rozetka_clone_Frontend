@@ -1,0 +1,122 @@
+.main_container
+{
+  display: grid;
+  grid-template-columns: 20% 80%;
+  gap: 0.75rem;
+  width: 50%;
+  margin-top: 1rem;
+}
+
+.main_container :nth-child(2n-1)
+{
+  text-align: start;
+}
+
+.title_input
+{
+  width: 100%;
+}
+
+.partnumber_input
+{
+  width: 50%;
+}
+
+.partnumber_type_container
+{
+  display: flex;
+  gap: 1rem;
+}
+
+.price_input
+{
+  width: 25%;
+}
+
+.sizes_container
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.size_container{
+
+  display: flex;
+}
+
+.colors_container
+{
+  width: 50%;
+}
+
+.color_container
+{
+  display: flex;
+}
+
+.brands_select
+{
+  width: 50%;
+}
+
+.materials_select
+{
+  width: 50%;
+}
+
+.choose_img_container
+{
+  display: flex;
+  gap: 1rem;
+  text-align: start;
+}
+
+.display_none
+{
+  display: none;
+}
+
+.error
+{
+  border: 0.0625rem solid red;
+}
+
+.title_categorySubSub
+{
+  text-align: start;
+}
+
+.countries_container
+{
+  width: 50%;
+}
+
+.img_input
+{
+  color: black;
+  border: 0.125rem solid rgb(247, 156, 255);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  background-color: rgb(247, 156, 255);
+  cursor: pointer;
+}
+
+.button_save
+{
+  background-color: rgb(247, 156, 255);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.button_cancel
+{
+  background-color: rgb(232, 232, 232);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center !important;
+}
