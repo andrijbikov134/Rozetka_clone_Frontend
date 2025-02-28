@@ -78,6 +78,10 @@ const Header = (props) =>
 
   let categoriesProfileAdmin = [
     {
+      type: "profile/edit",
+      title: 'Персональні дані'
+    },
+    {
       type: "profile/allorders",
       title: 'Усі замовлення'
     },
@@ -148,6 +152,16 @@ const Header = (props) =>
             <div>
               <DropdownMenu category_title="Для дітей" type="children" categories={categoriesSub} />
             </div>
+            <div>
+              <div className={styles.sale_container} >
+                <Link className={styles.sale} to='/sale'>Розпродаж</Link>
+                <img className={styles.img_sale} src={props.localhostFrontend + '/img/sale.png'}/>
+              </div>
+            </div>
+            <div>
+              <Link className={styles.promotions} to='/promotions'>Акції</Link>
+            </div>
+
           </div>
 
           

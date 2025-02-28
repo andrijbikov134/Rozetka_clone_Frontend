@@ -72,7 +72,7 @@ const CartProductRow = (props) => {
       <>
         <div className={styles.ceil_container}>
           <div className={styles.img_container}>
-            <img className={styles.img_product} src={props.product.pictures_path} alt="" />
+            <img className={styles.img_product} src={props.googleBucketUrl + props.product.pictures_path} alt="" />
           </div>
           <div className={styles.product_description}>
             <div className={styles.title}>{props.product.title}</div>

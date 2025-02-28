@@ -108,6 +108,17 @@ a:link:active, a:visited:active
   height: 6rem;
 }
 
+.sale
+{
+  font-size: 1rem;
+}
+
+.img_sale
+{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .cart
 {
   margin-right: 2rem;
@@ -154,9 +165,35 @@ a:link:active, a:visited:active
   gap: 0.5rem;
 }
 
-.profile{
+.profile
+{
   display: flex;
   color: white !important;
   align-items: center;
   gap: 1rem;
+}
+
+.sale_container
+{
+  display: flex;
+  align-items: center;
+  color: black;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+
+.sale_container:hover, .promotions:hover, .sale:hover
+{
+  background-color: rgb(247, 156, 255);
+  color: black;
+}
+
+.promotions
+{
+  font-size: 1rem;
+  color: black;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
 }

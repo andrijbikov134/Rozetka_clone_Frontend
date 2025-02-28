@@ -63,9 +63,14 @@ const Product = (props) => {
     props.handlerOnClickEditProduct(props.id);
   }
 
+  const handlerOnClickCopyProduct = () =>
+  {
+    props.handlerOnClickCopyProduct();
+  }
+
   const handlerOnClickDeleteProduct = () => 
   {
-    props.handlerOnClickDeleteProduct(props.id);
+    props.handlerOnClickDeleteProduct(props.id, props.img);
   }
 
  
@@ -78,20 +83,29 @@ const Product = (props) => {
       <>
       <div>
         <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
-          <img className={styles.img} src={props.img} alt="" />
+          <img className={styles.img} src={props.googleBucketUrl + props.img} alt="" />
           <div className={styles.title}>{[props.title]}</div>
           <div className={styles.delivery_text}>Готовий до відправлення <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'} /> </div>
           <div className={styles.price}>{props.price.toLocaleString('ua-UA')} грн.</div>
-          
+          {/* Якщо товар зі знижкою, то виводити знижку */}
+          {/* <div className={styles.price_with_discount_container}>
+            <div className={styles.price_with_discount}>{props.price.toLocaleString('ua-UA')} грн.</div>
+            <div className={styles.discount_percent}>-20%</div>
+          </div> */}
         </div>
         {
           currentUser != 0 ? (currentUser.role != 'Administrator' ? "" :
           <>
+          <div>
             <div className={styles.buttons_container}>
                 <div className={styles.button} onClick={handlerOnClickEditProduct}>Редагувати</div>
-                <div className={styles.button}>Приховати</div>
+                <div className={styles.button} onClick={handlerOnClickCopyProduct}>Копіювати</div>
             </div>
-            <div className={styles.button_delete} onClick={handlerOnClickDeleteProduct}>Видалити</div>
+            <div className={styles.buttons_container}>
+              <div className={styles.button_hide} onClick={handlerOnClickEditProduct}>Приховати</div>
+              <div className={styles.button_delete} onClick={handlerOnClickDeleteProduct}>Видалити</div>
+            </div>
+          </div>
           </>
           ) : ''
         }

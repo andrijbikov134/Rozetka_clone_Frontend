@@ -49,9 +49,23 @@ const ProfilePage = (props) => {
     <div className={styles.main_container}>
       <div className={styles.nav_bar_container}>
         <h3>Раді, що Ви з нами, {user.first_name}!</h3>
-        <Link to="/profile/edit">Редагувати профіль</Link>
-        <Link to="/profile/password">Змінити пароль</Link>
-        <Link to="/profile/orders">Мої замовлення</Link>
+        {
+          user.role == "Administrator" ?
+          <>
+          <Link to="/profile/edit">Редагувати профіль</Link>
+          <Link to="/profile/password">Змінити пароль</Link>
+          <Link to="/profile/allorders">Усі замовлення</Link>
+          <Link to="/profile/statistic">Статистика продажів</Link>
+          <Link to="/profile/addadmin">Додати адміністратора</Link>
+          </> 
+          :
+          <>
+          <Link to="/profile/edit">Редагувати профіль</Link>
+          <Link to="/profile/password">Змінити пароль</Link>
+          <Link to="/profile/orders">Мої замовлення</Link>
+          </>
+        }
+        
         <hr className={styles.hr}/>
         
         <div className={styles.exit_container}>

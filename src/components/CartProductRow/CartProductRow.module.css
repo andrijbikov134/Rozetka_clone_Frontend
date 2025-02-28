@@ -5,12 +5,27 @@
   justify-content: center;
   align-items: center;
   color: black;
+  /* width: 14rem; */
 }
 
 .img_product
 {
+  /* margin-left: 3rem; */
   height: 5rem;
   width: 5rem;
+}
+
+.img_container
+{
+  margin-left: 2rem;
+}
+
+.product_description
+{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 14rem;
 }
 
 .title
@@ -55,6 +70,12 @@
   font-weight: bold;
 }
 
+.btn_delete
+{
+  display: flex;
+  justify-content: end;
+  padding-right: 1rem;
+}
 
 .img_delete
 {

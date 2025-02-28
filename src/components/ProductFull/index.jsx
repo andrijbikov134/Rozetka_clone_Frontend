@@ -166,11 +166,12 @@ const ProductFull = (props) => {
   }, [product]);
 
 
+
   return (
     <>
       <div className={styles.main_container}>
         <div className={styles.product_container}>
-          <img className={styles.img} src={props.localhostFrontend + "/" + product.pictures_path} alt="" />
+          <img className={styles.img} src={props.googleBucketUrl + product.pictures_path} alt="" />
           <div className={styles.container_column}>
             <div className={styles.title}>{[product.title]}</div>
             <div>

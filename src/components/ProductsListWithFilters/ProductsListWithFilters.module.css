@@ -17,7 +17,8 @@
 {
   display: grid;
   grid-template-columns:  repeat(4,1fr);
-  gap: 0.625rem;
+  gap: 1rem;
+  row-gap: 3rem;
   width: 100%;
   margin-top: 1rem;
 }
@@ -41,6 +42,10 @@
   padding-block: 0.25rem;
   justify-content: space-between;
   width: 100%;
+}
+.count_found_products
+{
+  font-weight: 400;
 }
 .sort_price
 {

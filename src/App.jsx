@@ -58,6 +58,8 @@ function App()
   const localhost = 'http://localhost:8888';
   //const localhost = 'https://192.168.0.113:8080/api';
 
+  const googleBucketUrl = 'https://storage.googleapis.com/clothes_store/';
+
   // Функція для разового створення JSON-файла
   const saveToLocalStorage = (key, array) =>
   {
@@ -232,40 +234,40 @@ function App()
         <div className="main_block">
           <ScrollToTop/>
           <Routes>
-            <Route path='/' element={<ListProducts action='getPopularProducts' title='ПОПУЛЯРНІ ТОВАРИ' handlerSearchTitleClean={handlerSearchTitleClean} handlerOnClickProduct={handlerOnClickProduct} localhost={localhost} localhostFrontend={localhostFrontend}/>}/>
-            <Route path='/women/clothes' element={<CategoriesSubSub category='women' category_sub='clothes' localhost={localhost} />} />
-            <Route path='/women/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/' element={<ListProducts action='getPopularProducts' title='ПОПУЛЯРНІ ТОВАРИ' handlerSearchTitleClean={handlerSearchTitleClean} handlerOnClickProduct={handlerOnClickProduct} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl}/>}/>
+            <Route path='/women/clothes' element={<CategoriesSubSub category='women' category_sub='clothes' localhost={localhost} googleBucketUrl={googleBucketUrl} />} />
+            <Route path='/women/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/women/shoes' element={<CategoriesSubSub category='women' category_sub='shoes' localhost={localhost}/>} />
-            <Route path='/women/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/women/shoes' element={<CategoriesSubSub category='women' category_sub='shoes' localhost={localhost} googleBucketUrl={googleBucketUrl}/>} />
+            <Route path='/women/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/women/accessories' element={<CategoriesSubSub category='women' category_sub='accessories' localhost={localhost}/>} />
-            <Route path='/women/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/women/accessories' element={<CategoriesSubSub category='women' category_sub='accessories' localhost={localhost} googleBucketUrl={googleBucketUrl}/>} />
+            <Route path='/women/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='women' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/men/clothes' element={<CategoriesSubSub category='men' category_sub='clothes' localhost={localhost}/>} />
-            <Route path='/men/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/men/clothes' element={<CategoriesSubSub category='men' category_sub='clothes' localhost={localhost} googleBucketUrl={googleBucketUrl}/>} />
+            <Route path='/men/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
             
-            <Route path='/men/shoes' element={<CategoriesSubSub category='men' category_sub='shoes' localhost={localhost}/>} />
-            <Route path='/men/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}  />
+            <Route path='/men/shoes' element={<CategoriesSubSub category='men' category_sub='shoes' localhost={localhost} googleBucketUrl={googleBucketUrl}/>} />
+            <Route path='/men/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>}  />
 
-            <Route path='/men/accessories' element={<CategoriesSubSub category='men' category_sub='accessories' localhost={localhost}/>} />
-            <Route path='/men/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/men/accessories' element={<CategoriesSubSub category='men' category_sub='accessories' localhost={localhost}googleBucketUrl={googleBucketUrl}/>} />
+            <Route path='/men/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='men' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/children/clothes' element={<CategoriesSubSub category='children' category_sub='clothes' localhost={localhost}/>} />
-            <Route path='/children/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/children/clothes' element={<CategoriesSubSub category='children' category_sub='clothes' localhost={localhost} googleBucketUrl={googleBucketUrl}/>}  />
+            <Route path='/children/clothes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='clothes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/children/shoes' element={<CategoriesSubSub category='children' category_sub='shoes' localhost={localhost}/>} />
-            <Route path='/children/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/children/shoes' element={<CategoriesSubSub category='children' category_sub='shoes' localhost={localhost} googleBucketUrl={googleBucketUrl}/>} />
+            <Route path='/children/shoes/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='shoes' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/children/accessories' element={<CategoriesSubSub category='children' category_sub='accessories' localhost={localhost}/>}  />
-            <Route path='/children/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>} />
+            <Route path='/children/accessories' element={<CategoriesSubSub category='children' category_sub='accessories' localhost={localhost} googleBucketUrl={googleBucketUrl}/>}  />
+            <Route path='/children/accessories/*' element={<ProductsListWithFilters action='getProductsWithoutFilters' category='children' category_sub='accessories' localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl}/>} />
 
-            <Route path='/product/*' element={<ProductFull handlerOnClickAddToCart={handlerOnClickAddToCart} localhost={localhost} localhostFrontend={localhostFrontend} loadFromLocalStorage={loadFromLocalStorage}/>}  />
+            <Route path='/product/*' element={<ProductFull handlerOnClickAddToCart={handlerOnClickAddToCart} localhost={localhost} localhostFrontend={localhostFrontend} loadFromLocalStorage={loadFromLocalStorage} googleBucketUrl={googleBucketUrl}/>}  />
 
 
             <Route path='/search_result' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}/>
             <Route path='/profile/*' element={<ProfilePage user={currentUser} localhost={localhost} localhostFrontend={localhostFrontend} loadCurrentUser={loadCurrentUser}/>}  />
-            <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend}/>}     />
+            <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl}/>}     />
             <Route path='/shops' element={<Shops/>}/>
             <Route path='/contacts' element={<Contacts/>}/>
             <Route path='/sizes' element={<Sizes/>}/>
@@ -281,7 +283,7 @@ function App()
             <Route path='/register' element={<Register localhost={localhost}/>}/>
             <Route path='/logout' element={<Logout loadCurrentUser={loadCurrentUser}/>}/>
 
-            <Route path='/addnewproduct' element={<ProductNewEdit localhost={localhost}/>}/>
+            <Route path='/addnewproduct' element={<ProductNewEdit localhost={localhost} googleBucketUrl={googleBucketUrl}/>}/>
           </Routes>
         </div>
         <Footer localhostFrontend={localhostFrontend}/>

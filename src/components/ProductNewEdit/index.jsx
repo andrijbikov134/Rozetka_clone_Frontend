@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useId, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from "./ProductNewEdit.module.css"
 
-const ProductNewEdit = ({localhost}) => {
+const ProductNewEdit = ({localhost, googleBucketUrl}) => {
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -14,9 +14,10 @@ const ProductNewEdit = ({localhost}) => {
   const [materials, setMaterials] = useState([]);
   const [colors, setColors] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [category, setCategory] = useState(location.state.category);
-  const [categorySub, setCategorySub] = useState(location.state.categorySub);
-  const [categorySubSub, setCategorySubSub] = useState(location.state.categorySubSub);
+  const [category, setCategory] = useState(location.state.category || '');
+  const [categorySub, setCategorySub] = useState(location.state.categorySub || '');
+  const [categorySubSub, setCategorySubSub] = useState(location.state.categorySubSub || '');
+  const [categorySubSubUa, setCategorySubSubUa] = useState(location.state.categorySubSubUa || '');
 
   const [title, setTitle] = useState(location.state.product != null ? location.state.product.title : '');
   const [partnumber, setPartnumber] = useState(location.state.product != null ? location.state.product.part_number : '');
@@ -26,14 +27,72 @@ const ProductNewEdit = ({localhost}) => {
   const [selectedBrand, setSelectedBrand] = useState({id: location.state.product != null ? location.state.product.brand_id : 0});
   const [selectedMaterial, setSelectedMaterial] = useState({id: location.state.product != null ? location.state.product.material_id : 0});
   const [selectedCountry, setSelectedCountry] = useState({id: location.state.product != null ? location.state.product.country_product_id : 0});
-  const [imgPath, setImgPath] = useState('');
-  const [imgArray, setImgArray] = useState([]);
-
+  const [imgPath, setImgPath] = useState(location.state.product != null ? (googleBucketUrl + location.state.product.pictures_path) : '');
+  const [selectedImg, setSelectedImg] = useState([]);
+  
   const [isValidPrice, setIsValidPrice] = useState(true);
   const [isValidTitle, setIsValidTitle] = useState(true);
   const [isValidPartnumber, setIsValidPartnumber] = useState(true);
   const [isValidSize, setIsValidSize] = useState(true);
 
+  const loadCategory = () =>
+  {
+    if(location.state.product != null)
+    {
+      fetch(`${localhost}/index.php?action=getCategoryTitleById&id=${product.category_id}`, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+      })
+      .then(response =>
+        response.json()
+        )
+      .then(response => {
+        setCategory(response['title']); 
+      })
+    }
+  }
+
+  const loadCategorySub = () =>
+  {
+    if(location.state.product != null)
+    {
+      fetch(`${localhost}/index.php?action=getCategorySubTitleById&id=${product.category_sub_id}`, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+      })
+      .then(response =>
+        response.json()
+        )
+      .then(response => {
+        setCategorySub(response['title']); 
+      })
+    }
+  }
+
+  const loadCategorySubSub = () =>
+  {
+    if(location.state.product != null)
+    {
+      fetch(`${localhost}/index.php?action=getCategorySubSubTitleById&id=${product.category_sub_sub_id}`, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+      })
+      .then(response =>
+        response.json()
+        )
+      .then(response => {
+        let splitted = response['title'].split('_');
+        setCategorySubSub(splitted[0]);
+        setCategorySubSubUa(response['title_ua']); 
+      })
+    }
+  }
 
   const loadBrands = () =>
   {
@@ -228,10 +287,8 @@ const ProductNewEdit = ({localhost}) => {
 
   const handlerOnChangeImg = (event) =>
   {
-    setImgPath(event.target.files[0].name);
-    let reader = new FileReader();
-    let imgArr = reader.readAsArrayBuffer(event.target.files[0]);
-    setImgArray(imgArr);
+    setImgPath(URL.createObjectURL(event.target.files[0]));    
+    setSelectedImg(event.target.files[0]);
   }
 
   const validation = () =>
@@ -264,13 +321,42 @@ const ProductNewEdit = ({localhost}) => {
   {
     if(validation())
     {
-      let newProduct = {id: product == null ? null : product.id, title: title, color_id: selectedColor.id, brand_id: selectedBrand.id, price: price, material_id: selectedMaterial.id, country_product_id: selectedCountry.id,part_number: partnumber, category: category, categorySub: categorySub, categorySubSub: categorySubSub, img: imgArray, sizes: selectedSizes}
+      // let newProduct = {id: product == null ? null : product.id, title: title, color_id: selectedColor.id, brand_id: selectedBrand.id, price: price, material_id: selectedMaterial.id, country_product_id: selectedCountry.id,part_number: partnumber, category: category, categorySub: categorySub, categorySubSub: categorySubSub, sizes: selectedSizes, file: selectedImg};
+      let newProduct = new FormData();
+      newProduct.append('id', product == null ? null : product.id);
+      newProduct.append('title', title);
+      newProduct.append('color_id', selectedColor.id);
+      newProduct.append('brand_id', selectedBrand.id);
+      newProduct.append('price', price);
+      newProduct.append('material_id', selectedMaterial.id);
+      newProduct.append('country_product_id', selectedCountry.id);
+      newProduct.append('part_number', partnumber);
+      newProduct.append('category', category);
+      newProduct.append('categorySub', categorySub);
+      newProduct.append('categorySubSub', categorySubSub);
+      if(location.state.product != null)
+      {
+        newProduct.append('oldImgPath', product.pictures_path);
+      }
+      else
+      {
+        newProduct.append('oldImgPath', '');
+
+      }
+      selectedSizes.map((size) => {
+        newProduct.append('sizes[]', JSON.stringify(size));
+      })
+      if(selectedImg.length != 0)
+      {
+        newProduct.append('file', selectedImg);
+      }
+
       fetch(`${localhost}/index.php?action=addOrUpdateProductInDB`, {
         method: 'POST',
         header: {
           'Content-Type': 'application/json', 
         },
-        body: JSON.stringify(newProduct)
+        body: newProduct
       })
       .then(response =>
           navigate(-1)
@@ -295,22 +381,44 @@ const ProductNewEdit = ({localhost}) => {
     loadColors();
     loadCountries();
   }, []);
+
+  useEffect(() =>
+  {
+    loadCategory();
+    loadCategorySub();
+    loadCategorySubSub(); 
+
+  },[product])
   
   return (
       <>
+
       <div className={styles.main_container}>
         <div></div>
         <h3>{product == null ? 'Додавання нового' : 'Редагування'} товару</h3>
         <div className={styles.title}>Назва товару:</div>
         <input className={styles.title_input + " " + (isValidTitle ? '' : styles.error)} type="text" value={title} onChange={handlerOnChangeTitle}/>
+
         <div className={styles.title}>Артикул:</div>
         <div className={styles.partnumber_type_container}>
           <input className={styles.partnumber_input + " " + (isValidPartnumber ? '' : styles.error)} type="text" value={partnumber} onChange={handlerOnChangePartnumber}/>
-          <div className={styles.title}>Тип:</div>
-          <div className={styles.title_categorySubSub} >{location.state.categorySubSubUa}</div>  
+
+           <div className={styles.title}>Новинка:</div>
+           <input className={styles.input_new} type="checkbox" onChange={handlerSizeChange}/>
+
+           <div className={styles.title}>Тип:</div>
+           <div className={styles.title_categorySubSub} >{categorySubSubUa}</div>
         </div>
+        
         <div className={styles.title}>Ціна, грн.:</div>
         <input className={styles.price_input + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
+        
+        <div className={styles.title}>Ціна зі знижкою, грн.:</div>
+        <input className={styles.price_with_discount_input + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
+
+        <div className={styles.title}>Знижка, %:</div>
+        <input className={styles.percent_discount + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
+
         <div className={styles.title}>Розмір:</div>
         <div className={styles.sizes_container  + " " + (isValidSize ? '' : styles.error)}>
           {
@@ -366,15 +474,17 @@ const ProductNewEdit = ({localhost}) => {
             })
           }
         </select>
-        <div className={styles.title}>Картинка:</div>
-        <div className={styles.choose_img_container}>
-          <label for="img_path" className={styles.img_input}>Обрати файл</label>
-          <input id="img_path" className={styles.display_none} onChange={handlerOnChangeImg} type="file"/>
-          <div>{imgPath}</div>
-        </div>
         
         <div className={styles.button_cancel} onClick={handlerOnClickCancel}>Скасувати</div>
         <div className={styles.button_save} onClick={handlerOnClickSave}>Зберегти</div>
+      </div>
+      <div>
+        <img className={styles.img} src={imgPath} alt="" />
+        <div className={styles.choose_img_container}>
+          <label for="img_path" className={styles.img_input}>Обрати картинку</label>
+          <input id="img_path" className={styles.display_none} onChange={handlerOnChangeImg} type="file" />
+          
+        </div>
       </div>
       </>
   );

@@ -233,8 +233,9 @@ const Cart = (props) => {
 
   const handlerOnChangeFirstName = (event) =>
   {
-    let pattern = new RegExp('^[a-zA-Z]*$');
-    if(pattern.test(event.target.value))
+    // let pattern = new RegExp('^[a-zA-Zа-яА-Яа-яА-Я]*$');
+    // if(pattern.test(event.target.value))
+    
     {
       setIsFirstNameValid(true);
       setFirstName(event.target.value);
@@ -307,8 +308,8 @@ const Cart = (props) => {
 
   const handlerOnChangeLastName = (event) =>
   {
-    let pattern = new RegExp('^[a-zA-z]*$');
-    if(pattern.test(event.target.value))
+    // let pattern = new RegExp('^[a-zA-z]*$');
+    // if(pattern.test(event.target.value))
     {
       setLastName(event.target.value);
     }
@@ -316,8 +317,8 @@ const Cart = (props) => {
 
   const handlerOnChangePatronymic = (event) =>
   {
-    let pattern = new RegExp('^[a-zA-z]*$');
-    if(pattern.test(event.target.value))
+    // let pattern = new RegExp('^[a-zA-z]*$');
+    // if(pattern.test(event.target.value))
     {
       setPatronymic(event.target.value);
     }
@@ -376,7 +377,7 @@ const Cart = (props) => {
               {
                 return(
                   <>
-                    <CartProductRow product={item.product} size={item.size} quantity={item.quantity} color={item.color} handlerOnClickDelete={handlerOnClickDelete} updateQuantityInCart={updateQuantityInCart} localhostFrontend={props.localhostFrontend} />
+                    <CartProductRow product={item.product} size={item.size} quantity={item.quantity} color={item.color} handlerOnClickDelete={handlerOnClickDelete} updateQuantityInCart={updateQuantityInCart} localhostFrontend={props.localhostFrontend} googleBucketUrl={props.googleBucketUrl}/>
                     <div className={styles.grid_border_row}></div>
                   </>
               )}

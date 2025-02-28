@@ -17,22 +17,28 @@ const ProductsListWithFilters = (props) => {
 
   const [categoryTitle, setCategoryTitle] = useState('');
   
-  const [filters, setFilters] = useState({ brands: [], priceRange: {min: 0, max: 10000}, sizes: [] });
+  const [filters, setFilters] = useState({ brands: [], countries: [], priceRange: {min: 0, max: 100000}, sizes: [] });
 
   const [sortOrder, setSortOrder] = useState("rating"); // Сортування за ціною
 
   const [currentUser, setCurrentUser] = useState(0);
 
+  const [imgUrl, setImgUrl] = useState(props.googleBucketUrl + 'img/' + props.category + '/' + props.category_sub + '/' + categorySubSub + '/');
+
   const createFormData = () =>
   {
-    let formData = {brands: [], priceRange: {min: 0, max: 0}, sizes: [], sort: ''};
+    let formData = {brands: [], priceRange: {min: 0, max: 0}, sizes: [], countries: [], sort: ''};
 
     filters.brands.map((brand) =>{
     formData.brands.push(brand.id);
     });
 
-    filters.sizes.map((brand) =>{
-      formData.sizes.push(brand.id);
+    filters.sizes.map((size) =>{
+      formData.sizes.push(size.id);
+      });
+
+    filters.countries.map((country) =>{
+      formData.countries.push(country.id);
       });
 
     formData.priceRange = filters.priceRange;
@@ -102,7 +108,7 @@ const ProductsListWithFilters = (props) => {
   const loadCategoryTitle = () => 
   {
     let category = categorySubSub + "_" + props.category;
-    let url = `${props.localhost}/index.php?action=getCategorySubSubTitle&categorysubsub=${category}`;
+    let url = `${props.localhost}/index.php?action=getCategorySubSubTitleUa&categorysubsub=${category}`;
     fetch(url, {
       method: 'POST',
       header: {
@@ -169,7 +175,7 @@ const ProductsListWithFilters = (props) => {
     })
   }
 
-  const handlerOnClickDeleteProduct = (id) =>
+  const handlerOnClickDeleteProduct = (id, img) =>
   {
     let url;
     let action = 'deleteProductFromDB';
@@ -180,7 +186,7 @@ const ProductsListWithFilters = (props) => {
       header: {
         'Content-Type': 'application/json', 
       },
-      body : JSON.stringify({id: id}),
+      body : JSON.stringify({id: id, imgPath: img}),
     })
     .then(response =>
         response.json()
@@ -197,6 +203,30 @@ const ProductsListWithFilters = (props) => {
         }
       }
       )
+  }
+
+  const handlerOnClickCopyProduct = () =>
+  {
+    // DELETE IMG IN GOOGLE
+    // let url;
+    // let action = 'deleteImgFromGoogleBucket';
+    // url = `${props.localhost}/index.php?action=${action}`;
+    // let formdata = new FormData();
+    // formdata.append('imgPath', '');
+    // fetch(url, {
+    //   method: 'POST',
+    //   header: {
+    //     'Content-Type': 'application/json', 
+    //   },
+    //   body : formdata,
+    // })
+    // .then(response =>
+    //     response.json()
+    //   ).then((response) =>
+    //   {
+    //    response
+    //   }
+    //   )
   }
 
   useEffect(() => {
@@ -222,11 +252,15 @@ const ProductsListWithFilters = (props) => {
         <div className={styles.products_order_container}>
           <h2>{categoryTitle}</h2>
           <div className={styles.header}>
+            <div className={styles.count_found_products}>Знайдено {products.length} товарів</div>
             {
-              currentUser != 0 ? (currentUser.role != 'Administrator' ? <div></div> :
-              <div className={styles.button_add_new_product} onClick={handlerOnClickAddNewProduct}>
+              currentUser != 0 ? (currentUser.role != 'Administrator' ? '' :
+              <>
+                <div className={styles.button_add_new_product} onClick={handlerOnClickAddNewProduct}>
                 Додати новий товар
-              </div>) : <div></div>
+              </div>
+              </>
+              ) : ''
             }
             <div className={styles.sort_price}>
               <select value={sortOrder} onChange={handleSortChange}>
@@ -245,7 +279,7 @@ const ProductsListWithFilters = (props) => {
                 {     
                   return (
                     <>
-                      <Product id={product.id} img={props.localhostFrontend + product.pictures_path} title={product.title} price={product.price} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} localhostFrontend={props.localhostFrontend}/>
+                      <Product id={product.id} img={product.pictures_path} title={product.title} price={product.price} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} handlerOnClickCopyProduct={handlerOnClickCopyProduct} localhostFrontend={props.localhostFrontend} googleBucketUrl={props.googleBucketUrl}/>
                     </>
                     )
                 })}

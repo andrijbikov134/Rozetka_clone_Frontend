@@ -5,9 +5,11 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [priceRange, setPriceRange] = useState(priceR);
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedCountries, setSelectedCountries] = useState([]);
 
   const [brands, setBrands] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [countries, setCountries] = useState([]);
  
   const loadBrands = () =>
   {
@@ -26,21 +28,36 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
   }
 
   const loadSizes = () =>
-    {
-      fetch(`${localhost}/index.php?action=getAllSizes`, {
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json', 
-        },
-      })
-      .then(response =>
-        response.json()
-        )
-      .then(response => {
-        setSizes(response);
-      })
-    }
+  {
+    fetch(`${localhost}/index.php?action=getAllSizes`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setSizes(response);
+    })
+  }
   
+  const loadCountries = () =>
+  {
+    fetch(`${localhost}/index.php?action=getAllCountries`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setCountries(response);
+    })
+  }
 
   // Обробка вибору брендів
   const handleBrandChange = (event) => {
@@ -58,7 +75,7 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
     }
 
     setSelectedBrands(updatedBrands);
-    onFilterChange({ brands: updatedBrands, priceRange: priceRange, sizes: selectedSizes ,sort: sortOrder });
+    onFilterChange({ brands: updatedBrands, priceRange: priceRange,countries: selectedCountries,sizes: selectedSizes ,sort: sortOrder });
   };
 
   // Обробка діапазону цін
@@ -87,13 +104,33 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
     }      
 
     setSelectedSizes(updatedSizes);
-    onFilterChange({ brands: selectedBrands, priceRange: priceRange, sizes: updatedSizes, sort: sortOrder });
+    onFilterChange({ brands: selectedBrands, priceRange: priceRange, countries: selectedCountries, sizes: updatedSizes, sort: sortOrder });
   };
+
+  const handlerOnChangeCountries = (event) =>
+  {
+    const countryId = event.target.value;
+    const countryTitle = event.target.dataset.title;
+    let updatedCountries = [...selectedCountries];
+
+    if (event.target.checked)
+    {
+      updatedCountries.push({id: countryId, title: countryTitle});
+    } 
+    else
+    {
+      updatedCountries = updatedCountries.filter((c) => c.id !== countryId);
+    }      
+
+    setSelectedCountries(updatedCountries);
+    onFilterChange({ brands: selectedBrands, priceRange: priceRange, countries: updatedCountries, sizes: selectedSizes, sort: sortOrder });
+  }
 
 
   useEffect(() => {
     loadBrands();
     loadSizes();
+    loadCountries();
   }, []);
 
  
@@ -152,6 +189,22 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
               onChange={handleSizeChange}
             />
             <div>{size.title}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Фільтр за країною-виробником */}
+      <h3>Країна-виробник</h3>
+      <div className={styles.size_list}>
+      {countries.map((country) => (
+          <div key={country.id} className={styles.size_element}>
+            <input
+              type="checkbox"
+              value={country.id}
+              data-title={country.title}
+              onChange={handlerOnChangeCountries}
+            />
+            <div>{country.title}</div>
           </div>
         ))}
       </div>
