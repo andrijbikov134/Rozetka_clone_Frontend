@@ -4,10 +4,12 @@ import axios from "axios";
 import { Link, Route, Routes } from "react-router-dom";
 import ProfileEdit from "../ProfileEdit";
 import ProfileOrders from "../ProfileOrders";
+import ChangePassword from "../ChangePassword";
 
 const ProfilePage = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style'))); 
-  const [message, setMessage] = useState("");  
+  const [message, setMessage] = useState("");
+  const [showChangePassword, setShowChangePassword] = useState(false); // Для модального вікна  
 
   // Оновлення полів форми
   const handleChange = (e) => {
@@ -53,7 +55,7 @@ const ProfilePage = (props) => {
           user.role == "Administrator" ?
           <>
           <Link to="/profile/edit">Редагувати профіль</Link>
-          <Link to="/profile/password">Змінити пароль</Link>
+          <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
           <Link to="/profile/allorders">Усі замовлення</Link>
           <Link to="/profile/statistic">Статистика продажів</Link>
           <Link to="/profile/addadmin">Додати адміністратора</Link>
@@ -61,7 +63,7 @@ const ProfilePage = (props) => {
           :
           <>
           <Link to="/profile/edit">Редагувати профіль</Link>
-          <Link to="/profile/password">Змінити пароль</Link>
+          <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
           <Link to="/profile/orders">Мої замовлення</Link>
           </>
         }
@@ -76,9 +78,13 @@ const ProfilePage = (props) => {
       <Routes>
         <Route path='/edit' element={<ProfileEdit user={user} handleChange={handleChange} handleSubmit={handleSubmit}/>}/>
         <Route path='/orders' element={<ProfileOrders localhost={props.localhost} user_id={user.id}/>}/>
+        {/* <Route path='/changepassword' element={<ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} />}/> */}
 
       </Routes>
-      
+      {/* Модальне вікно зміни пароля */}
+      {showChangePassword && (
+        <ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} />
+      )}
     </div>
   );
   
