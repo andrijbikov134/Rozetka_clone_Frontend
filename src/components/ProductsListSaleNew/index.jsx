@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import styles from "./ProductsListWithFilters.module.css"
+import styles from "./ProductsListSaleNew.module.css"
 import Product from '../Product';
 import Filters from '../Filters';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const ProductsListWithFilters = (props) => {
+const ProductsListSaleNew = (props) => {
   
   const navigate = useNavigate();
   let location = useLocation();
@@ -15,7 +15,7 @@ const ProductsListWithFilters = (props) => {
 
   const [categorySubSub, setCategorySubSub] = useState(location.pathname.split('/').pop());
 
-  const [categoryTitle, setCategoryTitle] = useState('');
+  const [categoryTitle, setCategoryTitle] = useState(props.title || '');
   
   const [filters, setFilters] = useState({ brands: [], countries: [], priceRange: {min: 0, max: 100000}, sizes: [] });
 
@@ -49,9 +49,7 @@ const ProductsListWithFilters = (props) => {
 
   const loadFilteredProducts = () =>
   {
-    let newCategorySubSub = location.pathname.split('/').pop();
-    setCategorySubSub(newCategorySubSub);
-    let url = `${props.localhost}/index.php?action=getProductsWithFilters&category=${props.category}&categorysub=${props.category_sub}&categorysubsub=${newCategorySubSub}`;
+    let url = `${props.localhost}/index.php?action=${props.action}`;
 
     let formData = createFormData();
 
@@ -105,24 +103,24 @@ const ProductsListWithFilters = (props) => {
     }
   }
 
-  const loadCategoryTitle = () => 
-  {
-    let category = categorySubSub + "_" + props.category;
-    let url = `${props.localhost}/index.php?action=getCategorySubSubTitleUa&categorysubsub=${category}`;
-    fetch(url, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json', 
-      },
-      body: JSON.stringify({action: 1})
-    })
-    .then(response =>
-      response.json()
-      )
-    .then(response => {
-      setCategoryTitle(response[0]['title_ua']);
-    })
-  }
+  // const loadCategoryTitle = () => 
+  // {
+  //   let category = categorySubSub + "_" + props.category;
+  //   let url = `${props.localhost}/index.php?action=getCategorySubSubTitleUa&categorysubsub=${category}`;
+  //   fetch(url, {
+  //     method: 'POST',
+  //     header: {
+  //       'Content-Type': 'application/json', 
+  //     },
+  //     body: JSON.stringify({action: 1})
+  //   })
+  //   .then(response =>
+  //     response.json()
+  //     )
+  //   .then(response => {
+  //     setCategoryTitle(response[0]['title_ua']);
+  //   })
+  // }
 
   const loadProductSizes = (id) => 
   {
@@ -233,13 +231,11 @@ const ProductsListWithFilters = (props) => {
     //loadProductsFromDB();
   }, []);
 
-  useEffect(() => {
-    loadCategoryTitle();
-  }, [products]);
+  
 
   useEffect(() => {
     loadFilteredProducts();
-  }, [filters]);
+  }, [filters, props]);
 
 
   return (
@@ -249,14 +245,13 @@ const ProductsListWithFilters = (props) => {
           <Filters products={products} sortOrder={sortOrder} localhost={props.localhost} onFilterChange={setFilters} priceR={filters.priceRange}/>
         </div>
         <div className={styles.products_order_container}>
-          <h2>{categoryTitle}</h2>
+          <h2>{props.title}</h2>
           <div className={styles.header}>
             <div className={styles.count_found_products}>Знайдено {products.length} товарів</div>
             {
               currentUser != 0 ? (currentUser.role != 'Administrator' ? '' :
               <>
-                <div className={styles.button_add_new_product} onClick={handlerOnClickAddNewProduct}>
-                Додати новий товар
+                <div> 
               </div>
               </>
               ) : ''
@@ -270,7 +265,6 @@ const ProductsListWithFilters = (props) => {
             </div>
           </div>
           <div className={styles.products_order_container}>
-            <div className={styles.header}>{props.title}</div>
             {
               products.length == 0 ? <div>Нажаль, за даними критеріями нічого не знайдено. Змініть, будь ласка, параметри.</div> : 
               <div className={styles.grid_products}> 
@@ -292,4 +286,4 @@ const ProductsListWithFilters = (props) => {
   );
 }
 
-export default ProductsListWithFilters;
+export default ProductsListSaleNew;

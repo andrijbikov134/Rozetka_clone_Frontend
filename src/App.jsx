@@ -30,6 +30,7 @@ import Logout from './components/Logout';
 import { CurrentUserContext } from './context';
 import ProductNewEdit from './components/ProductNewEdit';
 import ProfilePage from './components/ProfilePage';
+import ProductsListSaleNew from './components/ProductsListSaleNew';
 
 
 function App()
@@ -96,23 +97,7 @@ function App()
   {
     if(input_title != '')
     {
-
-      let url = `${localhost}/index.php?action=getProductsFilteredByTitle&input_title=${input_title}`;
-      fetch(url, {
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json', 
-        },
-        body: JSON.stringify({action: 1})
-      })
-      .then(response =>
-        response.json()
-        )
-      .then(response => {
-        setFoundProducts(response);
-      })
-      setSearchTitle(input_title);
-      navigate('/search_result');
+      navigate(`/search_result/title=${input_title}`, {state:{input_title: input_title}});     
     }
   }
 
@@ -265,9 +250,13 @@ function App()
             <Route path='/product/*' element={<ProductFull handlerOnClickAddToCart={handlerOnClickAddToCart} localhost={localhost} localhostFrontend={localhostFrontend} loadFromLocalStorage={loadFromLocalStorage} googleBucketUrl={googleBucketUrl}/>}  />
 
 
-            <Route path='/search_result' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct}/>}/>
+            <Route path='/search_result/*' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl} handlerOnClickAddToCart={handlerOnClickAddToCart}/>}/>
             <Route path='/profile/*' element={<ProfilePage user={currentUser} localhost={localhost} localhostFrontend={localhostFrontend} loadCurrentUser={loadCurrentUser}/>}  />
             <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl}/>}     />
+
+            <Route path='/sale' element={<ProductsListSaleNew action={'getProductsSale'} title={'РОЗПРОДАЖ'} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl} handlerOnClickProduct={handlerOnClickProduct}/>}/>
+            <Route path='/newproducts' element={<ProductsListSaleNew  title={'НОВИНКИ'} action={'getProductsNew'} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl} handlerOnClickProduct={handlerOnClickProduct}/>}/>
+
             <Route path='/shops' element={<Shops/>}/>
             <Route path='/contacts' element={<Contacts/>}/>
             <Route path='/sizes' element={<Sizes/>}/>
@@ -286,7 +275,7 @@ function App()
             <Route path='/addnewproduct' element={<ProductNewEdit localhost={localhost} googleBucketUrl={googleBucketUrl}/>}/>
           </Routes>
         </div>
-        <Footer localhostFrontend={localhostFrontend}/>
+        <Footer user={currentUser} localhostFrontend={localhostFrontend}/>
     </>
   )
 }

@@ -22,6 +22,9 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
   const [title, setTitle] = useState(location.state.product != null ? location.state.product.title : '');
   const [partnumber, setPartnumber] = useState(location.state.product != null ? location.state.product.part_number : '');
   const [price, setPrice] = useState(location.state.product != null ? location.state.product.price : '');
+  const [priceWithDiscount, setPriceWithDiscount] = useState(location.state.product != null ? location.state.product.price_with_discount : null);
+  const [discount, setDiscount] = useState(location.state.product != null ? priceWithDiscount == null ? null : Math.floor((price - priceWithDiscount)/price*100) : null);
+  const [isNew, setIsNew] = useState(location.state.product != null ? Boolean(location.state.product.new_product) : false);
   const [selectedSizes, setSelectedSizes] = useState(location.state.product != null ? location.state.sizes : []);
   const [selectedColor, setSelectedColor] = useState({id: location.state.product != null ? location.state.product.color_id : 0});
   const [selectedBrand, setSelectedBrand] = useState({id: location.state.product != null ? location.state.product.brand_id : 0});
@@ -116,7 +119,7 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
   
   const loadSizes = () =>
   {
-    fetch(`${localhost}/index.php?action=getAllSizes`, {
+    fetch(`${localhost}/index.php?action=getSizesByCategorySub&categorysub=${categorySub}`, {
       method: 'POST',
       header: {
         'Content-Type': 'application/json', 
@@ -247,6 +250,49 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
     }
   }
 
+  const handlerOnChangeIsNew = (event) => 
+  {
+    setIsNew(event.target.checked);
+  }
+
+  const handlerOnChangePriceWithDiscount = (event) =>
+  {
+    let priceWithDiscount = event.target.value;
+    let pattern = new RegExp('^[1-9]*[0-9.]*$');
+    if(pattern.test(price))
+    {
+      if(priceWithDiscount == "")
+      {
+        setDiscount('')
+        setPriceWithDiscount('');
+      }
+      else
+      {
+        setDiscount(Math.floor((price - priceWithDiscount)/price*100))
+        setPriceWithDiscount(priceWithDiscount);
+      }
+    }
+  }
+
+  const handlerOnChangeDiscount = (event) =>
+  {
+    let discount = event.target.value;
+    let pattern = new RegExp('^[1-9]*[0-9.]*$');
+    if(pattern.test(discount))
+    {
+      if(discount == "")
+      {
+        setDiscount('')
+        setPriceWithDiscount('');
+      }
+      else
+      {
+        setDiscount(discount)
+        setPriceWithDiscount(Math.floor(price *(100-discount) / 100));
+      }
+    }
+  }
+
   const handlerSizeChange = (event) => {
     const sizeId = event.target.value;
     const sizeTitle = event.target.dataset.title;
@@ -334,6 +380,16 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
       newProduct.append('category', category);
       newProduct.append('categorySub', categorySub);
       newProduct.append('categorySubSub', categorySubSub);
+      newProduct.append('new_product', isNew);
+      if(price == priceWithDiscount || priceWithDiscount == '')
+      {
+        newProduct.append('price_with_discount', null);
+      }
+      else
+      {
+        newProduct.append('price_with_discount', priceWithDiscount);
+      }
+
       if(location.state.product != null)
       {
         newProduct.append('oldImgPath', product.pictures_path);
@@ -404,7 +460,7 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
           <input className={styles.partnumber_input + " " + (isValidPartnumber ? '' : styles.error)} type="text" value={partnumber} onChange={handlerOnChangePartnumber}/>
 
            <div className={styles.title}>Новинка:</div>
-           <input className={styles.input_new} type="checkbox" onChange={handlerSizeChange}/>
+           <input className={styles.input_new} type="checkbox" checked={isNew} onChange={handlerOnChangeIsNew}/>
 
            <div className={styles.title}>Тип:</div>
            <div className={styles.title_categorySubSub} >{categorySubSubUa}</div>
@@ -414,10 +470,10 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
         <input className={styles.price_input + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
         
         <div className={styles.title}>Ціна зі знижкою, грн.:</div>
-        <input className={styles.price_with_discount_input + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
+        <input className={styles.price_input} type="text" value={priceWithDiscount} onChange={handlerOnChangePriceWithDiscount}/>
 
         <div className={styles.title}>Знижка, %:</div>
-        <input className={styles.percent_discount + " " + (isValidPrice ? '' : styles.error)} type="text" value={price} onChange={handlerOnChangePrice}/>
+        <input className={styles.price_input} type="text" value={discount} onChange={handlerOnChangeDiscount}/>
 
         <div className={styles.title}>Розмір:</div>
         <div className={styles.sizes_container  + " " + (isValidSize ? '' : styles.error)}>

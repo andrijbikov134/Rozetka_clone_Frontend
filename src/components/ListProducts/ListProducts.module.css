@@ -11,14 +11,27 @@
   text-align: start;
   font-size: 1.5rem;
 }
-.popular_products_container
+.header_sale
 {
+  display: flex;
+  justify-content: space-between;
+}
+.products_container
+{
+  margin-top: 2rem;
   width: 100%;
 }
-.container_products
+
+.popular_products_container, .new_products_container, .sale_products_container
 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2.5rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.all_sales
+{
+  text-decoration: underline;
+  font-size: 0.75rem;
 }

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from './Filters.module.css'
+import { useLocation } from "react-router-dom";
 
-const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
+const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
+  const location = useLocation();
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [priceRange, setPriceRange] = useState(priceR);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
-
+  const [isLoaded, setIsLoaded] = useState(false)
   const [brands, setBrands] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [countries, setCountries] = useState([]);
@@ -29,18 +31,24 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
 
   const loadSizes = () =>
   {
-    fetch(`${localhost}/index.php?action=getAllSizes`, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json', 
-      },
-    })
-    .then(response =>
-      response.json()
-      )
-    .then(response => {
-      setSizes(response);
-    })
+    if(products.length != 0 && !isLoaded)
+    {
+      fetch(`${localhost}/index.php?action=getAllSizes`, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(products),
+      })
+      .then(response =>
+        response.json()
+        )
+      .then(response => {
+        setSizes(response);
+        setIsLoaded(true);
+      })
+    }
+    
   }
   
   const loadCountries = () =>
@@ -131,8 +139,11 @@ const Filters = ({localhost, sortOrder, onFilterChange, priceR }) => {
     loadBrands();
     loadSizes();
     loadCountries();
-  }, []);
+  }, [products]);
 
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [location]);
  
 
   return (

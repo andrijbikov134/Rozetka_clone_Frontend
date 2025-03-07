@@ -10,7 +10,7 @@ const ProfileEdit = ({user, handleChange, message, handleSubmit}) =>
         {user ? (
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.form_container}>
-              <div>
+              <div className={styles.form_column}>
                 <div className={styles.input_container}>
                   <label htmlFor="">Прізвище:</label>
                   <input className={styles.input} type="text" name="last_name" placeholder="Прізвище" value={user.last_name || ""} onChange={handleChange} />
@@ -32,14 +32,14 @@ const ProfileEdit = ({user, handleChange, message, handleSubmit}) =>
                 </div>
               </div>
 
-              <div>
+              <div className={styles.form_column}>
                 <div className={styles.input_container}>
                   <label htmlFor="">Телефон:</label>
                   <input className={styles.input} type="text" name="phone" placeholder="" value={user.phone || ""} onChange={handleChange} />
                 </div>
                 <div className={styles.input_container}>
                   <label htmlFor="">День народження:</label>
-                  <input className={styles.input} type="date" name="birthday" value={user.birthday.split(' ')[0] || ""} onChange={handleChange} />
+                  <input className={styles.input} type="date" name="birthday" value={user.birthday == null ? '' : user.birthday.split(' ')[0]} onChange={handleChange} />
                 </div>
                 <div className={styles.input_container}>
                   <label htmlFor="">e-mail:</label>

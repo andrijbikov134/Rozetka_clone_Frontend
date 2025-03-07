@@ -7,7 +7,8 @@ import DropdownMenuLogin from '../DropdownMenuLogin';
 const Header = (props) =>
 {
   const navigate = useNavigate();
-  const [categoriesSub, setCategoriesSub] = useState([]);
+  const [categoriesSub, setCategoriesSub] = useState(null);
+
   const handlerEnterKeyUpSearch = (event) =>
   {
     if(event.key == "Enter")
@@ -31,7 +32,6 @@ const Header = (props) =>
         header: {
           'Content-Type': 'application/json', 
         },
-        body: JSON.stringify({action: 1})
       })
       .then(response =>
         response.json()
@@ -47,6 +47,16 @@ const Header = (props) =>
     {
       navigate('/login');
     }
+  }
+
+  const handlerOnClickSale = () =>
+  {
+    navigate('/sale');
+  }
+
+  const handlerOnClickNewProducts = () =>
+  {
+    navigate('/newproducts');
   }
 
   const handlerOnClikCart = () =>
@@ -143,23 +153,30 @@ const Header = (props) =>
           </div>
 
           <div className={styles.header_container_flex}>
+           {
+            categoriesSub == null ? <></> 
+            :
+            <>
             <div>
-              <DropdownMenu category_title="Для жінок" type="women" categories={categoriesSub} />
-            </div>
+            <DropdownMenu category_title="Для жінок" type="women" categoriesSub={categoriesSub} localhost={props.localhost}/>
+          </div>
+          <div>
+            <DropdownMenu category_title="Для чоловіків" type="men" categoriesSub={categoriesSub} localhost={props.localhost}/>
+          </div>
+          <div>
+            <DropdownMenu category_title="Для дітей" type="children" categoriesSub={categoriesSub} localhost={props.localhost}/>
+          </div>
+            </>
+            
+           }
             <div>
-              <DropdownMenu category_title="Для чоловіків" type="men" categories={categoriesSub} />
-            </div>
-            <div>
-              <DropdownMenu category_title="Для дітей" type="children" categories={categoriesSub} />
-            </div>
-            <div>
-              <div className={styles.sale_container} >
+              <div className={styles.sale_container} onClick={handlerOnClickSale} >
                 <Link className={styles.sale} to='/sale'>Розпродаж</Link>
                 <img className={styles.img_sale} src={props.localhostFrontend + '/img/sale.png'}/>
               </div>
             </div>
-            <div>
-              <Link className={styles.promotions} to='/promotions'>Акції</Link>
+            <div className={styles.newProducts} onClick={handlerOnClickNewProducts}>
+              <Link  to='/newproducts'>Новинки</Link>
             </div>
 
           </div>

@@ -26,11 +26,30 @@
 
 
 
-.delivery_text
+.delivery_container
 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin-top: 0.5rem;
   color: rgb(247, 156, 255);
   font-size: small;
+}
+
+.delivery_text
+{
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.new_product
+{
+  background-color: rgb(247, 156, 255);
+  border-radius: 0.5rem;
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+  color: black;
 }
 
 .img_delivery
@@ -54,6 +73,7 @@
 .button
 {
   width: 7rem;
+  background-color: rgb(247, 156, 255);
   border: 3px solid red;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -62,7 +82,7 @@
 .button_hide
 {
   width: 7rem;
-  background-color: rgb(255, 177, 177);
+  /* background-color: rgb(255, 177, 177); */
   border: 3px solid red;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -71,7 +91,7 @@
 .button_delete
 {
   width: 7rem;
-  background-color: rgb(255, 177, 177);
+  /* background-color: rgb(255, 177, 177); */
   border: 3px solid red;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -81,6 +101,7 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
 }
 .price_with_discount
 {
@@ -94,4 +115,8 @@
   background-color: rgb(247, 156, 255);
   border-radius: 0.25rem;
   font-size: small;
+}
+.empty
+{
+  min-height: 1.5rem;
 }

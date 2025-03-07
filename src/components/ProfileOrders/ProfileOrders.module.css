@@ -1,5 +1,5 @@
-.orders-container {
-  max-width: 800px;
+.orders_container
+{
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -7,28 +7,33 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+.h2
+{
   text-align: center;
   margin-bottom: 20px;
 }
 
-.orders-table {
+.orders-table
+{
   width: 100%;
   border-collapse: collapse;
 }
 
 .orders-table th,
-.orders-table td {
+.orders-table td
+{
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
 }
 
-.orders-table th {
+.orders-table th
+{
   background-color: #f8f8f8;
 }
 
-.error {
+.error
+{
   color: red;
   text-align: center;
 }

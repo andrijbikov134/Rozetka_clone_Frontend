@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Footer = (props) => {
 
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState();
 
   // Функція, яка спрацьовує під час натискання кнопки "Add"
   const handleAddEventClick = () => 
@@ -51,10 +52,15 @@ const Footer = (props) => {
   return (
       <>
         <footer className={styles.footer}>
-          <div className={styles.footer_container_register}>
+          {
+            props.user == 0 ?
+            <div className={styles.footer_container_register}>
             <div><span className={styles.footer_register_title}>Зареєструйтеся,</span> щоб накопичувати<br/> замовлення та отримувати знижку</div>
             <button className={styles.buton_register} onClick={handlerOnClickRegister}>ЗАРЕЄСТРУВАТИСЯ</button>
-          </div>
+          </div> 
+            : <></>
+          }
+          
 
           <div className={styles.footer_container_flex}>
             <div className={styles.footer_container_column}>

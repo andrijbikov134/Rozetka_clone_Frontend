@@ -1,10 +1,9 @@
 .main_container
 {
   display: flex;
-  /* gap: 10rem; */
-  align-items: top;
-  justify-content: start;
-  width: 90%;
+  gap: 10rem;
+  justify-content: center;
+  width: 100%;
   
 }
 
@@ -26,10 +25,22 @@ h2
   height: 1.5rem;
 }
 
-.exit_container
+.exit_container a
 {
   display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
   gap: 0.5rem;
+  width: 13.1% !important;
+}
+
+
+
+.exit_button
+{
+  color: black !important;
 }
 
 .nav_bar_container
@@ -37,8 +48,51 @@ h2
   display: flex;
   flex-direction: column;
   align-items: start;
+  justify-content: start;
   gap: 1rem;
-  background-color: rgb(249,249,249);
-  padding: 2rem;
-  padding-right: 6rem;
+  background-color: rgb(232,232,232);
+  color: black;
+  /* padding: 2rem; */
+  position: fixed;
+  top: 4.15rem;
+  left: 0rem;
+  height: 100%;
+  width: 15rem;
+  z-index: 5;
 }
+
+.h3
+{
+  margin: 2rem;
+}
+
+.nav_bar_container a
+{
+  padding-block: 1rem;
+  padding: 8px 8px 8px 32px;
+  /* margin-left: 2rem; */
+  width: 83%;
+  text-decoration: none;
+  font-size: 16px;
+  /* color: #818181; */
+  display: block;
+  text-align: start;
+  transition: 0.3s;
+}
+
+.nav_bar_container a:hover
+{
+  background-color: rgb(247,156,255);
+}
+
+/* .nav_bar_container div
+{
+  width: 100%;
+  padding-block: 0.75rem;
+  
+}
+.nav_bar_container div:hover
+{
+  
+  background-color: rgb(247,156,255);
+} */

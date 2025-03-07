@@ -40,3 +40,24 @@
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: rgb(247, 156, 255);}
+
+.sub_items_container
+{
+  display: none ;
+  position: absolute;
+  left: 160px;
+top: 0;  
+  /* border-radius: 1rem; */
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.display_block
+{
+  display: block;
+}
+
+
+

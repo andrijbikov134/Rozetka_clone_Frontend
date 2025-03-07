@@ -50,29 +50,31 @@ const ProfilePage = (props) => {
   return (
     <div className={styles.main_container}>
       <div className={styles.nav_bar_container}>
-        <h3>Раді, що Ви з нами, {user.first_name}!</h3>
+        <h3 className={styles.h3}>Раді, що Ви з нами, {user.first_name}!</h3>
         {
           user.role == "Administrator" ?
           <>
-          <Link to="/profile/edit">Редагувати профіль</Link>
-          <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
-          <Link to="/profile/allorders">Усі замовлення</Link>
-          <Link to="/profile/statistic">Статистика продажів</Link>
-          <Link to="/profile/addadmin">Додати адміністратора</Link>
+            <Link to="/profile/edit">Редагувати профіль</Link>
+            <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
+            <Link to="/profile/allorders">Усі замовлення</Link>
+            <Link to="/profile/statistic">Статистика продажів</Link>
+            <Link to="/profile/addadmin">Додати адміністратора</Link>
           </> 
           :
           <>
-          <Link to="/profile/edit">Редагувати профіль</Link>
-          <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
-          <Link to="/profile/orders">Мої замовлення</Link>
+            <Link to="/profile/edit">Редагувати профіль</Link>
+        
+            <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
+      
+            <Link to="/profile/orders">Мої замовлення</Link>
           </>
         }
         
-        <hr className={styles.hr}/>
+        {/* <hr className={styles.hr}/> */}
         
         <div className={styles.exit_container}>
-          <img className={styles.img_exit} src={props.localhostFrontend + '/img/exit.png'}  alt="" />
-          <Link to='/logout'>Вийти з кабінету</Link>
+          
+          <Link  className={styles.exit_button} to='/logout'><img className={styles.img_exit} src={props.localhostFrontend + '/img/exit.png'}  alt="" /> Вийти з кабінету</Link>
         </div>
       </div>
       <Routes>

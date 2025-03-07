@@ -85,13 +85,32 @@ const Product = (props) => {
         <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
           <img className={styles.img} src={props.googleBucketUrl + props.img} alt="" />
           <div className={styles.title}>{[props.title]}</div>
-          <div className={styles.delivery_text}>Готовий до відправлення <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'} /> </div>
-          <div className={styles.price}>{props.price.toLocaleString('ua-UA')} грн.</div>
+          <div className={styles.delivery_container}>
+            <div className={styles.delivery_text}>
+              <div >Готовий до відправлення </div> 
+              <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'}/>
+            </div>
+            {
+              props.new_product ? <div className={styles.new_product}>NEW</div> : ''
+            }
+            
+          </div>
+          
           {/* Якщо товар зі знижкою, то виводити знижку */}
-          {/* <div className={styles.price_with_discount_container}>
-            <div className={styles.price_with_discount}>{props.price.toLocaleString('ua-UA')} грн.</div>
-            <div className={styles.discount_percent}>-20%</div>
-          </div> */}
+          {
+            props.priceWithDiscount != null ?
+            <>
+              <div className={styles.price}>{props.priceWithDiscount.toLocaleString('ua-UA')} грн.</div>
+              <div className={styles.price_with_discount_container}>
+                <div className={styles.price_with_discount}>{props.price.toLocaleString('ua-UA')} грн.</div>
+                <div className={styles.discount_percent}>-{Math.floor((props.price - props.priceWithDiscount)/props.price*100)} %</div>
+              </div>
+            </> : 
+            <>
+              <div className={styles.price}>{props.price.toLocaleString('ua-UA')} грн.</div>
+              <div className={styles.empty}></div>
+            </>
+          }
         </div>
         {
           currentUser != 0 ? (currentUser.role != 'Administrator' ? "" :

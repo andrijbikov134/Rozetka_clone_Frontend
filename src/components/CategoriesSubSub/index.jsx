@@ -11,7 +11,7 @@ const CategoriesSubSub = (props) =>
   
   const loadCategories = () =>
   {
-    let url = `${props.localhost}/index.php?action=getCategories&category=${props.category}&categorysub=${props.category_sub}`
+    let url = `${props.localhost}/index.php?action=getCategoriesSubSubByCategorySubAndCategory&category=${props.category}&categorysub=${props.category_sub}`
     fetch(url, {
       method: 'POST',
       header: {

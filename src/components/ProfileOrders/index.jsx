@@ -41,7 +41,7 @@ const ProfileOrders = ({ localhost, user_id }) => {
   }, [localhost]);
 
   return (
-    <div>
+    <div className={styles.orders_container}>
       <div>
         {/* <img className={styles.img_backet} src={props.localhostFrontend + '/img/backet.png'}  alt="" /> */}
         <h2>Мої замовлення</h2>
@@ -67,7 +67,7 @@ const ProfileOrders = ({ localhost, user_id }) => {
                 <td>{new Date(order.date_order).toLocaleDateString()}</td>
                 <td>{order.product_name}</td>
                 <td>{order.quantity}</td>
-                <td>{order.total_price.toFixed(2)} грн</td>
+                <td>{order.total_price.toFixed(2)} грн.</td>
               </tr>
             ))}
           </tbody>

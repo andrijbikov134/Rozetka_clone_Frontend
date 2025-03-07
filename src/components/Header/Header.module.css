@@ -4,6 +4,7 @@
   width: 100%;
   position: sticky;
   top: 0;
+  z-index: 3;
 }
 
 .header_container_flex_search
@@ -181,19 +182,26 @@ a:link:active, a:visited:active
   padding: 0.5rem 1rem;
   text-decoration: none;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
-.sale_container:hover, .promotions:hover, .sale:hover
+.sale_container:hover, .newProducts:hover, .sale:hover
 {
   background-color: rgb(247, 156, 255);
   color: black;
 }
 
-.promotions
+.newProducts
 {
   font-size: 1rem;
   color: black;
   padding: 0.5rem 1rem;
   text-decoration: none;
   border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.newProducts a:hover
+{
+  color: black;
 }
