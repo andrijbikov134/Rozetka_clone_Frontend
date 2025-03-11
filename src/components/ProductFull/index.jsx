@@ -171,14 +171,14 @@ const ProductFull = (props) => {
     <>
       <div className={styles.main_container}>
         <div className={styles.product_container}>
-          <img className={styles.img} src={props.googleBucketUrl + product.pictures_path} alt="" />
+          <img className={styles.img} src={product.pictures_path != '' ? (props.googleBucketUrl + product.pictures_path) : (props.localhostFrontend + '/img/no_picture.png')}/>
           <div className={styles.container_column}>
             <div className={styles.title}>{[product.title]}</div>
             <div>
               <div className={styles.purt_number}>Артикул: {[product.part_number]}</div>
             </div>
             
-            <img className={styles.img_sale_product} src={props.localhostFrontend + "/img/sale_product.png"} alt="" />
+            <img className={styles.img_sale_product} src={props.localhostFrontend + "/img/sale_product.png"} />
 
             <div className={styles.price}>{product.price == undefined ? "" : product.price.toLocaleString()} грн.</div>
 

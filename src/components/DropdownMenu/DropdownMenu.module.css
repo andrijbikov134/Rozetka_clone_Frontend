@@ -33,7 +33,7 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown_content a:hover {background-color: #ddd;}
+.dropdown_content a:hover {background-color: #ddd; border-radius: 1rem;}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown_content {display: block;}
@@ -46,12 +46,13 @@
   display: none ;
   position: absolute;
   left: 160px;
-top: 0;  
+  top: 0;  
   /* border-radius: 1rem; */
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  border-radius: 1rem;
 }
 
 .display_block

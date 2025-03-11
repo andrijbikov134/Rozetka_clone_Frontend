@@ -204,28 +204,62 @@ const ProductsListWithFilters = (props) => {
       )
   }
 
-  const handlerOnClickCopyProduct = () =>
+  // DELETE IMG IN GOOGLE
+  // let url;
+  // let action = 'deleteImgFromGoogleBucket';
+  // url = `${props.localhost}/index.php?action=${action}`;
+  // let formdata = new FormData();
+  // formdata.append('imgPath', '');
+  // fetch(url, {
+  //   method: 'POST',
+  //   header: {
+  //     'Content-Type': 'application/json', 
+  //   },
+  //   body : formdata,
+  // })
+  // .then(response =>
+  //     response.json()
+  //   ).then((response) =>
+  //   {
+  //    response
+  //   }
+  //   )
+
+  const handlerOnClickCopyProduct = (id) =>
   {
-    // DELETE IMG IN GOOGLE
-    // let url;
-    // let action = 'deleteImgFromGoogleBucket';
-    // url = `${props.localhost}/index.php?action=${action}`;
-    // let formdata = new FormData();
-    // formdata.append('imgPath', '');
-    // fetch(url, {
-    //   method: 'POST',
-    //   header: {
-    //     'Content-Type': 'application/json', 
-    //   },
-    //   body : formdata,
-    // })
-    // .then(response =>
-    //     response.json()
-    //   ).then((response) =>
-    //   {
-    //    response
-    //   }
-    //   )
+    let foundProduct = products.filter((product) => product.id == id);
+    foundProduct[0].id = null;
+    foundProduct[0].pictures_path = '';
+
+    let action = 'getProductSizes';
+    let url = `${props.localhost}/index.php?action=${action}&productId=${id}`;
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+        navigate('/addnewproduct', {state:{product: foundProduct[0], sizes: response, category: props.category, categorySub: props.category_sub, categorySubSub: categorySubSub, categorySubSubUa: categoryTitle} });
+    })
+  }
+
+  const handlerOnClickHideProduct = (id) =>
+  {
+    let url;
+    let action = 'changeIsHidden';
+    url = `${props.localhost}/index.php?action=${action}&id=${id}`;
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+        loadFilteredProducts())
   }
 
   useEffect(() => {
@@ -278,7 +312,7 @@ const ProductsListWithFilters = (props) => {
                 {     
                   return (
                     <>
-                      <Product id={product.id} img={product.pictures_path} title={product.title} price={product.price} priceWithDiscount={product.price_with_discount} new_product={product.new_product} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} handlerOnClickCopyProduct={handlerOnClickCopyProduct} localhostFrontend={props.localhostFrontend} googleBucketUrl={props.googleBucketUrl}/>
+                      <Product id={product.id} img={product.pictures_path} title={product.title} price={product.price} priceWithDiscount={product.price_with_discount} new_product={product.new_product} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} handlerOnClickCopyProduct={handlerOnClickCopyProduct} handlerOnClickHideProduct={handlerOnClickHideProduct} localhostFrontend={props.localhostFrontend} googleBucketUrl={props.googleBucketUrl}/>
                     </>
                     )
                 })}

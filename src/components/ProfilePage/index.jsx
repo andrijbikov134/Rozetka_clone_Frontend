@@ -5,6 +5,9 @@ import { Link, Route, Routes } from "react-router-dom";
 import ProfileEdit from "../ProfileEdit";
 import ProfileOrders from "../ProfileOrders";
 import ChangePassword from "../ChangePassword";
+import ProfileHiddenProducts from '../ProfileHiddenProducts'
+import SalesChart from "../SalesStatistic";
+import ProfileAllOrders from "../ProfileAllOrders";
 
 const ProfilePage = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style'))); 
@@ -58,6 +61,7 @@ const ProfilePage = (props) => {
             <Link onClick={() => setShowChangePassword(true)}>Змінити пароль</Link>
             <Link to="/profile/allorders">Усі замовлення</Link>
             <Link to="/profile/statistic">Статистика продажів</Link>
+            <Link to="/profile/hiddenproducts">Приховані товари</Link>
             <Link to="/profile/addadmin">Додати адміністратора</Link>
           </> 
           :
@@ -80,6 +84,11 @@ const ProfilePage = (props) => {
       <Routes>
         <Route path='/edit' element={<ProfileEdit user={user} handleChange={handleChange} handleSubmit={handleSubmit}/>}/>
         <Route path='/orders' element={<ProfileOrders localhost={props.localhost} user_id={user.id}/>}/>
+        <Route path='/hiddenproducts' element={<ProfileHiddenProducts localhost={props.localhost} user_id={user.id} googleBucketUrl={props.googleBucketUrl}/>}/>
+        <Route path='/statistic' element={<SalesChart localhost={props.localhost}/>}/>
+        <Route path='/allorders' element={<ProfileAllOrders localhost={props.localhost}/>}/>
+
+
         {/* <Route path='/changepassword' element={<ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} />}/> */}
 
       </Routes>

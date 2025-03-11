@@ -26,6 +26,10 @@ h2 {
   text-align: center;
 }
 
+.orders_table td:nth-child(7n+3) {
+  text-align: start;
+}
+
 .orders_table th {
   background-color: #f8f8f8;
 }
@@ -75,12 +79,13 @@ h2 {
   text-align: center;
 }
 
-.status_order
+.order_done
 {
   padding-inline: 0.5rem;
   padding-block: 0.25rem;
   width: 50%;
   text-align: center;
+  background-color: rgb(247,156,255);
   border-radius: 1rem;
   font-weight: 400;
   font-size: 0.875rem;

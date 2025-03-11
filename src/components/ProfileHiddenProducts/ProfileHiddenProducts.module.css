@@ -1,0 +1,58 @@
+.main_container{
+width: 80%;
+margin-left: 15rem;
+}
+.grid
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  row-gap: 1rem;
+  column-gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.grid_cell_price
+{
+  min-width: 10rem;
+}
+
+.grid_cell_title
+{
+  min-width: 12rem;
+}
+
+.grid_cell_button
+{
+  align-self: center;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+  border-radius: 3rem;
+  width: 80%;
+  background-color: rgb(247,156,255);
+  color: black;
+  cursor: pointer;
+}
+
+.img
+{
+  width: 2rem;
+  height: 2rem;
+}
+
+.grid_border_solid
+{
+  border-bottom: 0.0625rem solid black;
+  grid-column: 1 / 7;
+}
+
+.button
+{
+  width: 80%;
+  background-color: black;
+  color: white;
+  border-radius: 3rem;
+  cursor: pointer;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+}

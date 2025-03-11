@@ -190,3 +190,7 @@ select, input{
   cursor: pointer;
 }
 
+.empty
+{
+  min-height: 14rem;
+}

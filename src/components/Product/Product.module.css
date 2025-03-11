@@ -48,7 +48,7 @@
   background-color: rgb(247, 156, 255);
   border-radius: 0.5rem;
   padding-inline: 0.5rem;
-  padding-block: 0.25rem;
+  padding-block: 0.1rem;
   color: black;
 }
 
@@ -61,6 +61,13 @@
 .title
 {
   font-weight: bold;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 1;
+  max-width: 17rem;
+  white-space: nowrap;
+
+  
 }
 
 .buttons_container

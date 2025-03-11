@@ -251,7 +251,7 @@ function App()
 
 
             <Route path='/search_result/*' element={<ListProductsSearchResult products={foundProducts} search_title={searchTitle} localhost={localhost} localhostFrontend={localhostFrontend} handlerOnClickProduct={handlerOnClickProduct} googleBucketUrl={googleBucketUrl} handlerOnClickAddToCart={handlerOnClickAddToCart}/>}/>
-            <Route path='/profile/*' element={<ProfilePage user={currentUser} localhost={localhost} localhostFrontend={localhostFrontend} loadCurrentUser={loadCurrentUser}/>}  />
+            <Route path='/profile/*' element={<ProfilePage user={currentUser} localhost={localhost} localhostFrontend={localhostFrontend} loadCurrentUser={loadCurrentUser} googleBucketUrl={googleBucketUrl}/>}  />
             <Route path='/cart' element={<Cart currentUser={currentUser} handlerOnClickDelete={handlerOnClickDelete} updateCart={updateCart} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl}/>}     />
 
             <Route path='/sale' element={<ProductsListSaleNew action={'getProductsSale'} title={'РОЗПРОДАЖ'} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl} handlerOnClickProduct={handlerOnClickProduct}/>}/>

@@ -31,7 +31,7 @@
 
 .size_container
 {
-  display: flex;
+  display: grid;
   font-weight: bold;
   gap: 2rem;
 }
@@ -107,7 +107,8 @@
 
 .sizes_container
 {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
   cursor: pointer;
 }

@@ -96,8 +96,12 @@ const Header = (props) =>
       title: 'Усі замовлення'
     },
     {
-      type: "profile/statisticssale",
+      type: "profile/statistic",
       title: 'Статистика продажів'
+    },
+    {
+      type: "profile/hiddenproducts",
+      title: 'Приховані товари'
     },
     {
       type: "profile/addadmin",

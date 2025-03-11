@@ -113,6 +113,46 @@ const ListProductsSearchResult = (props) => {
       )
   }
 
+  const handlerOnClickCopyProduct = (id) =>
+  {
+    let foundProduct = products.filter((product) => product.id == id);
+    foundProduct[0].id = null;
+    foundProduct[0].pictures_path = '';
+
+    let action = 'getProductSizes';
+    let url = `${props.localhost}/index.php?action=${action}&productId=${id}`;
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+        navigate('/addnewproduct', {state:{product: foundProduct[0], sizes: response, category: props.category, categorySub: props.category_sub, categorySubSub: categorySubSub, categorySubSubUa: categoryTitle} });
+    })
+  }
+
+  const handlerOnClickHideProduct = (id) =>
+  {
+    let url;
+    let action = 'changeIsHidden';
+    url = `${props.localhost}/index.php?action=${action}&id=${id}`;
+    fetch(url, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+        {
+          loadSearchProducts();
+      }
+      )
+  }
+
   useEffect(() => {
     loadSearchProducts();
     setInputTitle(location.state.input_title)
@@ -163,7 +203,7 @@ const ListProductsSearchResult = (props) => {
                   products.map((product) => 
                     {  
                       return (
-                          <Product id={product.id} img={product.pictures_path} title={product.title} price={product.price} priceWithDiscount={product.price_with_discount} new_product={product.new_product} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} localhostFrontend={props.localhostFrontend} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} googleBucketUrl={props.googleBucketUrl}/>
+                          <Product id={product.id} img={product.pictures_path} title={product.title} price={product.price} priceWithDiscount={product.price_with_discount} new_product={product.new_product} key={product.id} handlerOnClickProduct={props.handlerOnClickProduct} handlerOnClickAddToCart={props.handlerOnClickAddToCart} localhostFrontend={props.localhostFrontend} handlerOnClickEditProduct={handlerOnClickEditProduct} handlerOnClickDeleteProduct={handlerOnClickDeleteProduct} handlerOnClickCopyProduct={handlerOnClickCopyProduct} handlerOnClickHideProduct={handlerOnClickHideProduct} googleBucketUrl={props.googleBucketUrl}/>
                         );
                     }) : 
                     <>

@@ -363,7 +363,7 @@ const Cart = (props) => {
         <h2 className={styles.h2}>КОШИК</h2>
         <div className={styles.table_header}>
         </div>
-        { cartProducts.length == 0 ? <h3>Ваш кошик порожній.</h3> : 
+        { cartProducts.length == 0 ? <div className={styles.empty}><h3>Ваш кошик порожній.</h3></div>  : 
           <>
           <div className={styles.grid_container}>
             <div className={styles.grid_header}>Товар</div>

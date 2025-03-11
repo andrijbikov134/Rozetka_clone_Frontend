@@ -65,12 +65,17 @@ const Product = (props) => {
 
   const handlerOnClickCopyProduct = () =>
   {
-    props.handlerOnClickCopyProduct();
+    props.handlerOnClickCopyProduct(props.id);
   }
 
   const handlerOnClickDeleteProduct = () => 
   {
     props.handlerOnClickDeleteProduct(props.id, props.img);
+  }
+
+  const handlerOnClickHideProduct = () => 
+  {
+    props.handlerOnClickHideProduct(props.id);
   }
 
  
@@ -83,12 +88,12 @@ const Product = (props) => {
       <>
       <div>
         <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
-          <img className={styles.img} src={props.googleBucketUrl + props.img} alt="" />
+          <img className={styles.img} src={props.img != '' ? props.googleBucketUrl + props.img : (props.localhostFrontend + '/img/no_picture.png')} alt="" />
           <div className={styles.title}>{[props.title]}</div>
           <div className={styles.delivery_container}>
             <div className={styles.delivery_text}>
               <div >Готовий до відправлення </div> 
-              <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'}/>
+              <img className={styles.img_delivery} src={props.localhostFrontend + '/img/delivery_product.png'} />
             </div>
             {
               props.new_product ? <div className={styles.new_product}>NEW</div> : ''
@@ -121,7 +126,7 @@ const Product = (props) => {
                 <div className={styles.button} onClick={handlerOnClickCopyProduct}>Копіювати</div>
             </div>
             <div className={styles.buttons_container}>
-              <div className={styles.button_hide} onClick={handlerOnClickEditProduct}>Приховати</div>
+              <div className={styles.button_hide} onClick={handlerOnClickHideProduct}>Приховати</div>
               <div className={styles.button_delete} onClick={handlerOnClickDeleteProduct}>Видалити</div>
             </div>
           </div>
