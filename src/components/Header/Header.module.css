@@ -157,7 +157,7 @@ a:link:active, a:visited:active
 
 .hidden
 {
-  display: none !important;
+  visibility: hidden ;
 }
 
 .cart_profile_container

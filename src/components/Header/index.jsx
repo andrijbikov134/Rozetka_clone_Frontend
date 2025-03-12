@@ -68,8 +68,8 @@ const Header = (props) =>
     loadCategoriesSub();
   }, []);
 
-  let cart_classes;
-  cart_classes = props.cart_count > 0 ? `${styles.count_cart}` : `${styles.count_cart} ${styles.hidden}`;
+  // let cart_classes;
+  // cart_classes = props.cart_count > 0 ? `${styles.count_cart}` : `${styles.count_cart} ${styles.hidden}`;
   
   let categoriesProfileClient = [
     {
@@ -149,7 +149,7 @@ const Header = (props) =>
               <div className={styles.cart}>
                 <Link to='/cart'> <img className={styles.img_cart} src={cart_src} alt="" />
                 </Link>
-                <div className={styles.count_cart} onClick={handlerOnClikCart}>
+                <div className={styles.count_cart  + ' ' + (props.cart_count == 0 ? styles.hidden : '')} onClick={handlerOnClikCart}>
                   {props.cart_count}
                 </div>
               </div>
