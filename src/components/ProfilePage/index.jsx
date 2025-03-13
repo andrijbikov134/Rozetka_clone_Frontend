@@ -94,7 +94,7 @@ const ProfilePage = (props) => {
       </Routes>
       {/* Модальне вікно зміни пароля */}
       {showChangePassword && (
-        <ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} />
+        <ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} localhost={props.localhost}/>
       )}
     </div>
   );

@@ -175,24 +175,25 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
   }
 
   const loadCountries = () =>
-    {
-      fetch(`${localhost}/index.php?action=getAllCountries`, {
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json', 
-        },
-      })
-      .then(response =>
-        response.json()
-        )
-      .then(response => {
-        setCountries(response);
-        if(product == null)
-        {
-          setSelectedCountry(response[0]);
-        }
-      })
-    }
+  {
+    fetch(`${localhost}/index.php?action=getAllCountries`, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json', 
+      },
+    })
+    .then(response =>
+      response.json()
+      )
+    .then(response => {
+      setCountries(response);
+      if(product == null)
+      {
+        setSelectedCountry(response[0]);
+      }
+    })
+  }
+
   const handlerOnChangeBrand = (event) =>
   {
     const brandId = event.target.selectedOptions[0].value;
@@ -397,26 +398,46 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
       else
       {
         newProduct.append('oldImgPath', '');
-
       }
       selectedSizes.map((size) => {
         newProduct.append('sizes[]', JSON.stringify(size));
       })
+
       if(selectedImg.length != 0)
       {
         newProduct.append('file', selectedImg);
       }
 
-      fetch(`${localhost}/index.php?action=addOrUpdateProductInDB`, {
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json', 
-        },
-        body: newProduct
-      })
-      .then(response =>
-          navigate(-1)
-        )
+      try
+      {
+        fetch(`${localhost}/index.php?action=addOrUpdateProductInDB`,
+          {
+            method: 'POST',
+            header: {
+              'Content-Type': 'application/json', 
+            },
+            body: newProduct
+          })
+          .then(response =>
+          {
+            let data = response.json();
+              navigate(-1);
+            if(data.error)
+            {
+              console.log(data.error);
+              
+            }
+            else if(data.message)
+            {
+              console.log(data.message);
+            }
+          }
+            )
+      }
+      catch(error)
+      {
+        console.log(error);
+      }
     }
   }
 

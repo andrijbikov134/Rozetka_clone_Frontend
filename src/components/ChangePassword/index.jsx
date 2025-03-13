@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styles from "./ChangePassword.module.css";
 import { useNavigate } from "react-router-dom";
 
-const ChangePassword = ({ userId, closeModal }) => {
+const ChangePassword = ({ userId, closeModal, localhost }) =>
+{
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [passwordData, setPasswordData] = useState({
@@ -14,7 +15,6 @@ const ChangePassword = ({ userId, closeModal }) => {
   const handleChange = (e) => {
     setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
-
  
   const handleSubmit = async () => {
   if (!passwordData.oldPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
@@ -27,8 +27,9 @@ const ChangePassword = ({ userId, closeModal }) => {
     return;
   }
 
-  try {
-    const API_URL = "http://localhost:8888/index.php?action=change-password";  
+  try
+  {
+    const API_URL = `${localhost}/index.php?action=change-password`;
 
     const response = await fetch(API_URL, {
       method: "POST",

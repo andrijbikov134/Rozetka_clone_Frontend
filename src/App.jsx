@@ -57,7 +57,7 @@ function App()
   //const localhost = 'https://192.168.0.113:8080';
 
   const localhost = 'http://localhost:8888';
-  //const localhost = 'https://192.168.0.113:8080/api';
+  //const localhost = 'https://nfv.pp.ua/api';
 
   const googleBucketUrl = 'https://storage.googleapis.com/clothes_store/';
 
