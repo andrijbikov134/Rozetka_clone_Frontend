@@ -24,7 +24,7 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
   const [price, setPrice] = useState(location.state.product != null ? location.state.product.price : '');
   const [priceWithDiscount, setPriceWithDiscount] = useState(location.state.product != null ? location.state.product.price_with_discount : null);
   const [discount, setDiscount] = useState(location.state.product != null ? priceWithDiscount == null ? null : Math.floor((price - priceWithDiscount)/price*100) : null);
-  const [isNew, setIsNew] = useState(location.state.product != null ? Boolean(location.state.product.new_product) : false);
+  const [isNew, setIsNew] = useState(location.state.product != null ? location.state.product.new_product : 0);
   const [selectedSizes, setSelectedSizes] = useState(location.state.product != null ? location.state.sizes : []);
   const [selectedColor, setSelectedColor] = useState({id: location.state.product != null ? location.state.product.color_id : 0});
   const [selectedBrand, setSelectedBrand] = useState({id: location.state.product != null ? location.state.product.brand_id : 0});
@@ -253,7 +253,7 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
 
   const handlerOnChangeIsNew = (event) => 
   {
-    setIsNew(event.target.checked);
+    setIsNew(Number(event.target.checked));
   }
 
   const handlerOnChangePriceWithDiscount = (event) =>
@@ -418,19 +418,20 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
             body: newProduct
           })
           .then(response =>
-          {
-            let data = response.json();
-              navigate(-1);
-            if(data.error)
+            response.json()
+            ).then(response =>
             {
-              console.log(data.error);
-              
+              if(response.error)
+                {
+                  console.log(response.error);
+                
+                }
+                else if(response.message)
+                {
+                  console.log(response.message);
+                }
+                navigate(-1);
             }
-            else if(data.message)
-            {
-              console.log(data.message);
-            }
-          }
             )
       }
       catch(error)
