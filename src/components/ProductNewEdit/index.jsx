@@ -368,7 +368,6 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
   {
     if(validation())
     {
-      // let newProduct = {id: product == null ? null : product.id, title: title, color_id: selectedColor.id, brand_id: selectedBrand.id, price: price, material_id: selectedMaterial.id, country_product_id: selectedCountry.id,part_number: partnumber, category: category, categorySub: categorySub, categorySubSub: categorySubSub, sizes: selectedSizes, file: selectedImg};
       let newProduct = new FormData();
       newProduct.append('id', product == null ? null : product.id);
       newProduct.append('title', title);
