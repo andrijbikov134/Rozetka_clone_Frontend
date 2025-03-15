@@ -20,6 +20,7 @@
 {
   margin-top: 2rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .popular_products_container, .new_products_container, .sale_products_container
@@ -34,4 +35,20 @@
 {
   text-decoration: underline;
   font-size: 0.75rem;
+}
+
+@media(max-width: 85.375rem)
+{
+  .popular_products_container, .new_products_container, .sale_products_container
+  {
+    grid-template-columns: 1fr 1fr;
+    font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
+    gap: clamp(0.8rem, 0.019rem + 2.906vw, 2.5rem);
+    margin-top: clamp(0.7rem, 0.1028rem + 2.2222vw, 2rem);
+    margin-bottom: clamp(0.7rem, 0.1028rem + 2.2222vw, 2rem);
+  }
+  .header
+  {
+    font-size: clamp(0.5rem, 0.0406rem + 1.7094vw, 1.5rem);  
+  }
 }

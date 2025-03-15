@@ -1,10 +1,11 @@
 
-import './App.css'
+// import './App.css'
 
 // Бібліотека для компонентів
 import { useId, useEffect, useState, useContext } from 'react';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation, Link } from 'react-router-dom';
 
+import styles from './App.module.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Feedback from './components/Feedback';
@@ -32,12 +33,44 @@ import ProductNewEdit from './components/ProductNewEdit';
 import ProfilePage from './components/ProfilePage';
 import ProductsListSaleNew from './components/ProductsListSaleNew';
 
+let dictionary_bread_crumbs =
+{
+  clothes: "Одяг",
+  accessories: "Аксесуари",
+  shoes: "Взуття",
+  backpacks: "Рюкзаки",
+  boots: "Черевики",
+  costumes: "Костюми",
+  flipflops: "Шльопки",
+  gloves: "Рукавички",
+  headwear: "Головні убори",
+  jackets: "Куртки",
+  jerseys: "Майки",
+  kedy: "Кеди",
+  leggings: "Легінси",
+  pants: "Штани",
+  scarves: "Шарфи",
+  shirts: "Сорочки",
+  shorts: "Шорти",
+  sneakers: "Кросівки",
+  sweatshirts: "Толстовки",
+  thermalunderwear: "Термобілизна",
+  tshirts: "Футболки",
+  windbreakers: "Вітровки",
+  cart: "Кошик",
+  sale: "Розпродаж",
+  newproducts: "Новинки"
+}
 
 function App()
 {
   const navigate = useNavigate();
+
+  let location = useLocation();
   // Властивість, яка зберігає список товарів, отримуємо список товарів з контексту
   const [allProducts, setAllProducts] = useState([]);
+
+  const [locations, setLocations] = useState(location.pathname.split('/'));
 
   const input_search_id = useId();
 
@@ -204,20 +237,59 @@ function App()
     {
       saveToLocalStorage('current_product_petrushka_style', foundProduct);
     },
-  [foundProduct])
+  [foundProduct]);
+
+  useEffect(()=>
+  {
+    setLocations(location.pathname.split('/'));
+  }, [location])
 
   useEffect(() =>
     {
       loadFromLocalStorage('order_petrushka_style',setCart);
       loadCurrentUser();
+      
     },
   [])
   
   return (
     <>
         <Header handlerSearchProducts={handlerSearchProducts} search_title={searchTitle} input_search_id={input_search_id} cart_count={cartCount} localhost={localhost} localhostFrontend={localhostFrontend} user={currentUser}/>
-        <div className="main_block">
+        <div className={styles.main_block}>
           <ScrollToTop/>
+          {
+            (location.pathname != '/' && locations.indexOf('profile') == -1 && locations.indexOf('search_result') == -1 && locations.indexOf('login') == -1 && locations.indexOf('register') == -1) ? 
+            <div className={styles.navigation_container}>
+            <Link to='/' >Головна</Link>
+            {
+              locations.map((loc,index) =>
+              {if(loc != '')
+                {
+                  let path = '';
+                  if(!(loc == 'women' || loc == 'men' || loc == 'children'))
+                  {
+                    for (let i = 0; i<index+1; ++i)
+                    {
+                      if(i != index)
+                      {
+                        path+=locations[i] + '/';
+                      }
+                      else
+                      {
+                        path+=locations[i]; 
+                      }
+                    }
+                    return(<>
+                      <div>/</div>
+                      <Link to={path}>{dictionary_bread_crumbs[loc]}</Link>
+                    </>)                               
+                  }
+                }                
+              }
+              )
+            }
+            </div> : <div></div>
+          }
           <Routes>
             <Route path='/' element={<ListProducts action='getPopularProducts' title='ПОПУЛЯРНІ ТОВАРИ' handlerSearchTitleClean={handlerSearchTitleClean} handlerOnClickProduct={handlerOnClickProduct} localhost={localhost} localhostFrontend={localhostFrontend} googleBucketUrl={googleBucketUrl}/>}/>
             <Route path='/women/clothes' element={<CategoriesSubSub category='women' category_sub='clothes' localhost={localhost} googleBucketUrl={googleBucketUrl} />} />

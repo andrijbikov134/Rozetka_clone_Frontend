@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react';
 import styles from "./ProductsListWithFilters.module.css"
 import Product from '../Product';
 import Filters from '../Filters';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const ProductsListWithFilters = (props) => {
   
   const navigate = useNavigate();
   let location = useLocation();
 
-  // Властивість, яка зберігає список подій / Зчитати список подій з глобальної властивості
-  const [products, setProducts] = useState([]);
+  // Властивість, яка зберігає список товарів / Зчитати список товарів з глобальної властивості
+  const [products, setProducts] = useState([]); 
 
   const [categorySubSub, setCategorySubSub] = useState(location.pathname.split('/').pop());
 
@@ -264,7 +264,6 @@ const ProductsListWithFilters = (props) => {
 
   useEffect(() => {
     loadCurrentUser();
-    //loadProductsFromDB();
   }, []);
 
   useEffect(() => {
@@ -280,12 +279,17 @@ const ProductsListWithFilters = (props) => {
       <>
       <div className={styles.main_container}>
         <div className={styles.filters_container}>
+          
           <Filters products={products} sortOrder={sortOrder} localhost={props.localhost} onFilterChange={setFilters} priceR={filters.priceRange}/>
         </div>
         <div className={styles.products_order_container}>
           <h2>{categoryTitle}</h2>
           <div className={styles.header}>
-            <div className={styles.count_found_products}>Знайдено {products.length} товарів</div>
+            {
+              products.length > 0 ? 
+              <div className={styles.count_found_products}>Знайдено {products.length} товарів</div> :
+              <div></div>
+            }
             {
               currentUser != 0 ? (currentUser.role != 'Administrator' ? '' :
               <>

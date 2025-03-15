@@ -8,6 +8,7 @@ import ChangePassword from "../ChangePassword";
 import ProfileHiddenProducts from '../ProfileHiddenProducts'
 import SalesChart from "../SalesStatistic";
 import ProfileAllOrders from "../ProfileAllOrders";
+import ProfileDirectory from "../ProfileDirectory";
 
 const ProfilePage = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style'))); 
@@ -31,12 +32,13 @@ const ProfilePage = (props) => {
       localStorage.setItem('user_petrushka_style',JSON.stringify(user));
     }
     props.loadCurrentUser();
-
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) =>
+    {
     e.preventDefault();
-    try {
+    try
+    {
       const response = await axios.post(
         `${props.localhost}/index.php?action=updateprofile`,
         user,
@@ -44,11 +46,12 @@ const ProfilePage = (props) => {
       );
       setMessage(response.data.message);
       updateProfile();
-    } catch (error) {
+    }
+    catch (error)
+    {
       setMessage("Помилка збереження профілю", error);
     }
   };  
-  
 
   return (
     <div className={styles.main_container}>
@@ -62,6 +65,7 @@ const ProfilePage = (props) => {
             <Link to="/profile/allorders">Усі замовлення</Link>
             <Link to="/profile/statistic">Статистика продажів</Link>
             <Link to="/profile/hiddenproducts">Приховані товари</Link>
+            <Link to='/profile/directory'>Довідники</Link>
             <Link to="/profile/addadmin">Додати адміністратора</Link>
           </> 
           :
@@ -73,11 +77,8 @@ const ProfilePage = (props) => {
             <Link to="/profile/orders">Мої замовлення</Link>
           </>
         }
-        
-        {/* <hr className={styles.hr}/> */}
-        
+           
         <div className={styles.exit_container}>
-          
           <Link  className={styles.exit_button} to='/logout'><img className={styles.img_exit} src={props.localhostFrontend + '/img/exit.png'}  alt="" /> Вийти з кабінету</Link>
         </div>
       </div>
@@ -85,21 +86,19 @@ const ProfilePage = (props) => {
         <Route path='/edit' element={<ProfileEdit user={user} handleChange={handleChange} handleSubmit={handleSubmit}/>}/>
         <Route path='/orders' element={<ProfileOrders localhost={props.localhost} user_id={user.id}/>}/>
         <Route path='/hiddenproducts' element={<ProfileHiddenProducts localhost={props.localhost} user_id={user.id} googleBucketUrl={props.googleBucketUrl}/>}/>
-        <Route path='/statistic' element={<SalesChart localhost={props.localhost}/>}/>
+        {/* <Route path='/statistic' element={<SalesChart localhost={props.localhost}/>}/> */}
         <Route path='/allorders' element={<ProfileAllOrders localhost={props.localhost}/>}/>
-
-
-        {/* <Route path='/changepassword' element={<ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} />}/> */}
-
+        <Route path="/directory" element={<ProfileDirectory localhost={props.localhost}/>}/>
       </Routes>
       {/* Модальне вікно зміни пароля */}
-      {showChangePassword && (
-        <ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} localhost={props.localhost}/>
-      )}
+      {
+        showChangePassword &&
+        (
+          <ChangePassword userId={user.id} closeModal={() => setShowChangePassword(false)} localhost={props.localhost}/>
+        )
+      }
     </div>
   );
-  
 };
 
 export default ProfilePage;
-

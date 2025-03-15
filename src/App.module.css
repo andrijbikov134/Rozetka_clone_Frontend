@@ -1,0 +1,179 @@
+#root
+{
+  margin: 0 ;
+  text-align: center;
+  min-width: 33.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* background-color: #fffbcc; */
+}
+
+.main_block
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.main_block div:nth-child(-n+1)
+{
+  align-self: start;
+}
+
+.navigation_container
+{
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 3rem;
+}
+
+.logo
+{
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover
+{
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover
+{
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin
+{
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card
+{
+  padding: 2em;
+}
+
+.read-the-docs
+{
+  color: #888;
+}
+
+/* Задати фон градієнт для календаря */
+.container__all_components
+{
+  display: flex;
+  background: linear-gradient(90deg, rgba(203,206,228,1) 0%, rgba(116,116,223,1) 35%, rgba(0,212,255,1) 100%);
+  /* Тінь навколо календаря */
+  box-shadow: 0rem 0rem 1.1875rem 0.75rem #29F4EE;
+  padding: 2rem 2rem 1rem 2rem;
+  border-radius: 0.5rem;
+  gap: 2rem;
+  min-height: 33.125rem;
+}
+
+/* Заголовок */
+.h1_container
+{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.h1_container h1
+{
+  color: white;
+  width: 80vw;
+  margin-top: 0 !important;
+  margin-bottom: 1rem;
+  align-self: center;
+}
+
+/* Календар */
+.date_picker
+{
+  --adp-width: 25rem !important;
+  --adp-day-cell-height: 4rem !important;
+}
+
+/* Рамка дня, для якого є подія */
+.day_border
+{
+  box-shadow: 0rem 0rem 0.75rem 0.4375rem hsl(56, 91%, 68%);
+}
+
+.events_list
+{
+  min-width: 16.875rem;
+}
+
+.picture_phrase
+{
+  width: 100%;
+}
+
+/* Адаптив */
+/* Якщо ширина менше, ніж 52.5rem, то розміщуємо головні елементи додатку в стовпчик */
+@media (max-width: 52.5rem)
+{
+  .container__all_components
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(1rem, 0.3721rem + 1.8605vw, 2rem) clamp(1rem, 0.3721rem + 1.8605vw, 2rem) clamp(0.5rem, 0.186rem + 0.9302vw, 1rem) clamp(1rem, 0.3721rem + 1.8605vw, 2rem) ;
+  }
+  .events_list
+  {
+    min-width: none;
+    order: 1;
+  }
+  .calendar
+  {
+    order: 0;
+  }
+  .picture_phrase
+  {
+    order: 2;
+  }
+}
+
+/* Адаптив */
+/* Якщо ширина екрану менше, ніж 87.5rem, то зжимати ширину календаря та висоту комірок */
+@media (max-width: 87.5rem) 
+{
+  .container__all_components
+  {
+    gap: clamp(1rem, 0.3721rem + 1.8605vw, 2rem);
+    min-height: clamp(17rem, 6.875rem + 30vw, 33.125rem);
+  }
+  .date_picker
+  {
+    /* Зжимати ширину всього календяря */
+    --adp-width: clamp(10rem, 0.5814rem + 27.907vw, 25rem) !important;
+    /* Зжимати висоту комірок календаря */
+    --adp-day-cell-height:  clamp(1.5rem, -0.0698rem + 4.6512vw, 4rem) !important;
+  }
+  .events_list
+  {
+    min-width: clamp(8rem, 2.4273rem + 16.5116vw, 16.875rem);
+  }
+  #root
+  {
+    min-width: clamp(16rem, 4.8547rem + 33.0233vw, 33.75rem);
+  }
+  .h1_container h1
+  {
+    font-size: clamp(1.6rem, 0.5953rem + 2.9767vw, 3.2rem);
+  }
+}

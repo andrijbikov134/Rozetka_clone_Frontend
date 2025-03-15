@@ -7,6 +7,8 @@
 {
   display: flex;
   width: 100%;
+  box-sizing: border-box;
+  padding-inline: 3rem;
   margin-inline: 2.5rem;
   gap:  2.5rem;
 }
@@ -29,6 +31,8 @@
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
+  box-sizing: border-box;
+
 }
 .error_container
 {

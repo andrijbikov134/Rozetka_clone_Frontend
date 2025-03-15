@@ -1,9 +1,27 @@
 .main_container
 {
+  display: flex;
+  justify-content: center;
   margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 3rem;
 }
 .main_container img
 {
   /* width: 80%; */
   height: 35rem;
+}
+
+@media (max-width: 85.375rem)
+{
+  .main_container
+  {
+    margin-bottom: clamp(0.25rem, -0.5859rem + 1.8576vw, 1rem);
+    padding-inline: clamp(1rem, -1.2291rem + 4.9536vw, 3rem);
+  }
+  .main_container img
+  {
+    height: clamp(15rem, -7.291rem + 49.5356vw, 35rem);
+  }
 }

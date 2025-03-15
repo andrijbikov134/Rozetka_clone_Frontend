@@ -24,13 +24,12 @@
   margin-bottom: 0.5rem;
 }
 
-
-
 .delivery_container
 {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  box-sizing: border-box;
   margin-top: 0.5rem;
   color: rgb(247, 156, 255);
   font-size: small;
@@ -50,6 +49,7 @@
   padding-inline: 0.5rem;
   padding-block: 0.1rem;
   color: black;
+  text-align: center;
 }
 
 .img_delivery
@@ -66,8 +66,6 @@
   line-clamp: 1;
   max-width: 17rem;
   white-space: nowrap;
-
-  
 }
 
 .buttons_container
@@ -126,4 +124,29 @@
 .empty
 {
   min-height: 1.5rem;
+}
+
+@media(max-width: 85.375rem)
+{
+  .title
+  {
+    max-width: clamp(8rem, -2.031rem + 22.291vw, 17rem);
+    font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
+
+  }
+  .container_column
+  {
+    font-size: clamp(0.5rem, -0.0573rem + 1.2384vw, 1rem);
+  }
+  .img_delivery
+  {
+    width: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
+    height: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
+  }
+  .new_product
+  {
+    padding-inline: clamp(0.15rem, -0.0108rem + 0.5983vw, 0.5rem);
+    padding-block: clamp(0.03rem, -0.0022rem + 0.1197vw, 0.1rem);
+    font-size: clamp(0.5rem, -0.0573rem + 1.2384vw, 1rem);
+  }
 }
