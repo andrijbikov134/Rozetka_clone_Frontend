@@ -70,7 +70,7 @@ const CartProductRow = (props) => {
 
   return (
       <>
-        <div className={styles.ceil_container}>
+        <div className={styles.cell_container}>
           <div className={styles.img_container}>
             <img className={styles.img_product} src={props.googleBucketUrl + props.product.pictures_path} alt="" />
           </div>
@@ -90,16 +90,16 @@ const CartProductRow = (props) => {
             </div>
           </div>
         </div>
-        <div className={styles.ceil_container}>
+        <div className={styles.cell_container}>
           <div className={styles.price}>{props.product.price.toLocaleString()} грн.</div>
         </div>
-        <div className={styles.ceil_container}>
+        <div className={styles.cell_container}>
           <div className={styles.btn_quantity} onClick={handlerOnClickQuantityMinus}>-</div>
           <input id={inputQuantityId} className={styles.quantity} value={quantity}
           onChange={handlerOnChangeQuantity} onKeyUp={handlerOnKeyUp}/>
           <div className={styles.btn_quantity} onClick={handlerOnClickQuantityPlus}>+</div>
         </div>
-        <div className={styles.ceil_container}>
+        <div className={styles.cell_container}>
           <div className={styles.total_sum}>{(props.quantity * props.product.price).toLocaleString()} грн.</div>
         </div>
         <div className={styles.btn_delete} >

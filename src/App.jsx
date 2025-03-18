@@ -258,7 +258,7 @@ function App()
         <div className={styles.main_block}>
           <ScrollToTop/>
           {
-            (location.pathname != '/' && locations.indexOf('profile') == -1 && locations.indexOf('search_result') == -1 && locations.indexOf('login') == -1 && locations.indexOf('register') == -1) ? 
+            (location.pathname != '/' && locations.indexOf('profile') == -1 && locations.indexOf('search_result') == -1 && locations.indexOf('login') == -1 && locations.indexOf('register') == -1 && locations.indexOf('product') == -1) ? 
             <div className={styles.navigation_container}>
             <Link to='/' >Головна</Link>
             {

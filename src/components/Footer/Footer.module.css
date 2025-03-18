@@ -1,3 +1,7 @@
+.footer
+{
+  font-size: 16px;
+}
 .footer_container_register
 {
   color: black;
@@ -62,8 +66,8 @@ a:link:active, a:visited:active
 
 .logo img
 {
-  width: 3.125rem;
-  height: 3.125rem;
+  width: 50px;
+  height: 50px;
   margin-top: 1rem;
 }
 
@@ -84,4 +88,12 @@ a:link:active, a:visited:active
 .footer_container_register:nth-child(n)
 {
   height: auto;
+}
+
+@media(max-width: 85.375rem)
+{
+  .footer
+  {
+    font-size: clamp(10px, 7.248px + 0.64vw, 16px);
+  }
 }

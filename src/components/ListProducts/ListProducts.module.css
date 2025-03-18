@@ -3,13 +3,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-inline: 3rem;
 }
 .header
 {
   color: black;
   font-weight: bold;
   text-align: start;
-  font-size: 1.5rem;
+  font-size: 24px;
 }
 .header_sale
 {
@@ -34,7 +35,7 @@
 .all_sales
 {
   text-decoration: underline;
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 
 @media(max-width: 85.375rem)
@@ -42,13 +43,13 @@
   .popular_products_container, .new_products_container, .sale_products_container
   {
     grid-template-columns: 1fr 1fr;
-    font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
+    /* font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem); */
     gap: clamp(0.8rem, 0.019rem + 2.906vw, 2.5rem);
     margin-top: clamp(0.7rem, 0.1028rem + 2.2222vw, 2rem);
     margin-bottom: clamp(0.7rem, 0.1028rem + 2.2222vw, 2rem);
   }
   .header
   {
-    font-size: clamp(0.5rem, 0.0406rem + 1.7094vw, 1.5rem);  
+    /* font-size: clamp(0.5rem, 0.0406rem + 1.7094vw, 1.5rem);   */
   }
 }

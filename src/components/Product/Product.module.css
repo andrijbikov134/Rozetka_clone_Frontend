@@ -14,6 +14,7 @@
   width: 16.5rem; 
   height: 20.625rem;
   border-radius: 1rem;
+  align-self: center;
 }
 
 .price
@@ -27,12 +28,12 @@
 .delivery_container
 {
   display: flex;
-  justify-content: space-between;
   width: 100%;
+  gap: 2rem;
   box-sizing: border-box;
   margin-top: 0.5rem;
   color: rgb(247, 156, 255);
-  font-size: small;
+  font-size: 13px;
 }
 
 .delivery_text
@@ -64,7 +65,8 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
   line-clamp: 1;
-  max-width: 17rem;
+  /* max-width: 17rem; */
+  font-size: 1rem;
   white-space: nowrap;
 }
 
@@ -115,38 +117,75 @@
 }
 .discount_percent
 {
-  width: 3rem;
-  height: 1.5rem;
+  /* width: 3rem;
+  height: 1.5rem; */
   background-color: rgb(247, 156, 255);
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
   border-radius: 0.25rem;
   font-size: small;
 }
 .empty
 {
-  min-height: 1.5rem;
+  min-height: 1.5rem; 
 }
 
 @media(max-width: 85.375rem)
 {
+  /* small */
+  /* .discount_percent,  .delivery_container
+  {
+    font-size: clamp(0.28rem, 0.035rem + 0.91vw, 0.813rem);
+  } */
+  /* medium */
+  /* .delivery_text, .price_with_discount_container, .main_container
+  {
+    font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
+  } */
+  /* large */
+  .price
+  {
+    font-size: clamp(1.5rem, 1.328rem + 0.64vw, 1.875rem);
+  }
+
   .title
   {
-    max-width: clamp(8rem, -2.031rem + 22.291vw, 17rem);
-    font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
-
+    font-size: clamp(2.5rem, 2.356rem + 0.53vw, 2.813rem);
   }
-  .container_column
+  /* .container_column
   {
     font-size: clamp(0.5rem, -0.0573rem + 1.2384vw, 1rem);
-  }
-  .img_delivery
+  } */
+  /* .img_delivery
   {
     width: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
     height: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
-  }
+  } */
   .new_product
   {
     padding-inline: clamp(0.15rem, -0.0108rem + 0.5983vw, 0.5rem);
     padding-block: clamp(0.03rem, -0.0022rem + 0.1197vw, 0.1rem);
-    font-size: clamp(0.5rem, -0.0573rem + 1.2384vw, 1rem);
+    font-size: clamp(1.25rem, 1.106rem + 0.53vw, 1.563rem);
   }
+  .price_with_discount_container
+  {
+    font-size: clamp(1.25rem, 1.106rem + 0.53vw, 1.563rem);
+  }
+
+  .img
+  {
+    width: clamp(15rem, 10.406rem + 17.09vw, 25rem); 
+    height: clamp(20rem, 14.487rem + 20.51vw, 32rem);
+  }
+  .discount_percent
+  {
+    padding-inline: clamp(0.16rem, 0.004rem + 0.58vw, 0.5rem);
+    padding-block: clamp(0.08rem, 0.002rem + 0.29vw, 0.25rem);
+    font-size: clamp(1.25rem, 1.106rem + 0.53vw, 1.563rem);
+  }
+  .delivery_container
+  {
+    font-size: clamp(1.25rem, 1.106rem + 0.53vw, 1.563rem);
+  }
+
 }

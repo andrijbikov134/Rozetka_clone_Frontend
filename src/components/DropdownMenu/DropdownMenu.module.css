@@ -60,5 +60,13 @@
   display: block;
 }
 
+@media(max-width: 1366px)
+{
+  .display_block
+  { 
+    display: none;
+  }
+}
+
 
 

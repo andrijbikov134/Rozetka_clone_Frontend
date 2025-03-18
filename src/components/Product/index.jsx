@@ -86,7 +86,7 @@ const Product = (props) => {
   
   return (
       <>
-      <div>
+      <div className={styles.main_container}>
         <div className={styles.container_column} onClick={handlerOnClickProduct} data-id={props.id}>
           <img className={styles.img} src={props.img != '' ? props.googleBucketUrl + props.img : (props.localhostFrontend + '/img/no_picture.png')} alt="" />
           <div className={styles.title}>{[props.title]}</div>

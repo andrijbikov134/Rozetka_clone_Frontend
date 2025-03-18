@@ -175,7 +175,7 @@ const ProductFull = (props) => {
           <div className={styles.container_column}>
             <div className={styles.title}>{[product.title]}</div>
             <div>
-              <div className={styles.purt_number}>Артикул: {[product.part_number]}</div>
+              <div className={styles.part_number}>Артикул: {[product.part_number]}</div>
             </div>
             
             <img className={styles.img_sale_product} src={props.localhostFrontend + "/img/sale_product.png"} />
@@ -227,7 +227,9 @@ const ProductFull = (props) => {
 
         <div className={styles.feedbacks_container}>
           <div className={styles.feedbacks}>
-            <div>Відгуки</div>
+            <div>
+              Відгуки
+            </div>
             <div className={styles.feedback_btn_container + " " + (user == null ? styles.hidden_none : "")}>
               <div className={styles.feedback_button + " " + (user == null ? styles.hidden_none : "") } onClick={handlerOnClickFeedback}>Написати відгук</div>
               <div className={styles.feedback_warning + " " + (isFeedbackErrorVisible ? "" : styles.hidden)}>Для того, щоб опублікувати відгук необхідно придбати товар</div>
