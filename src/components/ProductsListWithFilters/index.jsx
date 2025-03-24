@@ -283,7 +283,7 @@ const ProductsListWithFilters = (props) => {
           <Filters products={products} sortOrder={sortOrder} localhost={props.localhost} onFilterChange={setFilters} priceR={filters.priceRange}/>
         </div>
         <div className={styles.products_order_container}>
-          <h2>{categoryTitle}</h2>
+          <h2 className={styles.category_title}>{categoryTitle}</h2>
           <div className={styles.header}>
             {
               products.length > 0 ? 

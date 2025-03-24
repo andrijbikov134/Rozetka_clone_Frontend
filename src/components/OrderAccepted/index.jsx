@@ -37,7 +37,6 @@ const OrderAccepted = (props) => {
       .then(response => setOrderId(response)
       );
     }
-    
   }
 
   useEffect(() => {
@@ -45,8 +44,7 @@ const OrderAccepted = (props) => {
     saveOrderToDB();
     localStorage.setItem('order_petrushka_style', JSON.stringify([]));
     props.updateCart();
-    return () => {
-      
+    return () => {   
     };
   }, []);
 

@@ -35,3 +35,11 @@
   cursor: pointer;
   margin-top: 2rem;
 }
+
+@media(max-width: 1366px)
+{
+  .main_container
+  {
+    font-size: 14px;
+  }
+}

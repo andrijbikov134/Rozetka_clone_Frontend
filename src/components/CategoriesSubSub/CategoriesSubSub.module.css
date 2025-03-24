@@ -30,3 +30,17 @@
 {
 
 }
+
+@media(max-width: 1366px)
+{
+  .grid_container
+  {
+    grid-template-columns: 1fr 1fr;
+  }
+  .categories_container
+  {
+    /* font-size: 12px;
+    width: 240px; */
+    display: none;
+  }
+}

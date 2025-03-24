@@ -90,16 +90,31 @@ const CartProductRow = (props) => {
             </div>
           </div>
         </div>
-        <div className={styles.cell_container}>
+        <div className={styles.cell_container_title_mobile}>
+          <div>Ціна:</div>
+          <div>Кількість:</div>
+          <div>Сума:</div>
+        </div>
+        <div className={styles.cell_container_mobile}>
+          <div className={styles.price}>{props.product.price.toLocaleString()} грн.</div>
+          <div className={styles.container_quantity}>
+            <div className={styles.btn_quantity} onClick={handlerOnClickQuantityMinus}>-</div>
+            <input id={inputQuantityId} className={styles.quantity} value={quantity}
+            onChange={handlerOnChangeQuantity} onKeyUp={handlerOnKeyUp}/>
+            <div className={styles.btn_quantity} onClick={handlerOnClickQuantityPlus}>+</div>
+          </div>
+          <div className={styles.total_sum}>{(props.quantity * props.product.price).toLocaleString()} грн.</div>
+        </div>
+        <div className={styles.cell_container_price}>
           <div className={styles.price}>{props.product.price.toLocaleString()} грн.</div>
         </div>
-        <div className={styles.cell_container}>
+        <div className={styles.cell_container_quantity}>
           <div className={styles.btn_quantity} onClick={handlerOnClickQuantityMinus}>-</div>
           <input id={inputQuantityId} className={styles.quantity} value={quantity}
           onChange={handlerOnChangeQuantity} onKeyUp={handlerOnKeyUp}/>
           <div className={styles.btn_quantity} onClick={handlerOnClickQuantityPlus}>+</div>
         </div>
-        <div className={styles.cell_container}>
+        <div className={styles.cell_container_sum}>
           <div className={styles.total_sum}>{(props.quantity * props.product.price).toLocaleString()} грн.</div>
         </div>
         <div className={styles.btn_delete} >

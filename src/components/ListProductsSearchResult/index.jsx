@@ -169,11 +169,11 @@ const ListProductsSearchResult = (props) => {
           </div>
           
           <div className={styles.container}>
-            <h2>Пошук</h2>
+            <h2 className={styles.category_title}>Пошук</h2>
             <div className={styles.header}>
                 {
                   products.length > 0 ?
-                  (<div className={styles.header}>
+                  (<div className={styles.count_found_products}>
                     За запитом «{inputTitle}» знайдено товарів: {products.length}
                   </div>) : <div></div>
                 }
@@ -187,7 +187,7 @@ const ListProductsSearchResult = (props) => {
                 }
                 {
                   products.length > 0 ? <div className={styles.sort_price}>
-                  <select value={sortOrder} onChange={handleSortChange}>
+                  <select className={styles.sort_price} value={sortOrder} onChange={handleSortChange}>
                     <option value="rating">За популярністю</option>
                     <option value="asc">Від дешевих до дорогих</option>
                     <option value="desc">Від дорогих до дешевих</option>

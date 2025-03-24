@@ -3,3 +3,11 @@
   margin-bottom: 7.5rem;
   color: black;
 }
+
+@media(max-width: 1366px)
+{
+  .main_container
+  {
+    font-size: 14px;
+  }
+}

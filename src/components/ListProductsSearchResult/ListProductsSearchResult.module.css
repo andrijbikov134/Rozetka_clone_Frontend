@@ -1,4 +1,4 @@
-.header
+.count_found_products
 {
   color: black;
   font-weight: bold;
@@ -53,4 +53,29 @@
   padding-block: 0.25rem;
   justify-content: space-between;
   width: 100%;
+}
+
+@media(max-width: 1366px)
+{
+  .container_products
+  {
+    grid-template-columns:  1fr 1fr;
+  }
+  .count_found_products
+  {
+    font-size: 8px;
+    font-weight: 400;
+  }
+  .header
+  {
+    font-size: 10px;
+  }
+  .category_title
+  {
+    font-size: 14px;
+  }
+  .sort_price select
+  {
+    font-size: 8px;
+  }  
 }

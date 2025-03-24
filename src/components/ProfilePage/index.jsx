@@ -66,7 +66,7 @@ const ProfilePage = (props) => {
             <Link to="/profile/statistic">Статистика продажів</Link>
             <Link to="/profile/hiddenproducts">Приховані товари</Link>
             <Link to='/profile/directory'>Довідники</Link>
-            <Link to="/profile/addadmin">Додати адміністратора</Link>
+            <Link to="/profile/usermanagement">Керування користувачами</Link>
           </> 
           :
           <>

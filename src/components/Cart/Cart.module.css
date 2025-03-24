@@ -194,3 +194,43 @@ select, input{
 {
   min-height: 14rem;
 }
+
+@media(max-width: 1366px)
+{
+  .grid_container
+  {
+    grid-template-columns: 5fr 2fr 2fr 1fr;
+    font-size: 10px;
+    width: 100%;
+  }
+  .grid_header
+  {
+    display: none;
+  }
+  .h2
+  {
+    color: black;
+    font-size: 16px;
+  }
+  .delivery_method_header, .pay_order, .recipient_order, .recipient_container
+  {
+    font-size: 14px;
+  }
+  .delivery_method_address_index
+  {
+    width: 112px;
+  }
+
+  .delivery_method_address
+  {
+    width: 200px;
+  }
+  .recipient_ceil input{
+    width: 150px;
+  }
+  .sum_submit
+  {
+    margin-top: 16px;
+    gap: 16px;
+  }
+}

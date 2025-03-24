@@ -76,3 +76,27 @@
 {
   border-color: red;
 }
+
+@media(max-width: 1366px)
+{
+  .main_container
+  {
+    font-size: 14px;
+    gap: 16px;
+    
+  }
+  .card_container
+  {
+    padding: 16px;
+    gap: 8px;
+  }
+  
+  .card_month, .card_year
+  {
+    width: 32px;
+  }
+  .card_cvv
+  {
+    width: 48px;
+  }
+}

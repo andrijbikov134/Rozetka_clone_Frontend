@@ -49,3 +49,11 @@
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: rgb(247, 156, 255);}
+
+@media(max-width: 1366px)
+{
+  .dropdown
+  {
+    font-size: 10px;
+  }
+}

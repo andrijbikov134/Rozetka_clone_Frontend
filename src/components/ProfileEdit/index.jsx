@@ -30,9 +30,27 @@ const ProfileEdit = ({user, handleChange, message, handleSubmit}) =>
                     <option value="male" selected={user.gender == 'male'}>Чоловіча</option>
                   </select>
                 </div>
+                <div className={styles.form_column_mobile}>
+                  <div className={styles.input_container}>
+                    <label htmlFor="">Телефон:</label>
+                    <input className={styles.input} type="text" name="phone" placeholder="" value={user.phone || ""} onChange={handleChange} />
+                  </div>
+                  <div className={styles.input_container}>
+                    <label htmlFor="">День народження:</label>
+                    <input className={styles.input} type="date" name="birthday" value={user.birthday == null ? '' : user.birthday.split(' ')[0]} onChange={handleChange} />
+                  </div>
+                  <div className={styles.input_container}>
+                    <label htmlFor="">e-mail:</label>
+                    <input className={styles.input} type="email" name="email" placeholder="E-mail" value={user.email || ""} onChange={handleChange} disabled />
+                  </div>
+                  <div className={styles.input_container}>
+                    <label htmlFor="">Місто:</label>
+                    <input className={styles.input} type="text" name="city" placeholder="Місто" value={user.city || ""} onChange={handleChange} />
+                  </div>
+                </div>
               </div>
 
-              <div className={styles.form_column}>
+              <div className={styles.form_column_second}>
                 <div className={styles.input_container}>
                   <label htmlFor="">Телефон:</label>
                   <input className={styles.input} type="text" name="phone" placeholder="" value={user.phone || ""} onChange={handleChange} />

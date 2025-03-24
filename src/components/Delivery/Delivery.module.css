@@ -38,3 +38,10 @@
 .ul li{
   text-align: left;
 }
+@media(max-width: 1366px)
+{
+  .main_container 
+  {
+    font-size: 12px;
+  }
+}

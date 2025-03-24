@@ -55,7 +55,7 @@ const Footer = (props) => {
           {
             props.user == 0 ?
             <div className={styles.footer_container_register}>
-            <div><span className={styles.footer_register_title}>Зареєструйтеся,</span> щоб накопичувати<br/> замовлення та отримувати знижку</div>
+            <div><span className={styles.footer_register_title}>Зареєструйтеся,</span><br/>щоб відстежувати історію замовлень</div>
             <button className={styles.buton_register} onClick={handlerOnClickRegister}>ЗАРЕЄСТРУВАТИСЯ</button>
           </div> 
             : <></>

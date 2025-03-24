@@ -104,7 +104,7 @@ const Header = (props) =>
       title: 'Приховані товари'
     },
     {
-      type: "profile/addadmin",
+      type: "profile/usermanagement",
       title: 'Додати адміністратора'
     },
     {
@@ -134,7 +134,7 @@ const Header = (props) =>
             <div className={styles.cart_profile_container}>
               {/* Вхід до кабінету */}
               <div className={styles.profile}>
-                <div>
+                <div className={styles.profile_title}>
                   {props.user == 0 ? "" : props.user.first_name}
                 </div>
                 {

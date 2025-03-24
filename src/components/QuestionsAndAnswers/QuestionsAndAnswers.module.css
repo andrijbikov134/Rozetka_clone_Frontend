@@ -35,3 +35,11 @@
   color: rgb(154, 56, 229);
   cursor: pointer;
 }
+
+@media(max-width: 1366px)
+{
+  .main_container 
+  {
+    font-size: 10px;
+  }
+}

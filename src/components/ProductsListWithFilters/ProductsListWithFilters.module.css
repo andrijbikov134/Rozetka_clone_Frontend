@@ -17,7 +17,7 @@
 .grid_products
 {
   display: grid;
-  grid-template-columns:  repeat(4,1fr);
+  grid-template-columns:  1fr 1fr 1fr 1fr;
   gap: 1rem;
   row-gap: 3rem;
   width: 100%;
@@ -69,4 +69,25 @@
   border-radius: 0.5rem;
   font-weight: 400;
   cursor: pointer;
+}
+
+@media(max-width: 1366px)
+{
+  .grid_products
+  {
+    grid-template-columns:  1fr 1fr;
+  }
+  .count_found_products, .header
+  {
+    font-size: 10px;
+  }
+  .category_title
+  {
+    font-size: 14px;
+  }
+  .sort_price select
+  {
+    font-size: 10px;
+    margin-right: 16px;
+  }  
 }

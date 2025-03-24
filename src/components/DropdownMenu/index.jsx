@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './DropdownMenu.module.css';
 import Dropdown from 'react-multilevel-dropdown';
 
 
 const DropdownMenu = (props) =>
 {
+  let location = useLocation();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [categoriesSubSub, setCategoriesSubSub] = useState([]);
 
 
@@ -57,10 +58,20 @@ const DropdownMenu = (props) =>
     event.currentTarget.classList.remove(styles.display_block);
   }
   
+  const handlerOnClickLink = (event) =>
+  {
+    setOpen(false);
+    navigate(event.currentTarget.dataset.url);
+  }
 
   useEffect(() => {
     loadCategoriesSubSub();
   }, []);
+
+  useEffect(() => {
+    
+    setOpen(true);
+  }, [location]);
 
   return (
     <>
@@ -69,7 +80,7 @@ const DropdownMenu = (props) =>
       <div class={styles.dropdown}>
         <button class={styles.dropbtn}>{props.category_title}</button>
 
-        <div class={styles.dropdown_content}>
+        <div class={styles.dropdown_content + ' ' + (open ? '' : styles.hidden)}>
           {
             props.categoriesSub.map((categorySub, index) =>
               {
@@ -77,7 +88,7 @@ const DropdownMenu = (props) =>
                 const id = categorySub.id;
                 return (
                   <div>
-                    <Link to={url} onMouseEnter={handlerMouseEnter} onMouseLeave={handlerMouseLeave}>{categorySub.title_ua}
+                    <Link to={url} data-url={url} onMouseEnter={handlerMouseEnter} onMouseLeave={handlerMouseLeave} onClick={handlerOnClickLink}>{categorySub.title_ua}
                     </Link>
                     <div className={styles.sub_items_container} onMouseEnter={handlerMouseEnterSubItems} onMouseLeave={handlerMouseLeaveSubItems}>
                         {categoriesSubSub.map((categorySubSub) =>

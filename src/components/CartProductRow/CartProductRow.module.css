@@ -1,10 +1,11 @@
-.cell_container
+.cell_container, .cell_container_price, .cell_container_quantity,.cell_container_sum
 {
   display: flex;
   gap: 1rem;
   justify-content: center;
   align-items: center;
   color: black;
+  width: 100%;
   align-self: center !important;
   /* width: 14rem; */
 }
@@ -12,8 +13,8 @@
 .img_product
 {
   /* margin-left: 3rem; */
-  height: 5rem;
-  width: 5rem;
+  height: 120px;
+  width: 120px;
 }
 
 .img_container
@@ -26,7 +27,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  width: 14rem;
+  /* width: 14rem; */
 }
 
 .title
@@ -64,6 +65,7 @@
 .price
 {
   font-weight: 600;
+  align-self: center !important;
 }
 
 .total_sum
@@ -83,4 +85,54 @@
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
+}
+
+.cell_container_mobile
+{
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cell_container_title_mobile
+{
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: end !important;
+  margin-right: 10px;
+}
+
+.cell_container_title_mobile div
+{
+  align-self: end !important;
+}
+
+.container_quantity
+{
+  display: flex;
+  gap: 12px;
+}
+
+@media(max-width: 1366px)
+{
+  .img_delete
+  {
+    width: 16px;
+    height: 16px;
+  }
+  .img_product
+  {
+    width: 80px;
+    height: 80px;
+  }
+  .cell_container_mobile, .cell_container_title_mobile
+  {
+    display: flex;
+  }
+  .cell_container_price, .cell_container_quantity,.cell_container_sum
+  {
+    display: none;
+  }
 }

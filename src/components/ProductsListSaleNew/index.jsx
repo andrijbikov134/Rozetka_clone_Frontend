@@ -258,7 +258,7 @@ const ProductsListSaleNew = (props) => {
           <Filters products={products} sortOrder={sortOrder} localhost={props.localhost} onFilterChange={setFilters} priceR={filters.priceRange}/>
         </div>
         <div className={styles.products_order_container}>
-          <h2>{props.title}</h2>
+          <h2 className={styles.category_title}>{props.title}</h2>
           <div className={styles.header}>
             <div className={styles.count_found_products}>Знайдено {products.length} товарів</div>
             {

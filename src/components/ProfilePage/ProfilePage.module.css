@@ -36,8 +36,6 @@ h2
   width: 13.1% !important;
 }
 
-
-
 .exit_button
 {
   color: black !important;
@@ -96,3 +94,15 @@ h2
   
   background-color: rgb(247,156,255);
 } */
+
+@media(max-width: 1366px)
+{
+  .nav_bar_container{
+    display: none;
+  }
+  .main_container
+  {
+    font-size: 14px;
+    width: auto;
+}
+}

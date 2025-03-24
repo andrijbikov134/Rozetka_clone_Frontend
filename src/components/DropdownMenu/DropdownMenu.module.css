@@ -60,11 +60,20 @@
   display: block;
 }
 
+.hidden
+{
+  display: none !important;
+}
+
 @media(max-width: 1366px)
 {
   .display_block
   { 
     display: none;
+  }
+  .dropbtn {
+    
+    font-size: 12px;
   }
 }
 

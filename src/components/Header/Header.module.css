@@ -116,8 +116,8 @@ a:link:active, a:visited:active
 
 .img_sale
 {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 24px;
+  height: 24px;
 }
 
 .cart
@@ -148,7 +148,7 @@ a:link:active, a:visited:active
   height: 16px;
   width: 16px;
   background-color: rgb(247, 156, 255);
-  font-size: 0.875rem;
+  font-size: 14px;
   padding: 0.25rem;
   position: relative;
   top: -12px; left: -1rem;
@@ -211,3 +211,20 @@ a:link:active, a:visited:active
   color: black;
 }
 
+@media(max-width: 1366px)
+{
+  .header_img_search
+  {
+    margin-left: -20px;
+    width: 16px;
+    height: 16px;
+  }
+  .sale_container a, .newProducts a
+  {
+    font-size: 14px;
+  }
+  .profile_title
+  {
+    font-size: 14px;
+  }
+}

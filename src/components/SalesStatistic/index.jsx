@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import SalesStatisticCategory from '../SalesStatisticCategory';
 import styles from "./SalesStatistic.module.css";
 
 Chart.register(...registerables);
@@ -17,7 +18,7 @@ export default function SalesChart({localhost})
       setChartData({
         labels: data.labels,
         datasets: [{
-          label: type == 'getTopProductsQuantity' ? 'Продажі, шт.' : 'Продажі, грн.',
+          label: type == 'getTopProductsQuantity' ? 'Продаж, шт.' : 'Продаж, грн.',
           data: data.values,
           backgroundColor: type === "getSalesByMonth" ? "violet" : "violet",
           borderColor: type === "getSalesByMonth" ? "violet" : "violet",
@@ -32,6 +33,11 @@ export default function SalesChart({localhost})
     }
   };
 
+  const HandlerOnClickSaleCategory = () =>
+  {
+    setChartData(null);
+  }
+
   useEffect(() => {
     fetchData("getTopProductsQuantity");
   }, []);
@@ -41,11 +47,13 @@ export default function SalesChart({localhost})
       <h2>Статистика продажів</h2>
       <div className={styles.buttons_container}>
         <button onClick={() => fetchData("getTopProductsQuantity")} className="btn">ТОП-10 товарів</button>
-        <button onClick={() => fetchData("getSalesByMonth")} className="btn">Продажі по місяцях</button>
-        <button onClick={() => fetchData("getSalesByBrand")} className="btn">Продажі по брендах</button>
+        <button onClick={() => fetchData("getSalesByMonth")} className="btn">Продаж за місяцями</button>
+        <button onClick={() => fetchData("getSalesByBrand")} className="btn">Продаж за брендами</button>
+        <button onClick={HandlerOnClickSaleCategory} className="btn">Продаж за категоріями</button>
       </div>
       <div style={{ width: "100%", margin: "auto" }}>
         {chartData && (chartType === "bar" ? <Bar data={chartData} /> : <Line className={styles.line} data={chartData} />)}
+        {chartData == null ? <SalesStatisticCategory localhost={localhost}/> : ''}
       </div>
     </div>
   );

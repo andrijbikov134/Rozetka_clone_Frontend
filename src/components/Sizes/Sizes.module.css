@@ -7,3 +7,16 @@
 {
   color: black;
 }
+
+@media(max-width: 1366px)
+{
+  .main_container img
+  {
+    width: 90%;
+  }
+
+  .main_container 
+  {
+    font-size: 10px;
+  }
+}
