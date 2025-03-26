@@ -197,6 +197,10 @@ select, input{
 
 @media(max-width: 1366px)
 {
+  .main_container
+  {
+    width: 95%;
+  }
   .grid_container
   {
     grid-template-columns: 5fr 2fr 2fr 1fr;
@@ -216,11 +220,14 @@ select, input{
   {
     font-size: 14px;
   }
+  .delivery_method_select select
+  {
+    font-size: 12px;
+  }
   .delivery_method_address_index
   {
     width: 112px;
   }
-
   .delivery_method_address
   {
     width: 200px;

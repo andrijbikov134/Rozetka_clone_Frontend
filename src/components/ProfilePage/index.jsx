@@ -9,6 +9,8 @@ import ProfileHiddenProducts from '../ProfileHiddenProducts'
 import SalesChart from "../SalesStatistic";
 import ProfileAllOrders from "../ProfileAllOrders";
 import ProfileDirectory from "../ProfileDirectory";
+import UserManagement from "../UserManagement";
+import NewAdministrator from "../NewAdministrator";
 
 const ProfilePage = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user_petrushka_style')) || JSON.parse(sessionStorage.getItem('user_petrushka_style'))); 
@@ -34,7 +36,7 @@ const ProfilePage = (props) => {
     props.loadCurrentUser();
   }
 
-  const handleSubmit = async (e) =>
+  const handleSubmitEditProfile = async (e) =>
     {
     e.preventDefault();
     try
@@ -51,7 +53,7 @@ const ProfilePage = (props) => {
     {
       setMessage("Помилка збереження профілю", error);
     }
-  };  
+  }; 
 
   return (
     <div className={styles.main_container}>
@@ -65,8 +67,8 @@ const ProfilePage = (props) => {
             <Link to="/profile/allorders">Усі замовлення</Link>
             <Link to="/profile/statistic">Статистика продажів</Link>
             <Link to="/profile/hiddenproducts">Приховані товари</Link>
-            <Link to='/profile/directory'>Довідники</Link>
-            <Link to="/profile/usermanagement">Керування користувачами</Link>
+            <Link to="/profile/usermanagement">Користувачі</Link>
+            {/* <Link to='/profile/directory'>Довідники</Link> */}
           </> 
           :
           <>
@@ -83,12 +85,14 @@ const ProfilePage = (props) => {
         </div>
       </div>
       <Routes>
-        <Route path='/edit' element={<ProfileEdit user={user} handleChange={handleChange} handleSubmit={handleSubmit}/>}/>
+        <Route path='/edit' element={<ProfileEdit user={user} handleChange={handleChange} handleSubmit={handleSubmitEditProfile}/>}/>
         <Route path='/orders' element={<ProfileOrders localhost={props.localhost} user_id={user.id}/>}/>
         <Route path='/hiddenproducts' element={<ProfileHiddenProducts localhost={props.localhost} user_id={user.id} googleBucketUrl={props.googleBucketUrl}/>}/>
-        {/* <Route path='/statistic' element={<SalesChart localhost={props.localhost}/>}/> */}
+        <Route path='/statistic' element={<SalesChart localhost={props.localhost}/>}/>
         <Route path='/allorders' element={<ProfileAllOrders localhost={props.localhost}/>}/>
         <Route path="/directory" element={<ProfileDirectory localhost={props.localhost}/>}/>
+        <Route path="/usermanagement" element={<UserManagement localhost={props.localhost}  localhostFrontend={props.localhostFrontend}/>}/>
+        <Route path='/newadmin' element={<NewAdministrator localhost={props.localhost}/>}/>
       </Routes>
       {/* Модальне вікно зміни пароля */}
       {

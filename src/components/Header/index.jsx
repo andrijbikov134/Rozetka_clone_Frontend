@@ -68,9 +68,6 @@ const Header = (props) =>
     loadCategoriesSub();
   }, []);
 
-  // let cart_classes;
-  // cart_classes = props.cart_count > 0 ? `${styles.count_cart}` : `${styles.count_cart} ${styles.hidden}`;
-  
   let categoriesProfileClient = [
     {
       type: "profile/edit",
@@ -105,8 +102,12 @@ const Header = (props) =>
     },
     {
       type: "profile/usermanagement",
-      title: 'Додати адміністратора'
+      title: 'Користувачі'
     },
+    // {
+    //   type: "profile/directory",
+    //   title: 'Довідники'
+    // },
     {
       type: "logout",
       title: 'Вийти з кабінету'

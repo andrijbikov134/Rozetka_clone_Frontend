@@ -73,7 +73,7 @@ const ProfileOrders = ({ localhost, user_id }) => {
         <table className={styles.orders_table}>
           <thead>
             <tr>
-              <th>Номер замовлення</th>
+              <th>№</th>
               <th>Дата</th>
               <th>Товарів</th>
               <th>Сума</th>

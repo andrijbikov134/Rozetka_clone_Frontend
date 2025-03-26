@@ -83,7 +83,7 @@ h2 {
   text-align: center;
   border-radius: 1rem;
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .red{
@@ -100,4 +100,9 @@ h2 {
 
 .violet{
   background-color: violet;
+}
+
+@media(max-width: 1366px)
+{
+  
 }

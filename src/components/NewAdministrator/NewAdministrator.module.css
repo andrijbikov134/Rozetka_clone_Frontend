@@ -1,0 +1,122 @@
+.profile_container
+{
+  margin: auto;
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin-left: 17rem;
+}
+
+.h2
+{
+  text-align: center;
+}
+
+.form
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+  gap: 1rem;
+}
+
+.form_container
+{
+  display: flex;
+  gap: 4rem;
+  padding: 3rem;
+}
+
+.form_column, .form_column_second
+{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input, .select
+{
+  margin-bottom: 0.625rem;
+  padding: 0.5rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
+}
+
+.button
+{
+  width: 30%;
+  padding: 0.625rem;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3125rem;
+}
+
+.button:hover
+{
+  background: #0056b3;
+}
+
+.input_container
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: start;
+}
+.form_column_mobile
+{
+  display: none;
+}
+
+.button_save
+{
+  background-color: rgb(247, 156, 255);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+  color: black;
+  width: 10rem;
+}
+
+.button_cancel
+{
+  background-color: rgb(232, 232, 232);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center !important;
+  color: black;
+  margin-right: 1rem;
+  width: 10rem;
+}
+
+.error
+{
+  border: 1px solid red;
+}
+
+@media (max-width: 1366px) 
+{
+  .profile_container
+  {
+    width: auto;
+    margin-left: auto;
+  }  
+  .form_column_second
+  {
+    display: none;
+  }
+  .form_column_mobile
+  {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

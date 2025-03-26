@@ -6,6 +6,7 @@
   padding: 1rem;
   gap: 0.5rem;
   border-radius: 1rem;
+  align-self: normal !important;
 }
 
 .user_date_container

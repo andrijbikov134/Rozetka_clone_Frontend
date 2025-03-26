@@ -1,0 +1,59 @@
+.main_container
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons_container
+{
+  display: flex;
+  gap: 1rem;
+  align-self: center;
+}
+
+.users_container
+{
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: 7rem;
+  margin-top: 1rem;
+}
+
+.users_container th,
+.users_container td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.users_container th {
+  background-color: #f8f8f8;
+}
+
+.head_cell
+{
+  font-weight: 700;
+}
+
+.img
+{
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.password
+{
+  width: 6rem;
+}
+
+.button_add_new_product
+{
+  align-self: start;
+  margin-left: 7rem;
+  width: 7rem;
+  background-color: rgb(247,156,255);
+  border-radius: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}

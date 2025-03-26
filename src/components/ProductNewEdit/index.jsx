@@ -525,14 +525,6 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
             colors.map((color) => {
               return <option value={color.id} data-title={color.title} selected={color.id == selectedColor.id}>{color.title}</option>
             })
-            // colors.map((color) => {
-            //   return (
-            //     <div className={styles.color_container}>
-            //       <input className={styles.input} type="checkbox" onChange={handlerColorChange} value={color.id} data-title={color.title}/>
-            //       <div>{color.title}</div>
-            //     </div>
-            //   )
-            // })
           }
         </select>
         <div className={styles.title}>Матеріал:</div>
@@ -554,15 +546,15 @@ const ProductNewEdit = ({localhost, googleBucketUrl}) => {
         
         <div className={styles.button_cancel} onClick={handlerOnClickCancel}>Скасувати</div>
         <div className={styles.button_save} onClick={handlerOnClickSave}>Зберегти</div>
-      </div>
-      <div>
-        <img className={styles.img} src={imgPath} alt="" />
-        <div className={styles.choose_img_container}>
-          <label for="img_path" className={styles.img_input}>Обрати картинку</label>
-          <input id="img_path" className={styles.display_none} onChange={handlerOnChangeImg} type="file" />
-          
+        <div className={styles.img_container}>
+          <img className={styles.img} src={imgPath} alt="" />
+          <div className={styles.choose_img_container}>
+            <label for="img_path" className={styles.img_input}>Обрати картинку</label>
+            <input id="img_path" className={styles.display_none} onChange={handlerOnChangeImg} type="file" /> 
+          </div>
         </div>
       </div>
+      
       </>
   );
 }

@@ -59,7 +59,16 @@ let dictionary_bread_crumbs =
   windbreakers: "Вітровки",
   cart: "Кошик",
   sale: "Розпродаж",
-  newproducts: "Новинки"
+  newproducts: "Новинки",
+  contacts: "Контакти",
+  shops: "Магазини",
+  sizes: "Розміри",
+  questionsandanswers: "Питання та відповіді",
+  delivery: "Доставка",
+  paymentmethods: "Способи оплати",
+  addnewproduct: "Товар",
+  paymentcard: "Оплата карткою",
+  orderaccepted: "Замовлення"
 }
 
 function App()
@@ -281,7 +290,8 @@ function App()
                     }
                     return(<>
                       <div>/</div>
-                      <Link to={path}>{dictionary_bread_crumbs[loc]}</Link>
+                      {index == locations.length-1 ? <div>{dictionary_bread_crumbs[loc]}</div> :  <Link className={index } to={path}>{dictionary_bread_crumbs[loc]}</Link>}
+                      
                     </>)                               
                   }
                 }                
