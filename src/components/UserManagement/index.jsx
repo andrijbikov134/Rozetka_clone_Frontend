@@ -10,11 +10,28 @@ const UserManagement = ({localhost, localhostFrontend}) => {
   const [title, setTitle] = useState('');
   const tableId = useId();
 
-  const fetchData = (role) =>
+  // const fetchData = (role) =>
+  // {
+  //   let url = `${localhost}/index.php?action=getUsersByRole&role=${role}`;
+  //   fetch(url, {
+  //     method: 'GET',
+  //     header: {
+  //       'Content-Type': 'application/json', 
+  //     },
+  //   })
+  //   .then(response =>
+  //     response.json()
+  //     )
+  //   .then(response => {
+  //      setUsers(response);
+  //   })
+  // }
+
+  const fetchData = (action) =>
   {
-    let url = `${localhost}/index.php?action=getUsersByRole&role=${role}`;
+    let url = `${localhost}/index.php?action=${action}`;
     fetch(url, {
-      method: 'GET',
+      method: 'POST',
       header: {
         'Content-Type': 'application/json', 
       },
@@ -23,7 +40,7 @@ const UserManagement = ({localhost, localhostFrontend}) => {
       response.json()
       )
     .then(response => {
-       setUsers(response);
+        setUsers(response);
     })
   }
 
@@ -65,7 +82,8 @@ const UserManagement = ({localhost, localhostFrontend}) => {
   }
 
   useEffect(() => {
-    fetchData('Administrator');
+    // fetchData('Administrator');
+    fetchData('getUsersAdmins');
     setTitle('Адміністратори');
     return () => {
       
@@ -77,8 +95,8 @@ const UserManagement = ({localhost, localhostFrontend}) => {
     
       <div className={styles.main_container}>
         <div className={styles.buttons_container}>
-          <button onClick={() => {fetchData("Administrator"); setTitle('Адміністратори');}} className="btn">Адміністратори</button>
-          <button onClick={() => {fetchData("Client"); setTitle('Клієнти');}} className="btn">Клієнти</button>
+          <button onClick={() => {fetchData("getUsersAdmins"); setTitle('Адміністратори');}} className="btn">Адміністратори</button>
+          <button onClick={() => {fetchData("getUsersClients"); setTitle('Клієнти');}} className="btn">Клієнти</button>
         </div>
         <h2>{title}</h2>
         {title == 'Адміністратори' ? 
