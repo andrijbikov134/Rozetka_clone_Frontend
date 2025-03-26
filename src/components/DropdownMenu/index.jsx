@@ -77,10 +77,10 @@ const DropdownMenu = (props) =>
     <>
     {
       props.categoriesSub.length == 0 ? <></> :
-      <div class={styles.dropdown}>
-        <button class={styles.dropbtn}>{props.category_title}</button>
+      <div className={styles.dropdown}>
+        <button className={styles.dropbtn}>{props.category_title}</button>
 
-        <div class={styles.dropdown_content + ' ' + (open ? '' : styles.hidden)}>
+        <div className={styles.dropdown_content + ' ' + (open ? '' : styles.hidden)}>
           {
             props.categoriesSub.map((categorySub, index) =>
               {

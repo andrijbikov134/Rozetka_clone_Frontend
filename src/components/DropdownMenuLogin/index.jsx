@@ -11,10 +11,10 @@ const DropdownMenuLogin = (props) =>
 
   return (
     <>
-      <div class={styles.dropdown}>
-        <img class={styles.dropimg} src={props.src} onClick={props.handlerOnClickProfile}/>
+      <div className={styles.dropdown}>
+        <img className={styles.dropimg} src={props.src} onClick={props.handlerOnClickProfile}/>
 
-        <div class={styles.dropdown_content + " " + (props.user == 0 ? styles.hidden : "")}>
+        <div className={styles.dropdown_content + " " + (props.user == 0 ? styles.hidden : "")}>
           {
             props.categories.map((category) =>
               {

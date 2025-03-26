@@ -26,9 +26,9 @@ const CartProductRow = (props) => {
     }
   }
 
-  const hanlderFocusLeave = (e) =>
+  const handlerFocusLeave = (e) =>
   {
-    if(e.target.id != inputQuantityId && document.getElementById(inputQuantityId).value == "")
+    if(e.target.id != inputQuantityId && document.getElementById(inputQuantityId).value == "" && e)
     {
       setQuantity(1);
     }
@@ -61,7 +61,7 @@ const CartProductRow = (props) => {
   }
 
   useEffect(() => {
-    document.addEventListener('click', hanlderFocusLeave);
+    document.addEventListener('click', handlerFocusLeave);
   }, []);
 
   useEffect(() => {
