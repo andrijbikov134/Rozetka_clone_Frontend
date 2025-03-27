@@ -2,30 +2,13 @@ import {useState, useEffect, useId} from 'react';
 import styles from './UserManagement.module.css'
 import { useNavigate } from 'react-router-dom';
 
-const UserManagement = ({localhost, localhostFrontend}) => {
+const UserManagement = ({localhost, localhostFrontend, user}) => {
 
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
   const [title, setTitle] = useState('');
   const tableId = useId();
-
-  // const fetchData = (role) =>
-  // {
-  //   let url = `${localhost}/index.php?action=getUsersByRole&role=${role}`;
-  //   fetch(url, {
-  //     method: 'GET',
-  //     header: {
-  //       'Content-Type': 'application/json', 
-  //     },
-  //   })
-  //   .then(response =>
-  //     response.json()
-  //     )
-  //   .then(response => {
-  //      setUsers(response);
-  //   })
-  // }
 
   const fetchData = (action) =>
   {
@@ -82,9 +65,17 @@ const UserManagement = ({localhost, localhostFrontend}) => {
   }
 
   useEffect(() => {
-    // fetchData('Administrator');
-    fetchData('getUsersAdmins');
-    setTitle('Адміністратори');
+    if(user.first_name == 'root')
+    {
+      fetchData('getUsersAdmins');
+      setTitle('Адміністратори');
+    }
+    else
+    {
+      fetchData('getUsersClients');
+      setTitle('Клієнти');
+    }
+    
     return () => {
       
     };
@@ -95,7 +86,9 @@ const UserManagement = ({localhost, localhostFrontend}) => {
     
       <div className={styles.main_container}>
         <div className={styles.buttons_container}>
-          <button onClick={() => {fetchData("getUsersAdmins"); setTitle('Адміністратори');}} className="btn">Адміністратори</button>
+          {
+            user.first_name == 'root' ? <button onClick={() => {fetchData("getUsersAdmins"); setTitle('Адміністратори');}} className="btn">Адміністратори</button> : ''
+          }
           <button onClick={() => {fetchData("getUsersClients"); setTitle('Клієнти');}} className="btn">Клієнти</button>
         </div>
         <h2>{title}</h2>
@@ -112,7 +105,7 @@ const UserManagement = ({localhost, localhostFrontend}) => {
               <th>Стать</th>
               <th>Телефон</th>
               <th>e-mail</th>
-              <th>Дата народження</th>
+              <th>Birthday</th>
               <th>Місто</th>
               <th>Новий пароль</th>
               <th></th>
@@ -128,7 +121,7 @@ const UserManagement = ({localhost, localhostFrontend}) => {
                   <td>{user.last_name}</td>
                   <td>{user.first_name}</td>
                   <td>{user.patronymic}</td>
-                  <td>{user.gender == 'male' ? 'Чоловіча' : user.gender == 'female' ? 'Жіноча' : ''}</td>
+                  <td>{user.gender == 'male' ? 'Чол.' : user.gender == 'female' ? 'Жін.' : ''}</td>
                   <td>{user.phone}</td>
                   <td>{user.email}</td>
                   <td>{user.birthday ? new Date(user.birthday).toLocaleDateString() : ''}</td>

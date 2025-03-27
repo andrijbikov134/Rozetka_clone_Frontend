@@ -91,7 +91,7 @@ const ProfilePage = (props) => {
         <Route path='/statistic' element={<SalesChart localhost={props.localhost}/>}/>
         <Route path='/allorders' element={<ProfileAllOrders localhost={props.localhost}/>}/>
         <Route path="/directory" element={<ProfileDirectory localhost={props.localhost}/>}/>
-        <Route path="/usermanagement" element={<UserManagement localhost={props.localhost}  localhostFrontend={props.localhostFrontend}/>}/>
+        <Route path="/usermanagement" element={<UserManagement user={user} localhost={props.localhost}  localhostFrontend={props.localhostFrontend}/>}/>
         <Route path='/newadmin' element={<NewAdministrator localhost={props.localhost}/>}/>
       </Routes>
       {/* Модальне вікно зміни пароля */}
