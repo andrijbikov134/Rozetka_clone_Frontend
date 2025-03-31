@@ -13,7 +13,7 @@
   height: 35rem;
 }
 
-@media (max-width: 85.375rem)
+@media (max-width: 1366px)
 {
   .main_container
   {

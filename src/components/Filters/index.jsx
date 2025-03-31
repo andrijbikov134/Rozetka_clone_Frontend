@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import styles from './Filters.module.css'
 import { useLocation } from "react-router-dom";
 
-const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
+const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) =>
+{
   const location = useLocation();
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [priceRange, setPriceRange] = useState(priceR);
@@ -15,7 +16,8 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
  
   const loadBrands = () =>
   {
-    fetch(`${localhost}/index.php?action=getAllBrands`, {
+    fetch(`${localhost}/index.php?action=getAllBrands`,
+    {
       method: 'POST',
       header: {
         'Content-Type': 'application/json', 
@@ -24,7 +26,8 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
     .then(response =>
       response.json()
       )
-    .then(response => {
+    .then(response =>
+    {
       setBrands(response);
     })
   }
@@ -33,9 +36,11 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
   {
     if(products.length != 0 && !isLoaded)
     {
-      fetch(`${localhost}/index.php?action=getAllSizes`, {
+      fetch(`${localhost}/index.php?action=getAllSizes`,
+      {
         method: 'POST',
-        header: {
+        header:
+        {
           'Content-Type': 'application/json', 
         },
         body: JSON.stringify(products),
@@ -43,32 +48,36 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
       .then(response =>
         response.json()
         )
-      .then(response => {
+      .then(response =>
+      {
         setSizes(response);
         setIsLoaded(true);
       })
     }
-    
   }
   
   const loadCountries = () =>
   {
-    fetch(`${localhost}/index.php?action=getAllCountries`, {
+    fetch(`${localhost}/index.php?action=getAllCountries`,
+    {
       method: 'POST',
-      header: {
+      header:
+      {
         'Content-Type': 'application/json', 
       },
     })
     .then(response =>
       response.json()
       )
-    .then(response => {
+    .then(response =>
+    {
       setCountries(response);
     })
   }
 
   // Обробка вибору брендів
-  const handleBrandChange = (event) => {
+  const handleBrandChange = (event) =>
+  {
     const brandId = event.target.value;
     const brandTitle = event.target.dataset.title;
     let updatedBrands = [...selectedBrands];
@@ -87,7 +96,8 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
   };
 
   // Обробка діапазону цін
-  const handlePriceChange = (event) => {
+  const handlePriceChange = (event) =>
+  {
     const { name, value } = event.target;
     if(priceRange[name] != value)
     {
@@ -97,7 +107,8 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
     }
   };
 
-  const handleSizeChange = (event) => {
+  const handleSizeChange = (event) =>
+  {
     const sizeId = event.target.value;
     const sizeTitle = event.target.dataset.title;
     let updatedSizes = [...selectedSizes];
@@ -112,7 +123,7 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
     }      
 
     setSelectedSizes(updatedSizes);
-    onFilterChange({ brands: selectedBrands, priceRange: priceRange, countries: selectedCountries, sizes: updatedSizes, sort: sortOrder });
+    onFilterChange({brands: selectedBrands, priceRange: priceRange, countries: selectedCountries, sizes: updatedSizes, sort: sortOrder});
   };
 
   const handlerOnChangeCountries = (event) =>
@@ -131,24 +142,36 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
     }      
 
     setSelectedCountries(updatedCountries);
-    onFilterChange({ brands: selectedBrands, priceRange: priceRange, countries: updatedCountries, sizes: selectedSizes, sort: sortOrder });
+    onFilterChange({brands: selectedBrands, priceRange: priceRange, countries: updatedCountries, sizes: selectedSizes, sort: sortOrder});
   }
 
+  const handlerOnClickClearFilters = () => 
+  {
+    onFilterChange({brands: [], countries: [], priceRange: {min: 0, max: 100000}, sizes: [], sort: sortOrder });
+    setSelectedBrands([]);
+    setSelectedCountries([]);
+    setSelectedSizes([]);
+    setPriceRange({min: 0, max: 100000});
+  }
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     loadBrands();
     loadSizes();
     loadCountries();
   }, [products]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     setIsLoaded(false);
   }, [location]);
  
 
   return (
     <div className={styles.filter_container}>
-
+      <div className={styles.clear_filters_button} onClick={handlerOnClickClearFilters}>
+        Очистити все
+      </div>
       {/* Фільтр за брендом */}
       <h3>Бренд</h3>
       <div className={styles.brand_list}>
@@ -159,6 +182,7 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
               value={brand.id}
               data-title={brand.title}
               onChange={handleBrandChange}
+              checked={selectedBrands.filter((selectedBrand) => selectedBrand.id == brand.id).length == 0 ? false : true}
             />
             <div>{brand.title}</div>
           </div>
@@ -184,7 +208,7 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
           value={priceRange.max}
           onChange={handlePriceChange}
         />
-        <button onClick={() => onFilterChange({ brands: selectedBrands, priceRange: priceRange, sizes: selectedSizes, sort: sortOrder })}>OK</button>
+        <button onClick={() => onFilterChange({ brands: selectedBrands, priceRange: priceRange, sizes: selectedSizes, countries: selectedCountries, sort: sortOrder })}>OK</button>
       </div>
       <hr className={styles.hr} />
       
@@ -198,6 +222,7 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
               value={size.id}
               data-title={size.title}
               onChange={handleSizeChange}
+              checked={selectedSizes.filter((selectedSize) => selectedSize.id == size.id).length == 0 ? false : true}
             />
             <div>{size.title}</div>
           </div>
@@ -214,6 +239,7 @@ const Filters = ({products, localhost, sortOrder, onFilterChange, priceR }) => {
               value={country.id}
               data-title={country.title}
               onChange={handlerOnChangeCountries}
+              checked={selectedCountries.filter((selectedCountry) => selectedCountry.id == country.id).length == 0 ? false : true}
             />
             <div>{country.title}</div>
           </div>

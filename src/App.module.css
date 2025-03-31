@@ -58,7 +58,7 @@
 
 /* Адаптив */
 /* Якщо ширина екрану менше, ніж 1366px, то зменшити ширину */
-@media (max-width: 85.375rem) 
+@media (max-width: 1366px) 
 {
   .navigation_container
   {

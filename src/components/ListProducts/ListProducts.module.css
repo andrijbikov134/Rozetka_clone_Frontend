@@ -38,7 +38,7 @@
   font-size: 12px;
 }
 
-@media(max-width: 85.375rem)
+@media(max-width: 1366px)
 {
   .popular_products_container, .new_products_container, .sale_products_container
   {

@@ -3,6 +3,7 @@
   color: black;
   font-weight: bold;
 }
+
 .main_container
 {
   display: flex;
@@ -26,7 +27,7 @@
 
 .filters_container
 {
-  margin-top: 5rem;
+  margin-top: 1.5rem;
 }
 
 .products_order_container
@@ -37,6 +38,7 @@
   color: black;
   width: 100%;
 }
+
 .header
 {
   display: flex;
@@ -44,10 +46,12 @@
   justify-content: space-between;
   width: 100%;
 }
+
 .count_found_products
 {
   font-weight: 400;
 }
+
 .sort_price
 {
   align-items: right;

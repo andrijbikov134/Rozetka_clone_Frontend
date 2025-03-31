@@ -90,7 +90,7 @@ a:link:active, a:visited:active
   height: auto;
 }
 
-@media(max-width: 85.375rem)
+@media(max-width: 1366px)
 {
   .footer
   {

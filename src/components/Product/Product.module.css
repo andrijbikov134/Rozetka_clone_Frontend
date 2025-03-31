@@ -130,19 +130,8 @@
   min-height: 1.5rem; 
 }
 
-@media(max-width: 85.375rem)
+@media(max-width: 1366px)
 {
-  /* small */
-  /* .discount_percent,  .delivery_container
-  {
-    font-size: clamp(0.28rem, 0.035rem + 0.91vw, 0.813rem);
-  } */
-  /* medium */
-  /* .delivery_text, .price_with_discount_container, .main_container
-  {
-    font-size: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
-  } */
-  /* large */
   .price
   {
     font-size: clamp(16px, 1.328rem + 0.64vw, 30px);
@@ -153,15 +142,6 @@
     font-size: clamp(2.5rem, 2.356rem + 0.53vw, 2.813rem);
     max-width: 150px;
   }
-  /* .container_column
-  {
-    font-size: clamp(0.5rem, -0.0573rem + 1.2384vw, 1rem);
-  } */
-  /* .img_delivery
-  {
-    width: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
-    height: clamp(0.3rem, -0.0216rem + 1.1966vw, 1rem);
-  } */
   .new_product
   {
     padding-inline: clamp(0.15rem, -0.0108rem + 0.5983vw, 0.5rem);
